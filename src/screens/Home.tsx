@@ -4,7 +4,7 @@ import React from 'react'
 export function Home() {
   return (
     <SafeAreaView>
-      <Text>Home</Text>
+      <Text className="text-red-500">Home</Text>
     </SafeAreaView>
   )
 }
