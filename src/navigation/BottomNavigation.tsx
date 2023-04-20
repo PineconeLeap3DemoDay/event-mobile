@@ -1,7 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {Home, Calendar, Profile} from "../screens";
 const Tab = createBottomTabNavigator();
-
 export const BottomTab = () => {
     return (
         <Tab.Navigator screenOptions={{headerShown: false}}>
