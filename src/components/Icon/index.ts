@@ -1,5 +1,6 @@
 export * from './calendar';
-export * from './favorite';
+export * from './favoritewithicon';
+export * from './favoriteWithoutColor';
 export * from './gaming';
 export * from './hamburgermenu';
 export * from './home';
