@@ -1,8 +1,7 @@
-import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
-import { Calendar as RNCalender, LocaleConfig, Agenda } from 'react-native-calendars';
-import { gql, useQuery } from '@apollo/client';
+import React from 'react';
+import { Calendar as RNCalender, LocaleConfig } from 'react-native-calendars';
 import { colors } from '../../colors';
+import { responsiveWidth } from '../utils/width';
 LocaleConfig.locales['fr'] = {
   monthNames: [
     'Нэгдүгээр сар',
@@ -44,38 +43,23 @@ interface ICalenderProps {
 }
 export function CustomCalendar({markeddates,onDayPress, onMonthChange}:ICalenderProps) {
   return (
-    <SafeAreaView className='bg-white w-full flex flex-1'>
       <RNCalender
+        //@ts-ignore
         theme={theme}
+        style={{marginTop: responsiveWidth(20)}}
         onMonthChange={onMonthChange}
         onDayPress={onDayPress}
         markedDates={markeddates}
       />
-    </SafeAreaView>
   )
 }
 
-
-
 const theme = {
-  dayTextColor: colors['primary'],
-  todayTextColor: 'black'
-}
-
-function getDaysWithEvent(events: [any]) {
-  const markedDates = events?.filter((event: any) => event.startDate = new Date(event.startDate).toISOString().slice(0, 10))
-    .reduce((a: any, b: any) => {
-      const { startDate } = b;
-      a[startDate] = a[startDate] ?? {};
-      a[startDate].marked = true;
-      a[startDate].selectedColor = 'yellow',
-      a[startDate].dotColor = colors['secondary']
-      return a;
-    }, {});
-  return markedDates
-}
-function getNextDayOfSelectedDay(selectedDay: string) {
-  const date = selectedDay.split('-').map((el) => parseInt(el));
-  date[2]++;
-  return date.join('-')
+  dayTextColor: 'black',
+  todayTextColor: 'black',
+  arrowColor: colors.secondary,
+  monthTextColor: 'black',
+  textMonthFontWeight: 'bold',
+  textSectionTitleColor: 'black',
+  textDayFontSize: responsiveWidth(14),
 }
