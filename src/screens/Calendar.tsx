@@ -70,7 +70,7 @@ export function Calendar() {
   }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-      <View style={{ padding: responsiveWidth(24), flex: 1}}>
+      <View style={{ flex: 1}}>
         <H1>Календар</H1>
         <CustomCalendar
           markeddates={markedDates}
