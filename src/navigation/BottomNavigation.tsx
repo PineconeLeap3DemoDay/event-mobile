@@ -32,7 +32,7 @@ export const BottomTab = () => {
     return (
         <Tab.Navigator 
             sceneContainerStyle={{
-                paddingHorizontal: responsiveWidth(20),
+                paddingHorizontal: responsiveWidth(30),
                 backgroundColor: 'white'
             }}
             screenOptions={{

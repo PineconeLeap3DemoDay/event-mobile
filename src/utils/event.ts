@@ -38,7 +38,7 @@ export function convertMonthAsString(month: number) {
     case 6:
       return 'Зургаадугаар'
     case 7:
-      return 'Долоодугаах'
+      return 'Долоодугаар'
     case 8:
       return 'Наймдугаар'
     case 9:

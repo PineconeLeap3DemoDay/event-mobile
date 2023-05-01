@@ -1,12 +1,11 @@
-import { FlatList, SafeAreaView, View } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import React, { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { colors } from '../../colors';
 import { CustomCalendar } from '../components'
 import { getDaysWithEvent, getFirstDayOfMonth, getLastDayOfMonth, getNextDayOfSelectedDay } from '../utils';
-import Event from '../components/Cart/Event';
-import { responsiveWidth } from '../utils/width';
-import { H1 } from '../components/Heading';
+import Heading from '../components/Heading';
+import EventList from '../components/EventList';
 
 const GET_EVENTS = gql`
   query Events($arg:eventsQueryInput) {
@@ -70,28 +69,13 @@ export function Calendar() {
   }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-      <View style={{ flex: 1}}>
-        <H1>Календар</H1>
+        <Heading title='Календар' h3/>
         <CustomCalendar
           markeddates={markedDates}
           onDayPress={onDayPress}
           onMonthChange={onMonthChange}
         />
-        <FlatList
-          data={userSelectedDayEvents?.events}
-          contentContainerStyle={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: responsiveWidth(24),
-            marginTop: responsiveWidth(48),
-            flexGrow: 1,
-          }}
-          showsVerticalScrollIndicator
-          renderItem={({ item: event }) => {
-            return <Event event={event}/>
-          }}
-        />
-      </View>
+        <EventList cartDirection='row' events={userSelectedDayEvents?.events}/>
     </SafeAreaView>
   )
 }
