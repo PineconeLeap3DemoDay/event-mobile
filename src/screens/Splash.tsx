@@ -22,7 +22,7 @@ export default function Splash({setLoading}: any) {
         ).start();
         RnAnimated.timing(
             rightItem, {
-            toValue: {x: 145, y: 90},
+            toValue: {x: 135, y: 100},
             useNativeDriver: true,
             delay: 1500,
             easing: Easing.linear
@@ -38,15 +38,15 @@ export default function Splash({setLoading}: any) {
         ).start();
         RnAnimated.spring(
             textItem, {
-            toValue: 50,
+            toValue: 65,
             friction: 5,
             useNativeDriver: true,
             delay: 2000
         }
         ).start();
-        setTimeout(() => {
-            setLoading(false)
-        }, 3000);
+        // setTimeout(() => {
+        //     setLoading(false)
+        // }, 3000);
     }, []);
 
     return (
