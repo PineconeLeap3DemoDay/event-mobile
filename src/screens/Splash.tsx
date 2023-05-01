@@ -6,9 +6,9 @@ import { responsiveWidth } from '../utils/width';
 const SIZE = responsiveWidth(50.0);
 
 export default function Splash({setLoading}: any) {
-    let leftItem = useRef(new RnAnimated.ValueXY({x: 0, y:150})).current;
+    let leftItem = useRef(new RnAnimated.ValueXY({x: 60, y:140})).current;
     let textItem = useRef(new RnAnimated.Value(-200)).current;
-    let rightItem = useRef(new RnAnimated.ValueXY({x: 250, y:160})).current;
+    let rightItem = useRef(new RnAnimated.ValueXY({x: 250, y:100})).current;
     let topItem = useRef(new RnAnimated.ValueXY({x: 160, y:40})).current;
     
     useEffect(() => {
@@ -22,7 +22,7 @@ export default function Splash({setLoading}: any) {
         ).start();
         RnAnimated.timing(
             rightItem, {
-            toValue: {x: 145, y: 90},
+            toValue: {x: 135, y: 100},
             useNativeDriver: true,
             delay: 1500,
             easing: Easing.linear
@@ -38,7 +38,7 @@ export default function Splash({setLoading}: any) {
         ).start();
         RnAnimated.spring(
             textItem, {
-            toValue: 50,
+            toValue: 65,
             friction: 5,
             useNativeDriver: true,
             delay: 2000
