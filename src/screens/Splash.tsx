@@ -46,7 +46,7 @@ export default function Splash({setLoading}: any) {
         ).start();
         setTimeout(() => {
             setLoading(false)
-        }, 3000);
+        },4000);
     }, []);
 
     return (
