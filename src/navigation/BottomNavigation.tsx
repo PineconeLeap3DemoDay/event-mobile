@@ -1,9 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Home, Calendar, Profile, Favorite } from "../screens";
 import { responsiveWidth } from "../utils/width";
-import { Platform, View, useWindowDimensions } from "react-native";
-import { SvgHome, SvgFavorite, SvgCalendar, SvgUser } from "../components/Icon";
+import { StyleSheet, useWindowDimensions } from "react-native";
+import { Home as SvgHome, Favorite as SvgFavorite, User as SvgUser, CalendarBg } from "../components/Icon";
 import { colors } from "../../colors";
+import {useTheme} from "../hooks";
 const Tab = createBottomTabNavigator();
 const tabs = [
     {
@@ -19,7 +20,7 @@ const tabs = [
     {
         name: 'Calendar',
         component: Calendar,
-        Icon: SvgCalendar
+        Icon: CalendarBg
     },
     {
         name: 'Profile',
@@ -27,27 +28,49 @@ const tabs = [
         Icon: SvgUser
     },
 ];
+
 export const BottomTab = () => {
-    const {width: windowWidth} = useWindowDimensions();
-    return (
-        <Tab.Navigator 
-            sceneContainerStyle={{
-                paddingHorizontal: responsiveWidth(30),
-                backgroundColor: 'white'
-            }}
-            screenOptions={{
-            headerShown: false,
-            tabBarStyle: { 
-                position: 'absolute', 
-                bottom: responsiveWidth(20),
-                height: responsiveWidth(86),
-                borderRadius: responsiveWidth(25),
-                backgroundColor: colors.silver,
-                width: windowWidth - responsiveWidth(50),
-                left: responsiveWidth(24),
-                right: responsiveWidth(24),
+    const { width: windowWidth } = useWindowDimensions();
+    const {isDark} = useTheme();
+    const styles = StyleSheet.create({
+        sceneContainerStyle_in_light: {
+            paddingHorizontal: responsiveWidth(30),
+            backgroundColor: colors.white
         },
-        }}>
+        sceneContainerStyle_in_dark: {
+            paddingHorizontal: responsiveWidth(30),
+            backgroundColor: colors.dark.primary
+        },
+        tabBarStyle_in_light: {
+            position: 'absolute',
+            bottom: responsiveWidth(20),
+            height: responsiveWidth(86),
+            borderRadius: responsiveWidth(25),
+            backgroundColor: colors.silver,
+            width: windowWidth - responsiveWidth(50),
+            left: responsiveWidth(24),
+            right: responsiveWidth(24),
+        },
+        tabBarStyle_in_dark: {
+            position: 'absolute',
+            bottom: responsiveWidth(20),
+            height: responsiveWidth(86),
+            borderRadius: responsiveWidth(25),
+            backgroundColor: colors.dark.secondary,
+            width: windowWidth - responsiveWidth(50),
+            left: responsiveWidth(24),
+            right: responsiveWidth(24),
+        }
+    })
+    return (
+        <Tab.Navigator
+            sceneContainerStyle={
+                isDark ? styles.sceneContainerStyle_in_dark: styles.sceneContainerStyle_in_light
+            }
+            screenOptions={{
+                headerShown: false,
+                tabBarStyle: isDark ? styles.tabBarStyle_in_dark : styles.tabBarStyle_in_light,
+            }}>
             {tabs.map((tab) => (
                 <Tab.Screen
                     key={tab.name}
@@ -55,14 +78,14 @@ export const BottomTab = () => {
                     component={tab.component}
                     options={{
                         tabBarShowLabel: false,
-                        tabBarIcon:({focused}) => {
+                        tabBarIcon: ({ focused }) => {
                             return (
-                                    <tab.Icon
-                                    fillRule={ focused ? 'even': 'evenodd'} 
-                                    stroke={focused ? colors.secondary: 'black'} 
-                                    strokeWidth={.01} 
-                                    fill={focused ? colors.secondary: 'black'} 
-                                    width={24} 
+                                <tab.Icon
+                                    fillRule={focused ? 'even' : 'evenodd'}
+                                    stroke={isDark ?( focused ? colors.secondary : '#686873'): (focused ? colors.secondary : 'black')}
+                                    strokeWidth={.01}
+                                    fill={isDark ?(focused ? colors.secondary : '#686873'): focused ? colors.secondary : 'black'}
+                                    width={24}
                                     height={24}
                                 />
                             )

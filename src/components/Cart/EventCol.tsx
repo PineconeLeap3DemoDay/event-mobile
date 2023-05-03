@@ -1,4 +1,4 @@
-import { View, Text, Platform, Image } from 'react-native'
+import { View, Platform, Image } from 'react-native'
 import React, { useState } from 'react'
 import { colors } from '../../../colors'
 import { responsiveHeight, responsiveWidth } from '../../utils/width'
@@ -7,14 +7,24 @@ import SvgSmallCalendar from '../Icon/smallCalendar'
 import Button from '../Button'
 import Heading from '../Heading'
 import SmallFavorite from '../Icon/smallFavorite'
+import { useNavigation } from '@react-navigation/native'
 interface EventProps {
     event: EventType
 }
+// import { StackNavigationProp } from '@react-navigation/stack';
+
+// export type RootStackParamList = {
+//     EventDetail: { eventid: string };
+// };
 export default function EventCol({ event }: EventProps) {
     const [fillRule, setFillRule] = useState('evenodd');
+    const navigation = useNavigation();
     function addToFavorite() {
         setFillRule((prev: string) => prev === 'evenodd' ? '' : 'evenodd')
     }
+    function onEventPress(){
+        navigation.navigate("EventDetail" as never, {eventid: event.id} as never)
+    }    
     return (
         <View
             style={{
@@ -34,8 +44,8 @@ export default function EventCol({ event }: EventProps) {
             {/* heading */}
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: responsiveWidth(12), marginTop: responsiveHeight(12) }}>
                 {/* event date */}
-                <Button style={{ backgroundColor: "rgba(255, 255, 255, 0.5)", color: 'white' }} icon={SvgSmallCalendar}>
-                    <Heading color='white' p title='March 17' />
+                <Button onPress={onEventPress} style={{ backgroundColor: "rgba(255, 255, 255, 0.5)", color: 'white' }} icon={SvgSmallCalendar}>
+                    <Heading color='white' h5 title='March 17' />
                 </Button>
                 {/* favorite button */}
                 <Button
@@ -46,8 +56,8 @@ export default function EventCol({ event }: EventProps) {
             </View>
             {/* titles */}
             <View style={{bottom: responsiveHeight(24),marginLeft: responsiveWidth(24), position: 'absolute'}}>
-                <Heading title={event.title} h6 color='white'/>
-                <Heading title={event.location} p color={colors['text-silver']} />
+                <Heading title={event.title} h3 fontFamily='Poppins-SemiBold' color='white'/>
+                <Heading title={event.location} h5 color={'#C7C9CF'} />
             </View>
         </View>
     )

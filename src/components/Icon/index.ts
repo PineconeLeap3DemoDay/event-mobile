@@ -1,5 +1,9 @@
-export * from './calendar';
-// export * from '../favoritewithicon';
+export * from './Calendar';
+export * from './Calendar';
+export * from './clock';
+export * from './location';
+export * from './ticket';
+export * from './arrowLeft';
 export * from './favoriteWithoutColor';
 export * from './gaming';
 export * from './hamburgermenu';
@@ -11,3 +15,7 @@ export * from './notification';
 export * from './user';
 export * from './search';
 export * from './myfeed'
+export * from './arrowLeft';
+export * from './ticket';
+export * from './close';
+export * from './Sun'

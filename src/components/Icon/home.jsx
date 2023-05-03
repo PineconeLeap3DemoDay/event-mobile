@@ -1,6 +1,6 @@
 import * as React from "react"
 import Svg, { Path } from "react-native-svg"
-export const SvgHome = (props) => {
+export const Home = (props) => {
   delete props.fill
   return(
     <Svg xmlns="http://www.w3.org/2000/svg" fill="none" {...props}>

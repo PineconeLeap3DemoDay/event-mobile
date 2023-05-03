@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Svg, {Path} from 'react-native-svg';
-export const SvgFavorite = ({fill, width, height, fillRule,...props}) => {
+export const Favorite = ({fill, width, height, fillRule,...props}) => {
   return(
     <Svg
       xmlns="http://www.w3.org/2000/svg"

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Svg, {Rect, Path} from 'react-native-svg';
-export const SvgMusic = ({ fill, width, height, ...props }) => (
+export const Music = ({ fill, width, height, ...props }) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}

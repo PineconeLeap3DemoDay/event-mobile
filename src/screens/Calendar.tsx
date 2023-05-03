@@ -1,4 +1,4 @@
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { colors } from '../../colors';
@@ -6,6 +6,7 @@ import { CustomCalendar } from '../components'
 import { getDaysWithEvent, getFirstDayOfMonth, getLastDayOfMonth, getNextDayOfSelectedDay } from '../utils';
 import Heading from '../components/Heading';
 import EventList from '../components/EventList';
+import { useTheme } from '../hooks';
 
 const GET_EVENTS = gql`
   query Events($arg:eventsQueryInput) {
@@ -35,6 +36,7 @@ export function Calendar() {
   const [selectedMonth, setSelectedMonth] = useState(d.getMonth() + 1);
   const [selectedDay, setSelectedDay] = useState(d.getDate());
   const [selectedDayDateString, setSelectedDayDateString] = useState(`2023-04-01`);
+  const {isDark} = useTheme()
 
   let selectedMonthFirstDay = getFirstDayOfMonth(thisYear, selectedMonth);
   let selectedMonthLastDay = getLastDayOfMonth(thisYear, selectedMonth);
@@ -67,9 +69,15 @@ export function Calendar() {
   function onMonthChange(date: any) {
     setSelectedMonth(date.month);
   }
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1, 
+      backgroundColor: isDark ? colors.dark.primary : 'white'
+    }
+  })
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-        <Heading title='Календар' h3/>
+    <SafeAreaView style={styles.container}>
+        <Heading title='Календар' color={isDark ? 'white' : 'black' } h1 fontFamily='Inter-Bold'/>
         <CustomCalendar
           markeddates={markedDates}
           onDayPress={onDayPress}
