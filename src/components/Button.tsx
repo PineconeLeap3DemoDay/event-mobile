@@ -15,7 +15,6 @@ export default function Button({ style,icon: Icon, children, selected, onPress }
             onPress={onPress}
             style={{
                 backgroundColor: selected ? colors.secondary : colors.silver,
-                // minWidth: responsiveWidth(108),
                 borderRadius: 25,
                 flexDirection: 'row',
                 paddingVertical: responsiveHeight(10),
@@ -26,7 +25,14 @@ export default function Button({ style,icon: Icon, children, selected, onPress }
                 ...style
             }}
             >
-            {Icon && <Icon width={22} height={22} stroke={selected ? 'white' : colors['text-silver']} fill={selected ? 'white' : colors['text-silver']} strokeWidth={0.01}/>}
+            {Icon && <Icon 
+                        width={22} 
+                        height={22} 
+                        stroke={selected ? 'white' : colors['text-silver']} 
+                        fill={selected ? 'white' : colors['text-silver']} 
+                        strokeWidth={0.01}
+                        />
+            }
             {children}
         </TouchableOpacity>
     )

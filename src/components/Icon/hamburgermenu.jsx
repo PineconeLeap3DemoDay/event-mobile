@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Svg, {Path} from 'react-native-svg';
-export const SvgHamburgermenu = ({ fill, width, height, ...props }) => (
+export const Hamburgermenu = ({ fill, width, height, ...props }) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}

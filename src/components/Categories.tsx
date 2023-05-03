@@ -1,11 +1,9 @@
-import { FlatList, View } from 'react-native'
+import { FlatList } from 'react-native'
 import React, { useEffect } from 'react'
 import { responsiveHeight, responsiveWidth } from '../utils/width';
-import { SvgGaming, SvgMedicine, SvgMovie } from './Icon';
 import useCategory from '../hooks/useCategory';
 import CategoryBox from './CategoryBox';
 import { gql, useQuery } from '@apollo/client';
-import { Category } from '../../typing';
 const GET_CATEGORIES = gql`
   query Categories {
     categories {
@@ -17,7 +15,7 @@ const GET_CATEGORIES = gql`
 
 export default function Categories() {
     const { category, setCategory } = useCategory();
-    const { loading, error, data } = useQuery(GET_CATEGORIES);
+    const { data } = useQuery(GET_CATEGORIES);
 
     useEffect(() => {
         setCategory({
@@ -40,7 +38,7 @@ export default function Categories() {
                         onPress={() => setCategory({id: item.id, name: item.name})}
                         selected={item.id === category.id}
                         label={item.name}
-                        icon={SvgMovie}
+                        iconname={"Medicine"}
                     />
                 )}
             />

@@ -2,6 +2,7 @@ import React from 'react';
 import { Calendar as RNCalender, LocaleConfig } from 'react-native-calendars';
 import { colors } from '../../colors';
 import { responsiveWidth } from '../utils/width';
+import { useTheme } from '../hooks';
 LocaleConfig.locales['fr'] = {
   monthNames: [
     'Нэгдүгээр сар',
@@ -42,6 +43,17 @@ interface ICalenderProps {
   onMonthChange: any;
 }
 export function CustomCalendar({markeddates,onDayPress, onMonthChange}:ICalenderProps) {
+  const {isDark} = useTheme();
+  const theme = {
+    calendarBackground: isDark ? colors.dark.primary : colors.white,
+    dayTextColor: isDark ? colors.white : 'black',
+    todayTextColor: isDark ? colors.white : 'black',
+    arrowColor: colors.secondary,
+    monthTextColor: isDark ? colors.white : 'black',
+    textMonthFontWeight: 'bold',
+    textSectionTitleColor: isDark ? colors.white : 'black',
+    textDayFontSize: responsiveWidth(14),
+  }
   return (
       <RNCalender
         //@ts-ignore
@@ -54,12 +66,4 @@ export function CustomCalendar({markeddates,onDayPress, onMonthChange}:ICalender
   )
 }
 
-const theme = {
-  dayTextColor: 'black',
-  todayTextColor: 'black',
-  arrowColor: colors.secondary,
-  monthTextColor: 'black',
-  textMonthFontWeight: 'bold',
-  textSectionTitleColor: 'black',
-  textDayFontSize: responsiveWidth(14),
-}
+

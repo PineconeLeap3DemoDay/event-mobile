@@ -1,11 +1,10 @@
 import * as React from 'react';
 import Svg, {Path} from 'react-native-svg';
-export const SvgNotification = ({ fill, width, height, ...props }) => (
+export const Notification = ({ fill, ...props }) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    fill="none"
+    width={24}
+    height={24}
     {...props}>
     <Path
       fill={fill}

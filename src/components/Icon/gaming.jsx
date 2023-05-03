@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Svg, {Path} from 'react-native-svg';
-export const SvgGaming = props => (
+export const Gaming = props => (
 <Svg xmlns="http://www.w3.org/2000/svg" fill="none" {...props}>
     <Path
       stroke="#444"

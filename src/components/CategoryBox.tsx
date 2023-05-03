@@ -1,41 +1,58 @@
-import { TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { colors } from '../../colors'
 import { responsiveHeight, responsiveWidth } from '../utils/width'
 import Heading from './Heading'
+import { useTheme } from '../hooks'
+import { Icon } from './Icon/Icon'
 interface CategoryBoxProps {
-    icon?: any,
+    iconname?: any,
     label: string,
     selected?: boolean,
     onPress?: () => void,
     style?: any
 }
-export default function CategoryBox({ style,icon: Icon, label, selected, onPress }: CategoryBoxProps) {
+export default function CategoryBox({ style,iconname, label, selected, onPress }: CategoryBoxProps) {
+    const {isDark} = useTheme()
+    
+    const styles = StyleSheet.create({
+        container_in_light: {
+            backgroundColor: selected ? colors.secondary : colors.silver,
+            borderRadius: 25,
+            flexDirection: 'row',
+            minWidth: responsiveWidth(108),
+            paddingVertical: responsiveHeight(10),
+            paddingHorizontal: responsiveHeight(10),
+            minHeight:responsiveHeight(50),
+            gap: responsiveWidth(6),
+            justifyContent: 'center',
+            alignItems: 'center',
+            ...style
+        },
+        container_in_dark: {
+            backgroundColor: selected ? colors.secondary : colors.dark.primary,
+            borderRadius: 25,
+            flexDirection: 'row',
+            minWidth: responsiveWidth(108),
+            paddingVertical: responsiveHeight(10),
+            paddingHorizontal: responsiveHeight(10),
+            minHeight:responsiveHeight(50),
+            gap: responsiveWidth(6),
+            justifyContent: 'center',
+            alignItems: 'center',
+            ...style
+        },
+    })
     return (
         <TouchableOpacity
             onPress={onPress}
-            style={{
-                backgroundColor: selected ? colors.secondary : colors.silver,
-                borderRadius: 25,
-                flexDirection: 'row',
-                minWidth: responsiveWidth(108),
-                paddingVertical: responsiveHeight(10),
-                paddingHorizontal: responsiveHeight(10),
-                minHeight:responsiveHeight(50),
-                gap: responsiveWidth(6),
-                justifyContent: 'center',
-                alignItems: 'center',
-                ...style
-            }}
+            style={isDark ? styles.container_in_dark : styles.container_in_light}
             >
-            {Icon && <Icon 
-                width={22} 
-                height={22} 
-                stroke={selected ? 'white' : colors['text-silver']} 
-                fill={selected ? 'white' : colors['text-silver']} 
-                strokeWidth={0.01}
+            {iconname && <Icon
+                name={iconname}
+                stroke={selected ? 'white' : colors.dark['text-primary']} 
             />}
-            <Heading color={selected ? 'white' : 'black'} h5 title={label}/>
+            <Heading color={isDark ? (selected ? 'white' : '#686873') : (selected ? 'white' : 'black')} h5 title={label}/>
         </TouchableOpacity>
     )
 }
