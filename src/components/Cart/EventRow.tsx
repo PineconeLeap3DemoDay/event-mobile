@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Image, Platform, TouchableOpacity } from 'react-native'
+import { View, Image, Platform, TouchableOpacity, StyleSheet } from 'react-native'
 import {colors} from '../../../colors';
 import { Favorite } from '../Icon';
 import { responsiveHeight, responsiveWidth } from '../../utils/width';
@@ -7,6 +7,7 @@ import { formatEventDate } from '../../utils';
 import { Event as Eventype } from '../../../typing';
 import Heading from '../Heading';
 import { useTheme } from '../../hooks';
+import { useNavigation } from '@react-navigation/native';
 
 interface IEventProps {
     event: Eventype
@@ -14,14 +15,14 @@ interface IEventProps {
 function EventRow({event}: IEventProps) {
     const [fillRule, setFillRule] = useState('evenodd');
     const {isDark} = useTheme();
+    const navigation = useNavigation();
     function onClick() {
         setFillRule((prev: string) => prev === 'evenodd' ? '' : 'evenodd')
     }
     const startDate = formatEventDate(event.startDate);
-    return (
-        <View 
-            style={{
-                backgroundColor: isDark ? colors.dark.secondary: colors.silver, 
+    const styles = StyleSheet.create({
+        container: {
+            backgroundColor: isDark ? colors.dark.secondary: colors.silver, 
                 width: responsiveWidth(365),
                 height: Platform.OS === 'ios' ? responsiveHeight(120): responsiveHeight(120),
                 borderRadius: 40,
@@ -29,14 +30,33 @@ function EventRow({event}: IEventProps) {
                 padding: responsiveWidth(12),
                 gap: responsiveWidth(10),
                 position: 'relative'
-            }}
-        >
+        },
+        thumbnail: {
+            height: Platform.OS === 'ios' ? responsiveHeight(100): responsiveHeight(120),
+            width:responsiveWidth(120), 
+            borderRadius: 20
+        },
+        descripContainer: {
+            width: responsiveWidth(180), 
+            gap: responsiveWidth(4)
+        },
+        favBtn: {
+            position: 'absolute', 
+            bottom: 20, 
+            right: 20 
+        }
+    })
+    function navigateToDetail() {
+        navigation.navigate('EventDetail' as never, {eventid: event.id} as never)
+    }
+    return (
+        <View style={styles.container}>
             {/* image */}
-            <View className='w-auto h-full'>
-                <Image className='w-[120px] h-full rounded-[20px]' source={{uri: event.thumbnail}}/>
-            </View>
+            <TouchableOpacity onPress={navigateToDetail}>
+                <Image style={styles.thumbnail} source={{uri: event.thumbnail}}/>
+            </TouchableOpacity>
             {/* description */}
-             <View style={{width: responsiveWidth(180), gap: responsiveWidth(4)}}>
+             <View style={styles.descripContainer}>
                 <Heading color='#F54768' fontFamily="Inter-Regular" p title={startDate}/>
                 <Heading color={isDark ? colors.dark['text-secondary'] : colors.light['text-primary']} numberOfLines={2} fontFamily="Inter-Regular" h4 title='FoodieLand Night Market - San Mateo | May 26-28,2023'/>
                 <Heading fontFamily='Inter-Regular' color={isDark ? colors.dark['text-primary'] : colors.light['text-secondary']} numberOfLines={2} h5 title="Ulaanbaatar, Mongolia Mongol shiltgeen"/>
@@ -44,7 +64,7 @@ function EventRow({event}: IEventProps) {
             {/* love icon */}
             <TouchableOpacity
                 onPress={onClick}
-                style={{position: 'absolute', bottom: 20, right: 20}}
+                style={styles.favBtn}
             >
             <Favorite 
                 fillRule={fillRule}

@@ -12,6 +12,8 @@ import Heading from '../components/Heading';
 import Button from '../components/Button';
 import Header from '../components/Header';
 import { useTheme } from '../hooks';
+import { padding } from '../utils';
+import { useNavigation } from '@react-navigation/native';
 const GET_CATEGORY_EVENTS = gql`
  query Category($categoryid: ID) {
   category(categoryid: $categoryid) {
@@ -28,7 +30,7 @@ const GET_CATEGORY_EVENTS = gql`
 `
 const styles = StyleSheet.create({
   container: {
-    paddingTop: responsiveHeight(27),
+    ...padding(0,27,0,0)
   },
   upComingTitleContainer: {
     flexDirection: 'row', 
@@ -44,13 +46,16 @@ export function Home() {
     variables: {categoryid: category.id},
     refetchWritePolicy: 'merge',
   });
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={{flex:1}}>
       <View style={styles.container}>
         {/* Header */}
         <Header />
         {/* Search */}
-        <Input icon={Search} placeholder='Хайх' />
+        <Input onPressIn={() => {
+          navigation.navigate('SearchScreen' as never)
+        }} icon={Search} placeholder='Хайх' />
         {/* upcoming events */}
         <View style={styles.upComingTitleContainer}>
           <Heading color={isDark ? 'white': colors.light['text-primary']} fontFamily='Inter-SemiBold' title='Эвэнтүүд' h5/>
@@ -60,7 +65,7 @@ export function Home() {
         </View>
         {/* Navlinks */}
         <Categories />
-        <EventList cartDirection='column' events={categoryEvents?.category?.events}/>
+        <EventList notFoundTitle='Одоогоор энэхүү категорид эвэнт байхгүй байна' cartDirection='column' events={categoryEvents?.category?.events}/>
       </View>
     </SafeAreaView>
   )

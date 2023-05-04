@@ -1,4 +1,4 @@
-import { Image, SafeAreaView, ScrollView, View, useWindowDimensions } from 'react-native'
+import { Image, SafeAreaView, ScrollView, View, useWindowDimensions, ImageBackground, Text, StyleSheet, Dimensions } from 'react-native'
 import React from 'react'
 import { gql, useQuery } from '@apollo/client';
 import { Event } from '../../typing';
@@ -24,7 +24,7 @@ const GET_EVENT = gql`
 `
 export default function EventDetail(prop: any) {
   const { eventid } = (prop.route.params);
-  const {width: windowWidth, height: windowHeight} = useWindowDimensions()
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions()
   const { data } = useQuery(GET_EVENT, {
     variables: { eventId: eventid }
   });
@@ -56,48 +56,63 @@ export default function EventDetail(prop: any) {
       style: { flexDirection: 'row', gap: responsiveWidth(10), marginTop: responsiveHeight(12), justifyContent: 'space-between', alignItems: 'center', width: responsiveWidth(280) }
     }
   ];
+  const image = { uri: 'https://reactjs.org/logo-og.png' };
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    image: {
+      flex: 0.5,
+      position: 'relative'
+    },
+  });
+
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flexGrow: 1, position: 'relative' }}>
-        <Button
-          onPress={() => navigation.goBack()}
-          icon={ArrowLeft}
-          style={{ position: 'absolute', zIndex: 12, backgroundColor: 'transparent' }} />
-        <Image
-          style={{height:responsiveHeight(392),width:windowWidth,position:'absolute', top:0, left:0}}
-          source={{ uri: event?.thumbnail }}
-        />
-        <ScrollView contentContainerStyle={{ height:windowHeight-responsiveHeight(392), position: 'absolute', bottom: 0}}>
-          <View style={{ flexGrow: 1, borderTopLeftRadius: 25, borderTopRightRadius: 25, backgroundColor: colors.white, paddingTop: responsiveHeight(46), paddingHorizontal: responsiveWidth(24) }}>
-            <View>
-              <Heading h2 title={event?.title} fontFamily='Inter-SemiBold' />
-              <Heading style={{ marginTop: responsiveHeight(5) }} h5 color={colors['text-silver']} title={event?.location} fontFamily='Inter-SemiBold' />
-            </View>
-            {/* event details like cal clock price location */}
-            <View style={{ alignItems: 'flex-start', paddingTop: responsiveHeight(10) }}>
-              {EventDetails.map((evnt) => (
-                // @ts-ignore
-                <View style={evnt.style}>
-                  <Heading icon={evnt.icon} numberOfLines={evnt.numberOfLines} title={evnt.title} fontFamily='Poppins-SemiBold' p color={'#686873'} />
-                </View>
-              ))}
-            </View>
-            <View>
-              <Heading style={{ marginTop: responsiveHeight(24) }} h3 fontWeight='bold' title="About this events: " />
-              <Heading
-                style={{ marginTop: responsiveHeight(15) }}
-                fontFamily='Poppins-Medium'
-                numberOfLines={6}
-                p
-                color={'#686873'}
-                title="We want to meet you! At the reception, we will have snacks and drinks, and we look forward to getting to know you better. We also have a small free gift bag for the first 50 attendees.
+    <View style={styles.container}>
+      <ImageBackground source={{ uri: event.thumbnail }} resizeMode="cover" style={styles.image} />
+      <Button
+        onPress={() => navigation.goBack()}
+        icon={ArrowLeft}
+        style={{ position: 'absolute', top: responsiveHeight(40), left: 0, zIndex: 12, backgroundColor: 'transparent' }} />
+      <ScrollView style={{
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+        backgroundColor: colors.white,
+        height: Dimensions.get('screen').height,
+        position: 'absolute',
+        width: Dimensions.get('screen').width,
+        top: responsiveHeight(400),
+        paddingTop: responsiveHeight(46),
+        paddingHorizontal: responsiveWidth(24)
+      }}>
+        <View>
+          <View>
+            <Heading h1 title={event?.title} fontFamily='Inter-SemiBold' />
+            <Heading style={{ marginTop: responsiveHeight(5) }} h3 color={colors.light['text-secondary']} title={event?.location} fontFamily='Inter-SemiBold' />
+          </View>
+          <View style={{ alignItems: 'flex-start', paddingTop: responsiveHeight(10) }}>
+            {EventDetails.map((evnt) => (
+              // @ts-ignore
+              <View style={evnt.style}>
+                <Heading icon={evnt.icon} numberOfLines={evnt.numberOfLines} title={evnt.title} fontFamily='Poppins-SemiBold' h5 color={'#686873'} />
+              </View>
+            ))}
+          </View>
+          <View>
+            <Heading style={{ marginTop: responsiveHeight(24) }} h2 fontWeight='bold' title="About this events: " />
+            <Heading
+              style={{ marginTop: responsiveHeight(15) }}
+              fontFamily='Poppins-Medium'
+              numberOfLines={6}
+              h5
+              color={'#686873'}
+              title="We want to meet you! At the reception, we will have snacks and drinks, and we look forward to getting to know you better. We also have a small free gift bag for the first 50 attendees.
               Please join us for a relaxing evening of fun and fellowship and invite a friend.
               "
-              />
-            </View>
+            />
           </View>
-        </ScrollView>
-      </View>
-    </SafeAreaView>
+        </View>
+      </ScrollView>
+    </View>
   )
 }

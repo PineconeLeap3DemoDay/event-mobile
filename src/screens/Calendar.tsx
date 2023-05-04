@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { colors } from '../../colors';
 import { CustomCalendar } from '../components'
-import { getDaysWithEvent, getFirstDayOfMonth, getLastDayOfMonth, getNextDayOfSelectedDay } from '../utils';
+import { getDaysWithEvent, getFirstDayOfMonth, getLastDayOfMonth, getNextDayOfSelectedDay, responsiveHeight } from '../utils';
 import Heading from '../components/Heading';
 import EventList from '../components/EventList';
 import { useTheme } from '../hooks';
+import HeaderWithBackArrow from '../components/Header/HeaderWithBackArrow';
 
 const GET_EVENTS = gql`
   query Events($arg:eventsQueryInput) {
@@ -77,13 +78,14 @@ export function Calendar() {
   })
   return (
     <SafeAreaView style={styles.container}>
-        <Heading title='Календар' color={isDark ? 'white' : 'black' } h1 fontFamily='Inter-Bold'/>
+      <HeaderWithBackArrow />
+        <Heading style={{marginTop: responsiveHeight(24)}} title='Календар' color={isDark ? 'white' : 'black' } h1 fontFamily='Inter-Bold'/>
         <CustomCalendar
           markeddates={markedDates}
           onDayPress={onDayPress}
           onMonthChange={onMonthChange}
         />
-        <EventList cartDirection='row' events={userSelectedDayEvents?.events}/>
+        <EventList notFoundTitle='Энэхүү өдөр эвэнт байхгүй байна' cartDirection='row' events={userSelectedDayEvents?.events}/>
     </SafeAreaView>
   )
 }

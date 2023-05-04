@@ -58,7 +58,7 @@ export function CustomCalendar({markeddates,onDayPress, onMonthChange}:ICalender
       <RNCalender
         //@ts-ignore
         theme={theme}
-        style={{marginTop: responsiveWidth(20)}}
+        style={{marginTop: responsiveWidth(24)}}
         onMonthChange={onMonthChange}
         onDayPress={onDayPress}
         markedDates={markeddates}

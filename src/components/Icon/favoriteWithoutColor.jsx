@@ -6,7 +6,6 @@ export const Favorite = ({fill, width, height, fillRule,...props}) => {
       xmlns="http://www.w3.org/2000/svg"
       width={25}
       height={22}
-      className='text-[12px]'
       >
       <Path
         fill={fill}
