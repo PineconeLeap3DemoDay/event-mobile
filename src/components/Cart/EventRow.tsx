@@ -57,9 +57,9 @@ function EventRow({event}: IEventProps) {
             </TouchableOpacity>
             {/* description */}
              <View style={styles.descripContainer}>
-                <Heading color='#F54768' fontFamily="Inter-Regular" p title={startDate}/>
-                <Heading color={isDark ? colors.dark['text-secondary'] : colors.light['text-primary']} numberOfLines={2} fontFamily="Inter-Regular" h4 title='FoodieLand Night Market - San Mateo | May 26-28,2023'/>
-                <Heading fontFamily='Inter-Regular' color={isDark ? colors.dark['text-primary'] : colors.light['text-secondary']} numberOfLines={2} h5 title="Ulaanbaatar, Mongolia Mongol shiltgeen"/>
+                <Heading color='#F54768' p title={startDate}/>
+                <Heading color={isDark ? colors.dark['text-secondary'] : colors.light['text-primary']} numberOfLines={2} title='FoodieLand Night Market - San Mateo | May 26-28,2023'/>
+                <Heading color={isDark ? colors.dark['text-primary'] : colors.light['text-secondary']} numberOfLines={2} h5 title="Ulaanbaatar, Mongolia Mongol shiltgeen"/>
             </View>
             {/* love icon */}
             <TouchableOpacity

@@ -58,10 +58,8 @@ export function Home() {
         }} icon={Search} placeholder='Хайх' />
         {/* upcoming events */}
         <View style={styles.upComingTitleContainer}>
-          <Heading color={isDark ? 'white': colors.light['text-primary']} fontFamily='Inter-SemiBold' title='Эвэнтүүд' h5/>
-          <Button style={{backgroundColor: 'transparent'}}>
-              <Heading color={isDark ?'white': colors.light['text-secondary']} fontFamily='Inter-SemiBold' p title='Бүх эвэнтүүд'/>
-          </Button>
+          <Heading color={isDark ? 'white': colors.light['text-primary']} title='Эвэнтүүд' h5/>
+          <Button label='Бүх эвэнтүүд' style={{backgroundColor: 'transparent'}} />
         </View>
         {/* Navlinks */}
         <Categories />

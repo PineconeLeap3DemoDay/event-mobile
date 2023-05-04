@@ -79,7 +79,7 @@ export function Calendar() {
   return (
     <SafeAreaView style={styles.container}>
       <HeaderWithBackArrow />
-        <Heading style={{marginTop: responsiveHeight(24)}} title='Календар' color={isDark ? 'white' : 'black' } h1 fontFamily='Inter-Bold'/>
+        <Heading style={{marginTop: responsiveHeight(24)}} title='Календар' color='white'  h1/>
         <CustomCalendar
           markeddates={markedDates}
           onDayPress={onDayPress}

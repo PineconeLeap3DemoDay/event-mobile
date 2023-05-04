@@ -21,7 +21,7 @@ const GET_EVENTS = gql`
   }
 }
 `
-export default function SearchScreen() {
+export function SearchScreen() {
     const { isDark } = useTheme();
     const userInput = useRef<string>('')
     const { data, refetch } = useQuery(GET_EVENTS, {

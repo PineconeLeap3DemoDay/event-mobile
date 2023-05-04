@@ -46,9 +46,7 @@ export default function EventCol({ event }: EventProps) {
             {/* heading */}
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: responsiveWidth(12), marginTop: responsiveHeight(12) }}>
                 {/* event date */}
-                <Button onPress={onEventPress} style={{ backgroundColor: "rgba(255, 255, 255, 0.5)", color: 'white' }} icon={SvgSmallCalendar}>
-                    <Heading color='white' h5 title='March 17' />
-                </Button>
+                <Button label='March 17' labelColor='white' onPress={onEventPress} style={{ backgroundColor: "rgba(255, 255, 255, 0.5)", color: 'white' }} icon={SvgSmallCalendar} />
                 {/* favorite button */}
                 <Button
                     onPress={addToFavorite}
@@ -58,7 +56,7 @@ export default function EventCol({ event }: EventProps) {
             </View>
             {/* titles */}
             <View style={{bottom: responsiveHeight(24),marginLeft: responsiveWidth(24), position: 'absolute'}}>
-                <Heading title={event.title} h3 fontFamily='Poppins-SemiBold' color='white'/>
+                <Heading title={event.title} h3 color='white'/>
                 <Heading title={event.location} h5 color={'#C7C9CF'} />
             </View>
         </View>

@@ -16,26 +16,29 @@ interface HeadingProps {
   fontFamily?: string
   fontWeight?: string,
   style?: any,
-  icon?: any
+  icon?: any,
+  fontSize?:number
 }
 export default function Heading({
-  h1, h2, h3, h4, h5, p, title, color, numberOfLines = 1, fontFamily, fontWeight, style,icon: Icon
+  h1, h2, h3, h4, h5, p, title, fontSize,color, numberOfLines = 1, fontFamily, fontWeight, style,icon: Icon
 }: HeadingProps) {
+  const {isDark} = useTheme()
   return (
     <View style={{flexDirection: 'row',gap: responsiveWidth(10)}}>
       {Icon && <Icon />}
       <Text
         numberOfLines={numberOfLines}
         style={[
-          h1 && { fontSize: 24 },
-          h2 && { fontSize: 18 },
-          h3 && { fontSize: 16 },
-          h4 && { fontSize: 14 },
-          h5 && { fontSize: 12 },
-          p && { fontSize: 10 },
+          { color: color ? color : 'black' },
+          h1 && { fontSize: 24, color: isDark ? 'white': 'black',fontFamily:'Poppins-SemiBold' },
+          h2 && { fontSize: 18,fontFamily: 'Inter-Regular'  },
+          h3 && { fontSize: 16 ,fontFamily:'Poppins-SemiBold'},
+          h4 && { fontSize: 14 ,fontFamily:"Inter-Regular"},
+          h5 && { fontSize: 12 ,fontFamily:'Poppins-SemiBold'},
+          p && { fontSize: 10 ,fontFamily:"Inter-Regular"},
           fontFamily && { fontFamily: fontFamily },
           fontWeight && { fontWeight },
-          { color: color ? color : 'black' },
+          fontSize && {fontSize},
           { ...style },
         ]}>
         {title}

@@ -1,4 +1,4 @@
-import { Image, SafeAreaView, ScrollView, View, useWindowDimensions, ImageBackground, Text, StyleSheet, Dimensions } from 'react-native'
+import { ScrollView, View, useWindowDimensions, ImageBackground, Text, StyleSheet, Dimensions } from 'react-native'
 import React from 'react'
 import { gql, useQuery } from '@apollo/client';
 import { Event } from '../../typing';
@@ -9,6 +9,7 @@ import Button from '../components/Button';
 import Heading from '../components/Heading';
 import { colors } from '../../colors';
 import { CalendarSm, Clock, Location, Ticket } from '../components/Icon';
+import { useTheme } from '../hooks';
 const GET_EVENT = gql`
   query Event($eventId: ID!) {
     event(id: $eventId) {
@@ -22,12 +23,12 @@ const GET_EVENT = gql`
     }
 }
 `
-export default function EventDetail(prop: any) {
+export function EventDetail(prop: any) {
   const { eventid } = (prop.route.params);
-  const { width: windowWidth, height: windowHeight } = useWindowDimensions()
   const { data } = useQuery(GET_EVENT, {
     variables: { eventId: eventid }
   });
+  const {isDark} = useTheme();
   const event: Event = data?.event;
   const navigation = useNavigation();
   const EventDetails = [
@@ -69,7 +70,7 @@ export default function EventDetail(prop: any) {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={{ uri: event.thumbnail }} resizeMode="cover" style={styles.image} />
+      <ImageBackground source={{ uri: event?.thumbnail }} resizeMode="cover" style={styles.image} />
       <Button
         onPress={() => navigation.goBack()}
         icon={ArrowLeft}
@@ -77,24 +78,24 @@ export default function EventDetail(prop: any) {
       <ScrollView style={{
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
-        backgroundColor: colors.white,
+        backgroundColor: isDark ? colors.dark.primary: colors.white,
         height: Dimensions.get('screen').height,
         position: 'absolute',
         width: Dimensions.get('screen').width,
         top: responsiveHeight(400),
         paddingTop: responsiveHeight(46),
-        paddingHorizontal: responsiveWidth(24)
+        paddingHorizontal: responsiveWidth(24),
       }}>
         <View>
           <View>
-            <Heading h1 title={event?.title} fontFamily='Inter-SemiBold' />
-            <Heading style={{ marginTop: responsiveHeight(5) }} h3 color={colors.light['text-secondary']} title={event?.location} fontFamily='Inter-SemiBold' />
+            <Heading h1 title={event?.title} />
+            <Heading style={{ marginTop: responsiveHeight(5) }} h3 color={colors.light['text-secondary']} title={event?.location} />
           </View>
           <View style={{ alignItems: 'flex-start', paddingTop: responsiveHeight(10) }}>
             {EventDetails.map((evnt) => (
               // @ts-ignore
               <View style={evnt.style}>
-                <Heading icon={evnt.icon} numberOfLines={evnt.numberOfLines} title={evnt.title} fontFamily='Poppins-SemiBold' h5 color={'#686873'} />
+                <Heading icon={evnt.icon} numberOfLines={evnt.numberOfLines} title={evnt.title} h5 color={'#686873'} />
               </View>
             ))}
           </View>
