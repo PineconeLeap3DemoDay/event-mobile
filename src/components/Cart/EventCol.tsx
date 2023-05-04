@@ -1,4 +1,4 @@
-import { View, Platform, Image } from 'react-native'
+import { View, Platform, Image, useWindowDimensions } from 'react-native'
 import React, { useState } from 'react'
 import { colors } from '../../../colors'
 import { responsiveHeight, responsiveWidth } from '../../utils/width'
@@ -19,12 +19,14 @@ interface EventProps {
 export default function EventCol({ event }: EventProps) {
     const [fillRule, setFillRule] = useState('evenodd');
     const navigation = useNavigation();
+    const {height: windowHeight} = useWindowDimensions();
     function addToFavorite() {
         setFillRule((prev: string) => prev === 'evenodd' ? '' : 'evenodd')
     }
     function onEventPress(){
         navigation.navigate("EventDetail" as never, {eventid: event.id} as never)
     }    
+    
     return (
         <View
             style={{
@@ -38,8 +40,8 @@ export default function EventCol({ event }: EventProps) {
             }}
         >
             {/* image */}
-            <View className='absolute top-0 left-0 w-full h-full'>
-                <Image className='w-full h-full rounded-[20px]' source={{ uri: event.thumbnail }} />
+            <View style={{position:'absolute', top:0, left:0}}>
+                <Image style={{width:responsiveWidth(342), height:Platform.OS === 'ios' ? responsiveHeight(240) : responsiveHeight(240), borderRadius: 20}} source={{ uri: event.thumbnail }} />
             </View>
             {/* heading */}
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: responsiveWidth(12), marginTop: responsiveHeight(12) }}>

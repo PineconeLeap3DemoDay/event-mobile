@@ -1,4 +1,4 @@
-import { View, FlatList, useWindowDimensions } from 'react-native'
+import { View, FlatList } from 'react-native'
 import React from 'react'
 import { responsiveHeight } from '../utils/width'
 import { Event as EventType } from '../../typing'
@@ -11,13 +11,13 @@ import { useTheme } from '../hooks'
 
 interface EventListProps {
     events: EventType[],
-    cartDirection: 'column' | 'row'
+    cartDirection: 'column' | 'row',
+    notFoundTitle: string
 }
 
-export default function EventList({ events, cartDirection }: EventListProps) {
-    const {height} = useWindowDimensions();
+export default function EventList({ events, cartDirection, notFoundTitle }: EventListProps) {
     const {isDark} = useTheme()
-    function renderItem({ item }: any) {
+    function renderItem({ item }: {item:EventType}) {
         return (
             <>
                 {cartDirection === 'column' ? <EventCol event={item} /> : <EventRow event={item} />}
@@ -26,26 +26,31 @@ export default function EventList({ events, cartDirection }: EventListProps) {
     }
     function ListEmptyComponent() {
         return (
-            <View style={{marginTop: responsiveHeight(40)}} className="flex flex-col gap-2 justify-center items-center">
-                <Heading color={isDark ? colors.dark['text-primary'] : 'black'} numberOfLines={2} h4 title='Одоогоор энэхүү категорид эвэнт байхгүй байна'/>
+            <View style={{marginTop: responsiveHeight(40), flexDirection:'column', gap:2,justifyContent:'center',alignItems:'center'}}>
+                <Heading color={isDark ? colors.dark['text-primary'] : 'black'} numberOfLines={2} h4 title={notFoundTitle}/>
             </View>
         )
     }
+    
     return (
-        <FlatList
-            style={{
-                flexGrow: 0.8
-            }}
+            <FlatList
             contentContainerStyle={{
                 marginTop: responsiveHeight(24),
                 gap: responsiveHeight(24),
                 justifyContent: 'flex-start',
                 alignItems: 'center',
-                height: height - 300
+                flexGrow: 1,
+            }}
+            ListFooterComponent={() => {
+                return(
+                    <View style={{height: responsiveHeight(100)}}>
+                    </View>
+                )
             }}
             ListEmptyComponent={ListEmptyComponent}
             data={events}
             renderItem={renderItem}
         />
+        
     )
 }
