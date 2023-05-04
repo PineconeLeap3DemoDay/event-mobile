@@ -1,35 +1,37 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Home, Calendar, Profile, Favorite } from "../screens";
+import { Home, Calendar, Profile, Favorite, Auth } from "../screens";
 import { responsiveWidth } from "../utils/width";
 import { StyleSheet, useWindowDimensions } from "react-native";
 import { Home as SvgHome, Favorite as SvgFavorite, User as SvgUser, CalendarBg } from "../components/Icon";
 import { colors } from "../../colors";
 import {useTheme} from "../hooks";
 const Tab = createBottomTabNavigator();
-const tabs = [
-    {
-        name: 'Home',
-        component: Home,
-        Icon: SvgHome
-    },
-    {
-        name: 'Favorite',
-        component: Favorite,
-        Icon: SvgFavorite
-    },
-    {
-        name: 'Calendar',
-        component: Calendar,
-        Icon: CalendarBg
-    },
-    {
-        name: 'Profile',
-        component: Profile,
-        Icon: SvgUser
-    },
-];
+
 
 export const BottomTab = () => {
+    const isUser = false
+    const tabs = [
+        {
+            name: 'Home',
+            component: Home,
+            Icon: SvgHome
+        },
+        {
+            name: 'Favorite',
+            component: Favorite,
+            Icon: SvgFavorite
+        },
+        {
+            name: 'Calendar',
+            component: Calendar,
+            Icon: CalendarBg
+        },
+        {
+            name: 'Profile',
+            component: isUser ? Profile : Auth,
+            Icon: SvgUser
+        },
+    ];
     const { width: windowWidth } = useWindowDimensions();
     const {isDark} = useTheme();
     const styles = StyleSheet.create({
