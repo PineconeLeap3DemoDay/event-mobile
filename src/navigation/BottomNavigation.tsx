@@ -5,11 +5,13 @@ import { StyleSheet, useWindowDimensions } from "react-native";
 import { Home as SvgHome, Favorite as SvgFavorite, User as SvgUser, CalendarBg } from "../components/Icon";
 import { colors } from "../../colors";
 import {useTheme} from "../hooks";
+import { useAuth } from "../context/AuthProvider";
 const Tab = createBottomTabNavigator();
 
 
 export const BottomTab = () => {
-    const isUser = false
+  const {isUser} = useAuth();
+
     const tabs = [
         {
             name: 'Home',
@@ -37,11 +39,12 @@ export const BottomTab = () => {
     const styles = StyleSheet.create({
         sceneContainerStyle_in_light: {
             paddingHorizontal: responsiveWidth(30),
-            backgroundColor: colors.white
+            backgroundColor: colors.white,
+            zIndex:1,
         },
         sceneContainerStyle_in_dark: {
             paddingHorizontal: responsiveWidth(30),
-            backgroundColor: colors.dark.primary
+            backgroundColor: colors.dark.primary,
         },
         tabBarStyle_in_light: {
             position: 'absolute',
@@ -52,6 +55,7 @@ export const BottomTab = () => {
             width: windowWidth - responsiveWidth(50),
             left: responsiveWidth(24),
             right: responsiveWidth(24),
+            zIndex:10,
         },
         tabBarStyle_in_dark: {
             position: 'absolute',

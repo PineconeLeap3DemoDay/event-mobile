@@ -13,20 +13,26 @@ import { colors } from '../../colors';
 import HeaderWithBackArrow from '../components/Header/HeaderWithBackArrow';
 import { gql, useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useNavigation } from '@react-navigation/native';
+import { useUser } from '../hooks/useUser';
 const SIGN_IN = gql`
 mutation Signin($email: String!, $password: String!) {
   signin(email: $email, password: $password) {
     token
+    user {
+      _id
+    }
   }
 }
 `
 export function Signin() {
-  const [login, {data, loading, error}] = useMutation(SIGN_IN);
+  const [login, { data, loading }] = useMutation(SIGN_IN);
   const initialValues = {
     email: "",
     password: "",
   }
-  console.log(data)
+  const navigation = useNavigation();
+  const {setUser} = useUser();
   const validationSchema = Yup.object().shape({
     email: Yup
       .string()
@@ -40,8 +46,15 @@ export function Signin() {
   async function onSubmit({email, password}: { email: string, password: string }) {
     try{
       await login({variables: {email, password}});
-      const token = data?.signin?.token
-      await AsyncStorage.setItem('usertoken',token);
+      if(!loading) {
+        const token = data?.signin.token;
+        const userid = data?.signin.user?._id;
+        console.log(token);
+        
+        await AsyncStorage.multiSet([['usertoken',token],['userid',userid]]);
+        setUser(true);
+        navigation.navigate('Profile' as never)
+      }
     }catch(error: any){
       console.log(error?.message)
     }
@@ -58,7 +71,7 @@ export function Signin() {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {({ handleChange, handleSubmit, isValid, errors }) => (
+        {({ handleChange, handleSubmit, isValid, errors, touched }) => (
           <>
             <Input placeholder='Email' icon={Phone}
               onChangeText={handleChange('email')}
@@ -67,7 +80,7 @@ export function Signin() {
               onChangeText={handleChange('password')}
               style={{ borderRadius: 10 }} />
             <View>
-              {errors && <Heading title={errors?.email as string} />}
+              {errors.email && <Heading title={errors?.email as string} />}
               {errors && <Heading title={errors?.password as string} />}
             </View>
             <Button

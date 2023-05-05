@@ -1,8 +1,9 @@
-import { Text, TouchableOpacity } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { colors } from '../../colors'
 import { responsiveHeight, responsiveWidth } from '../utils/width'
 import Heading from './Heading'
+import { useTheme } from '../hooks'
 interface ButtonProps {
     icon?: any,
     children?: React.ReactNode,
@@ -13,12 +14,13 @@ interface ButtonProps {
     labelColor?: string,
     disabled?: boolean
 }
-export default function Button({ style,icon: Icon,disabled, labelColor,children, selected, onPress,label }: ButtonProps) {
+export default function Button({ style, icon: Icon, disabled, labelColor, children, selected, onPress, label }: ButtonProps) {
+    const {isDark} = useTheme()
     return (
         <TouchableOpacity
             onPress={onPress}
             style={[{
-                backgroundColor: selected ? colors.secondary : colors.silver,
+                backgroundColor: isDark ?(selected ? colors.secondary : colors.dark.secondary) : selected ? colors.secondary : colors.silver,
                 borderRadius: 25,
                 flexDirection: 'row',
                 paddingVertical: responsiveHeight(10),
@@ -27,19 +29,21 @@ export default function Button({ style,icon: Icon,disabled, labelColor,children,
                 justifyContent: 'center',
                 alignItems: 'center',
                 ...style
-            },disabled && {backgroundColor:'#cccccc'}]}
+            }, disabled && { backgroundColor: '#cccccc' }]}
             disabled={disabled}
-            >
-            {Icon && <Icon 
-                        width={22} 
-                        height={22} 
-                        stroke={selected ? 'white' : colors.silver} 
-                        fill={selected ? 'white' : colors.silver} 
-                        strokeWidth={0.01}
-                        />
+        >
+            {Icon && <View>
+                <Icon
+                    width={22}
+                    height={22}
+                    stroke={selected ? 'white' : colors.silver}
+                    fill={selected ? 'white' : colors.silver}
+                    strokeWidth={0.01}
+                />
+            </View>
             }
             {children && children}
-            {label && <Heading p color={labelColor ? labelColor : 'silver'} title={label as string}/>}
+            {label && <Heading p color={labelColor ? labelColor : 'silver'} title={label as string} />}
         </TouchableOpacity>
     )
 }
