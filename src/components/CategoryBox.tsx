@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { colors } from '../../colors'
 import { responsiveHeight, responsiveWidth } from '../utils/width'
@@ -52,7 +52,7 @@ export default function CategoryBox({ style,iconname, label, selected, onPress }
                 name={iconname}
                 stroke={selected ? 'white' : colors.dark['text-primary']} 
             />}
-            <Heading color={isDark ? (selected ? 'white' : '#686873') : (selected ? 'white' : 'black')} h5 title={label}/>
+            <Heading color={isDark ? (selected ? 'white' : '#686873') : (selected ? 'white' : 'black')} fontWeight='600' p title={label}/>
         </TouchableOpacity>
     )
 }
