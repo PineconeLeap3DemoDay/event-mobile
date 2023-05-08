@@ -36,8 +36,8 @@ export default function Button({ style, icon: Icon, disabled, labelColor, childr
                 <Icon
                     width={22}
                     height={22}
-                    stroke={selected ? 'white' : colors.silver}
-                    fill={selected ? 'white' : colors.silver}
+                    // stroke={selected ? 'white' : colors.silver}
+                    // fill={selected ? 'white' : colors.silver}
                     strokeWidth={0.01}
                 />
             </View>
