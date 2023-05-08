@@ -18,12 +18,12 @@ export default function CategoryBox({ style,iconname, label, selected, onPress }
     const styles = StyleSheet.create({
         container_in_light: {
             backgroundColor: selected ? colors.secondary : colors.silver,
-            borderRadius: 25,
+            borderRadius: 8,
             flexDirection: 'row',
             minWidth: responsiveWidth(108),
             paddingVertical: responsiveHeight(10),
             paddingHorizontal: responsiveHeight(10),
-            minHeight:responsiveHeight(50),
+            minHeight:responsiveHeight(43),
             gap: responsiveWidth(6),
             justifyContent: 'center',
             alignItems: 'center',
@@ -31,12 +31,12 @@ export default function CategoryBox({ style,iconname, label, selected, onPress }
         },
         container_in_dark: {
             backgroundColor: selected ? colors.secondary : colors.dark.primary,
-            borderRadius: 25,
+            borderRadius: 8,
             flexDirection: 'row',
             minWidth: responsiveWidth(108),
             paddingVertical: responsiveHeight(10),
             paddingHorizontal: responsiveHeight(10),
-            minHeight:responsiveHeight(50),
+            minHeight:responsiveHeight(43),
             gap: responsiveWidth(6),
             justifyContent: 'center',
             alignItems: 'center',
@@ -48,11 +48,7 @@ export default function CategoryBox({ style,iconname, label, selected, onPress }
             onPress={onPress}
             style={isDark ? styles.container_in_dark : styles.container_in_light}
             >
-            {iconname && <Icon
-                name={iconname}
-                stroke={selected ? 'white' : colors.dark['text-primary']} 
-            />}
-            <Heading color={isDark ? (selected ? 'white' : '#686873') : (selected ? 'white' : 'black')} fontWeight='600' p title={label}/>
+            <Heading color={isDark ? (selected ? 'white' : '#686873') : (selected ? 'white' : '#C7C9CF')} p title={label}/>
         </TouchableOpacity>
     )
 }

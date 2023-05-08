@@ -17,14 +17,14 @@ const AuthContext = createContext<AuthContextType>({
 export const AuthContextProvider = ({ children }: Props) => {
     const [isUser, setIsUser] = useState(false);
     const [token, setToken] = useState("");
-    // async function getUserToken() {
-    //     const token = await AsyncStorage.getItem('usertoken');
-    //     setToken(token as string);
-    //     setIsUser(true)
-    // };
-    // useEffect(() => {
-    //     getUserToken();
-    // }, [])
+    async function getUserToken() {
+        const token = await AsyncStorage.getItem('usertoken');
+        setToken(token as string);
+        setIsUser(true)
+    };
+    useEffect(() => {
+        getUserToken();
+    }, [])
     return (
         <AuthContext.Provider value={{ isUser, setIsUser, token }}>
             {children}
