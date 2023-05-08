@@ -1,16 +1,19 @@
-import { View, Platform, Image, useWindowDimensions } from 'react-native'
+import { View, Platform, Image } from 'react-native'
 import React, { useState } from 'react'
 import { colors } from '../../../colors'
 import { responsiveHeight, responsiveWidth } from '../../utils/width'
 import { Event as EventType } from '../../../typing'
-import SvgSmallCalendar from '../Icon/smallCalendar'
 import Button from '../Button'
 import Heading from '../Heading'
 import SmallFavorite from '../Icon/smallFavorite'
 import { useNavigation } from '@react-navigation/native'
+import Save from '../Icon/save'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import useGraphql from '../../hooks/useGraphql'
 interface EventProps {
     event: EventType
 }
+
 // import { StackNavigationProp } from '@react-navigation/stack';
 
 // export type RootStackParamList = {
@@ -18,46 +21,57 @@ interface EventProps {
 // };
 export default function EventCol({ event }: EventProps) {
     const [fillRule, setFillRule] = useState('evenodd');
+    const { addFavorite, deleteFavorite } = useGraphql();
     const navigation = useNavigation();
-    const {height: windowHeight} = useWindowDimensions();
     function addToFavorite() {
         setFillRule((prev: string) => prev === 'evenodd' ? '' : 'evenodd')
     }
-    function onEventPress(){
-        navigation.navigate("EventDetail" as never, {eventid: event.id} as never)
-    }    
-    
+    function onEventPress() {
+        navigation.navigate("EventDetail" as never, { eventid: event.id } as never)
+    }
+    function addEventAsFavorite() {
+        addFavorite({variables: {eventId: event.id}})
+        setFillRule((prev: string) => prev === 'evenodd' ? '' : 'evenodd')
+    }
+    function deleteEventAsFavorite() {
+        deleteFavorite({variables: {eventId: event.id}})
+        setFillRule((prev: string) => prev === 'evenodd' ? '' : 'evenodd')
+    }
     return (
         <View
             style={{
-                backgroundColor: colors.silver,
                 width: responsiveWidth(342),
-                height: Platform.OS === 'ios' ? responsiveHeight(240) : responsiveHeight(240),
-                borderRadius: 25,
-                flexDirection: 'column',
+                height: Platform.OS === 'ios' ? responsiveHeight(112) : responsiveHeight(112),
+                borderRadius: 8,
+                flexDirection: 'row',
                 gap: responsiveWidth(10),
                 position: 'relative',
             }}
         >
             {/* image */}
-            <View style={{position:'absolute', top:0, left:0}}>
-                <Image style={{width:responsiveWidth(342), height:Platform.OS === 'ios' ? responsiveHeight(240) : responsiveHeight(240), borderRadius: 20}} source={{ uri: event.thumbnail }} />
-            </View>
-            {/* heading */}
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: responsiveWidth(12), marginTop: responsiveHeight(12) }}>
-                {/* event date */}
-                <Button label='March 17' labelColor='white' onPress={onEventPress} style={{ backgroundColor: "rgba(255, 255, 255, 0.5)", color: 'white' }} icon={SvgSmallCalendar} />
-                {/* favorite button */}
-                <Button
-                    onPress={addToFavorite}
-                    style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}>
-                    <SmallFavorite fillRule={fillRule} />
-                </Button>
-            </View>
-            {/* titles */}
-            <View style={{bottom: responsiveHeight(24),marginLeft: responsiveWidth(24), position: 'absolute'}}>
-                <Heading title={event.title} h3 color='white'/>
-                <Heading title={event.location} h5 color={'#C7C9CF'} />
+            <TouchableOpacity onPress={onEventPress}>
+                <Image style={{ width: responsiveWidth(127), height: Platform.OS === 'ios' ? responsiveHeight(112) : responsiveHeight(112), borderRadius: 8 }} source={{ uri: event.thumbnail }} />
+            </TouchableOpacity>
+            <View style={{ gap: 8 }}>
+                <Heading h3 title={event.title} />
+                <Heading h5 color="#C7C9CF" fontFamily='Inter-Medium' title={event.location} />
+                <Heading h5 color={colors.secondary} fontFamily='Inter-Regular' title={'May 25, 2023 at 10:30PM'} />
+                <View style={{ flexDirection: 'row' }}>
+                    <Button onPress={addEventAsFavorite} style={{ backgroundColor: 'transparent' }}>
+                        {fillRule === 'evenodd' ?
+                            <SmallFavorite fill="#303133" fillRule="evenodd" />
+                            :
+                            <SmallFavorite fill={colors.secondary} fillRule="even" />
+                        }
+                    </Button>
+                    <Button style={{ backgroundColor: 'transparent' }}>
+                        {fillRule === 'evenodd' ?
+                            <Save fill={colors.primary} />
+                            :
+                            <Save fill={colors.secondary} />
+                        }
+                    </Button>
+                </View>
             </View>
         </View>
     )
