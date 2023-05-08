@@ -8,7 +8,7 @@ interface LayoutProps {
 export default function Layout({children,style}: LayoutProps) {
   return (
     <SafeAreaView style={{flex: 1,...style}}>
-        <View style={{...padding(24,24,24,24)}}>
+        <View style={{...padding(30,24,30,24)}}>
             {children}
         </View>
     </SafeAreaView>
