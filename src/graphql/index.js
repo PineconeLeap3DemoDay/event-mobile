@@ -52,6 +52,15 @@ mutation Signin($email: String!, $password: String!) {
   }
 }
 `
+export const GET_FAVORITES = gql`
+query GetUser {
+  getUser{
+    favorites {
+      id
+    }
+  }
+}
+`
 export const ADD_FAVORITE = gql`
 mutation AddFavorite($eventId: ID!) {
   addFavorite(eventId: $eventId)
