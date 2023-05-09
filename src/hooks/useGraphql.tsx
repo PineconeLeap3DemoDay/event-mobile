@@ -1,10 +1,9 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useAuth } from "../context/AuthProvider";
-import { ADD_FAVORITE, ADD_HASH_TAG, DELETE_FAVORITE, DELETE_HASH_TAG, GET_CATEGORIES, GET_FAVORITES, GET_USER, GET_USER_HASHTAG, SIGN_IN } from "../graphql";
+import { ADD_FAVORITE, ADD_HASH_TAG, DELETE_FAVORITE, DELETE_HASH_TAG, GET_CATEGORIES, GET_EVENT, GET_FAVORITES, GET_USER, GET_USER_HASHTAG, SIGN_IN } from "../graphql";
 
 export default function useGraphql() {
   const { token } = useAuth();
-  console.log(token);
   
   // get user data
   const { data: userData, loading } = useQuery(GET_USER, {
@@ -61,6 +60,7 @@ export default function useGraphql() {
       headers: { Authorization: token }
     }
   })
+  
   return {
     userData: userData?.getUser,
     loading,

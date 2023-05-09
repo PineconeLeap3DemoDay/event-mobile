@@ -6,6 +6,7 @@ import CustomDrawer from "../components/CustomDrawer";
 import { Dimensions } from "react-native";
 import { useTheme } from "../hooks";
 import { colors } from "../../colors";
+import Company from "../screens/Company";
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -40,6 +41,7 @@ export const AuthStack = () => {
           <Stack.Screen name="Signup" component={Signup} />
           <Stack.Screen name="EventDetail" component={EventDetail} />
           <Stack.Screen name="SearchScreen" component={SearchScreen} />
+          <Stack.Screen name="Company" component={Company} />
         </Stack.Group>
     </Stack.Navigator>
   )

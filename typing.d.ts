@@ -1,13 +1,32 @@
+export interface User {
+  email: string
+  lastName: string
+  password: string
+  firstName: string
+  _id: string
+}
 export interface Event {
-    title: string
+  title: string
+  id: string
+  about: string
+  location: string
+  thumbnail: string,
+  startDate: number,
+  organizer: {
     id: string
-    about: string
-    location: string
-    thumbnail: string,
-    startDate:  number
+    name: string,
+    followers: [User]
+  }
 }
 export interface Category {
   id: string
   name: string
-  Icon?:any
+  Icon?: any
+}
+export interface Company {
+  name: string
+  registrationnumber: string
+  rating: string
+  id: string
+  followers: [User]
 }
