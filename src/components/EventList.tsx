@@ -7,6 +7,7 @@ import EventRow from './Cart/EventRow'
 import Heading from './Heading'
 import { colors } from '../../colors'
 import { useTheme } from '../hooks'
+import CompanyList from './CompanyList'
 
 
 interface EventListProps {
@@ -38,12 +39,12 @@ export default function EventList({ events, cartDirection, notFoundTitle }: Even
                 marginTop: responsiveHeight(24),
                 gap: responsiveHeight(24),
                 justifyContent: 'flex-start',
-                alignItems: 'center',
                 flexGrow: 1,
             }}
             ListFooterComponent={() => {
                 return(
-                    <View style={{height: responsiveHeight(100)}}>
+                    <View style={{height: 'auto', minHeight: responsiveHeight(100)}}>
+                        <CompanyList />
                     </View>
                 )
             }}

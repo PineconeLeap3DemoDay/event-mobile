@@ -55,12 +55,66 @@ mutation Signin($email: String!, $password: String!) {
 export const GET_FAVORITES = gql`
 query GetUser {
   getUser{
+    _id
     favorites {
       id
+      thumbnail
+      title
+      location
     }
   }
 }
 `
+export const GET_EVENT = gql`
+  query Event($eventId: ID!) {
+    event(id: $eventId) {
+      title
+      id
+      thumbnail
+      location
+      price
+      organizer {
+        name
+        id
+        followers {
+          _id
+        }
+      }
+    }
+}
+`
+
+export const GET_COMPANY = gql`
+query($companyId: ID!) {
+  company(id: $companyId) {
+    id
+    name
+    events {
+      title
+      id
+      thumbnail
+      location
+      price
+    }
+    followers {
+      _id
+    }
+  }
+}
+`
+
+export const GET_COMPANIES = gql`
+query Companies {
+  companies {
+    name
+    id
+    followers {
+      _id
+    }
+  }
+}
+`
+
 export const ADD_FAVORITE = gql`
 mutation AddFavorite($eventId: ID!) {
   addFavorite(eventId: $eventId)
@@ -69,5 +123,18 @@ mutation AddFavorite($eventId: ID!) {
 export const DELETE_FAVORITE = gql`
 mutation DeleteFavorite($eventId: ID!) {
   deleteFavorite(eventId: $eventId)
+}
+`
+
+// follow company
+export const FOLLOW_COMPANY = gql`
+mutation FollowCompany($companyid: ID!) {
+  followCompany(companyid: $companyid)
+}
+`
+// unfollow company
+export const UNFOLLOW_COMPANY = gql`
+mutation UnfollowCompany($companyid: ID!) {
+  unfollowCompany(companyid: $companyid)
 }
 `

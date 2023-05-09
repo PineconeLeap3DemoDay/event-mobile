@@ -39,7 +39,7 @@ export default function HashTags({ setIsOpen }: any) {
     if (loading) return <View></View>
     const categoriesNotIncludedCategoryUserHasSelected =
         categoriesData?.categories?.filter((category: Category) => {
-            return !userhashtags.some((userhashtag: Category) => {
+            return !userhashtags?.some((userhashtag: Category) => {
                 return category.id === (userhashtag).id;
             });
         })

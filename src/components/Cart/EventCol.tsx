@@ -72,11 +72,7 @@ interface EventProps {
                 <Heading h5 color={colors.secondary} fontFamily='Inter-Regular' title={'May 25, 2023 at 10:30PM'} />
                 <View style={{ flexDirection: 'row' }}>
                     <Button style={{ backgroundColor: 'transparent' }}>
-                        {/* {!isThisUserFavoriteEvent ?
-                            <SmallFavorite fill="#303133" fillRule="evenodd" />
-                            : */}
-                            <SmallFavorite fill={colors.primary} fillRule="evenodd" />
-                        {/* } */}
+                            <SmallFavorite fill={'silver'} fillRule="evenodd" />
                     </Button>
                     <Button onPress={toggleSave} style={{ backgroundColor: 'transparent' }}>
                         {!isThisUserFavoriteEvent ?

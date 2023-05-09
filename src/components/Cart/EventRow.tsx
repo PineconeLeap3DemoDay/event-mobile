@@ -25,7 +25,7 @@ function EventRow({event}: IEventProps) {
             backgroundColor: isDark ? colors.dark.secondary: colors.silver, 
                 width: responsiveWidth(365),
                 height: Platform.OS === 'ios' ? responsiveHeight(120): responsiveHeight(120),
-                borderRadius: 40,
+                borderRadius: 8,
                 flexDirection: 'row',
                 padding: responsiveWidth(12),
                 gap: responsiveWidth(10),
@@ -34,7 +34,7 @@ function EventRow({event}: IEventProps) {
         thumbnail: {
             height: Platform.OS === 'ios' ? responsiveHeight(100): responsiveHeight(120),
             width:responsiveWidth(120), 
-            borderRadius: 20
+            borderRadius: 8
         },
         descripContainer: {
             width: responsiveWidth(180), 

@@ -4,7 +4,7 @@ export * from './clock';
 export * from './location';
 export * from './ticket';
 export * from './arrowLeft';
-export * from './favoriteWithoutColor';
+export * from './favoriteUnFilled';
 export * from './gaming';
 export * from './hamburgermenu';
 export * from './home';

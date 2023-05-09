@@ -21,7 +21,7 @@ function Button({ style, icon: Icon, disabled, labelColor, children, selected, o
             onPress={onPress}
             style={[{
                 backgroundColor: isDark ?(selected ? colors.secondary : colors.dark.secondary) : selected ? colors.secondary : colors.silver,
-                borderRadius: 25,
+                borderRadius: 8,
                 flexDirection: 'row',
                 paddingVertical: responsiveHeight(10),
                 paddingHorizontal: responsiveHeight(10),
