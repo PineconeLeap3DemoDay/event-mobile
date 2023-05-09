@@ -19,7 +19,7 @@ export const AuthContextProvider = ({ children }: Props) => {
     const [token, setToken] = useState("");
     async function getUserToken() {
         const token = await AsyncStorage.getItem('usertoken');
-        setToken(token as string);
+        setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2YXJpYW50IjoidXNlciIsImlkIjoiNjQ1MzVhMzNiNjYwMzAzZDE3NDc4YzhmIiwiaWF0IjoxNjgzNTkyMjczLCJleHAiOjE2ODM2Nzg2NzN9.h3Yn7b4ZVafkp7AGNnoRVX1H4O0q2CXNxZMfFKTg-RQ" as string);
         setIsUser(true)
     };
     useEffect(() => {

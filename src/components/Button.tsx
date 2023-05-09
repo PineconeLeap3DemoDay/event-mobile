@@ -14,8 +14,8 @@ interface ButtonProps {
     labelColor?: string,
     disabled?: boolean
 }
-export default function Button({ style, icon: Icon, disabled, labelColor, children, selected, onPress, label }: ButtonProps) {
-    const {isDark} = useTheme()
+function Button({ style, icon: Icon, disabled, labelColor, children, selected, onPress, label }: ButtonProps) {
+    const {isDark} = useTheme();
     return (
         <TouchableOpacity
             onPress={onPress}
@@ -47,3 +47,4 @@ export default function Button({ style, icon: Icon, disabled, labelColor, childr
         </TouchableOpacity>
     )
 }
+export default Button
