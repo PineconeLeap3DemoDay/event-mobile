@@ -14,6 +14,8 @@ import Header from '../components/Header';
 import { useTheme } from '../hooks';
 import { padding } from '../utils';
 import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../context/AuthProvider';
+import { GET_USER_HASHTAG_EVENTS } from '../graphql';
 const GET_CATEGORY_EVENTS = gql`
  query Category($categoryid: ID) {
   category(categoryid: $categoryid) {
@@ -41,12 +43,23 @@ const styles = StyleSheet.create({
 })
 export function Home() {
   const {category} = useCategory();
-  const {isDark} = useTheme()
+  const {isDark} = useTheme();
+  const {token} = useAuth();
+  
   const {data: categoryEvents} = useQuery(GET_CATEGORY_EVENTS,{
+    skip: category.name === 'Миний дуртай',
     variables: {categoryid: category.id},
     refetchWritePolicy: 'merge',
   });
+
+  const {data} = useQuery(GET_USER_HASHTAG_EVENTS, {
+    context: {
+      headers: { Authorization: token }
+  }
+  });
   const navigation = useNavigation();
+  const isUserSelectedMyFeed = category.name === 'Миний дуртай';
+  
   return (
     <SafeAreaView style={{flex:1}}>
       <View style={styles.container}>
@@ -62,8 +75,19 @@ export function Home() {
           <Button label='Бүх эвэнтүүд' style={{backgroundColor: 'transparent'}} />
         </View>
         {/* Navlinks */}
-        <Categories />
-        <EventList notFoundTitle='Одоогоор энэхүү категорид эвэнт байхгүй байна' cartDirection='column' events={categoryEvents?.category?.events}/>
+        <View style={{flexDirection:'row'}}>
+          <Categories 
+            showMyFeed={true}
+          />
+        </View>
+        <EventList
+          showCompanyList
+          notFoundTitle='Одоогоор энэхүү категорид эвэнт байхгүй байна' 
+          cartDirection='column' 
+          events={
+            isUserSelectedMyFeed ? data?.myHashtagEvents : categoryEvents?.category?.events
+          }
+        />
       </View>
     </SafeAreaView>
   )

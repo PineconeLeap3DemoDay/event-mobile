@@ -65,6 +65,17 @@ query GetUser {
   }
 }
 `
+export const GET_USER_HASHTAG_EVENTS = gql`
+ query MyHashtagEvents {
+  myHashtagEvents {
+    title
+      _id
+      startDate
+      thumbnail
+      location
+  }
+}
+`
 export const GET_EVENT = gql`
   query Event($eventId: ID!) {
     event(id: $eventId) {

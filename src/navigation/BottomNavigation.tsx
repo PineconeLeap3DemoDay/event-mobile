@@ -11,6 +11,7 @@ const Tab = createBottomTabNavigator();
 
 export const BottomTab = () => {
   const {isUser} = useAuth();
+  console.log(isUser)
 
     const tabs = [
         {

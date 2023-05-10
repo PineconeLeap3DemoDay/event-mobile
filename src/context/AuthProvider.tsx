@@ -23,16 +23,19 @@ export const AuthContextProvider = ({ children }: Props) => {
     async function getUserToken() {
         const token = await AsyncStorage.getItem('usertoken');
         const id = await AsyncStorage.getItem('userid');
-        // console.log(token==="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2YXJpYW50IjoidXNlciIsImlkIjoiNjQ1MzVhMzNiNjYwMzAzZDE3NDc4YzhmIiwiaWF0IjoxNjgzNTkyMjczLCJleHAiOjE2ODM2Nzg2NzN9.h3Yn7b4ZVafkp7AGNnoRVX1H4O0q2CXNxZMfFKTg-RQ");
-        setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2YXJpYW50IjoidXNlciIsImlkIjoiNjQ1MzVhMzNiNjYwMzAzZDE3NDc4YzhmIiwiaWF0IjoxNjgzNTkyMjczLCJleHAiOjE2ODM2Nzg2NzN9.h3Yn7b4ZVafkp7AGNnoRVX1H4O0q2CXNxZMfFKTg-RQ" as string);
-        setUserid("64535a33b660303d17478c8f" as string)
-        setIsUser(true)
+        
+        if (token || id) {
+            setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2YXJpYW50IjoidXNlciIsImlkIjoiNjQ1MzVhMzNiNjYwMzAzZDE3NDc4YzhmIiwiaWF0IjoxNjgzNjgwMzY3LCJleHAiOjE2ODM3NjY3Njd9.ObCUyuCSRxYprIZ60zBITqU2kaRpQQiScRsLeRIcceI" as string);
+            setUserid("64535a33b660303d17478c8f" as string);
+            setIsUser(true)
+        }
+
     };
     useEffect(() => {
         getUserToken();
     }, [])
     return (
-        <AuthContext.Provider value={{ isUser, setIsUser, token , userid}}>
+        <AuthContext.Provider value={{ isUser, setIsUser, token, userid }}>
             {children}
         </AuthContext.Provider>
     )

@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useAuth } from "../context/AuthProvider";
-import { ADD_FAVORITE, ADD_HASH_TAG, DELETE_FAVORITE, DELETE_HASH_TAG, GET_CATEGORIES, GET_EVENT, GET_FAVORITES, GET_USER, GET_USER_HASHTAG, SIGN_IN } from "../graphql";
+import { ADD_FAVORITE, ADD_HASH_TAG, DELETE_FAVORITE, DELETE_HASH_TAG, GET_CATEGORIES, GET_FAVORITES, GET_USER, GET_USER_HASHTAG, GET_USER_HASHTAG_EVENTS, SIGN_IN } from "../graphql";
 
 export default function useGraphql() {
   const { token } = useAuth();
@@ -27,7 +27,7 @@ export default function useGraphql() {
   // add user hashtag
 
   const [addHashtag] = useMutation(ADD_HASH_TAG, {
-    refetchQueries: [{ query: GET_USER_HASHTAG }],
+    refetchQueries: [GET_USER_HASHTAG,GET_USER_HASHTAG_EVENTS],
     context: {
       headers: { Authorization: token }
     }
@@ -35,7 +35,7 @@ export default function useGraphql() {
   // delete user hashtag
 
   const [deleteHashtag] = useMutation(DELETE_HASH_TAG, {
-    refetchQueries: [{ query: GET_USER_HASHTAG }],
+    refetchQueries: [GET_USER_HASHTAG,GET_USER_HASHTAG_EVENTS],
     context: {
       headers: { Authorization: token }
     }

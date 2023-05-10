@@ -12,9 +12,6 @@ export default function App() {
     uri: 'http://localhost:4000',
     cache: new InMemoryCache()
   });
-   client.refetchQueries({
-    include: "all", // Consider using "active" instead!
-  });
   const [loading, setLoading] = React.useState(true);
 
   return (

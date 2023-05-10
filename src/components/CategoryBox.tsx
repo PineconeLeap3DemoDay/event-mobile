@@ -4,7 +4,6 @@ import { colors } from '../../colors'
 import { responsiveHeight, responsiveWidth } from '../utils/width'
 import Heading from './Heading'
 import { useTheme } from '../hooks'
-import { Icon } from './Icon/Icon'
 interface CategoryBoxProps {
     iconname?: any,
     label: string,
@@ -12,7 +11,7 @@ interface CategoryBoxProps {
     onPress?: () => void,
     style?: any
 }
-export default function CategoryBox({ style,iconname, label, selected, onPress }: CategoryBoxProps) {
+export default function CategoryBox({ style, label, selected, onPress }: CategoryBoxProps) {
     const {isDark} = useTheme()
     
     const styles = StyleSheet.create({
@@ -23,7 +22,7 @@ export default function CategoryBox({ style,iconname, label, selected, onPress }
             minWidth: responsiveWidth(108),
             paddingVertical: responsiveHeight(10),
             paddingHorizontal: responsiveHeight(10),
-            minHeight:responsiveHeight(43),
+            height:responsiveHeight(43),
             gap: responsiveWidth(6),
             justifyContent: 'center',
             alignItems: 'center',
