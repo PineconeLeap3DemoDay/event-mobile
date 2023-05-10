@@ -1,44 +1,62 @@
-import { View, TextInput, StyleSheet, SafeAreaView, Dimensions } from 'react-native'
-import React, { useRef } from 'react'
+import { View, StyleSheet, SafeAreaView, Dimensions } from 'react-native'
+import React, { useRef, useState } from 'react'
 import { useTheme } from '../hooks';
 import { colors } from '../../colors';
 import { padding, responsiveHeight, responsiveWidth } from '../utils';
-import { Icon } from '../components/Icon/Icon';
 import HeaderWithBackArrow from '../components/Header/HeaderWithBackArrow';
 import Input from '../components/Input';
 import { Search } from '../components/Icon';
-import { useNavigation } from '@react-navigation/native';
 import { gql, useQuery } from '@apollo/client';
 import EventList from '../components/EventList';
-const GET_EVENTS = gql`
-  query Events($arg: eventsQueryInput) {
+import DropDownPicker from 'react-native-dropdown-picker';
+import useDay, { getnextday } from '../hooks/useDay';
+import Categories from '../components/Categories';
+import useSelectedCategory from '../hooks/useCategory';
+
+const GET_EVENT = gql`
+query Events($arg:eventsQueryInput) {
   events(arg: $arg) {
     title
     id
     startDate
-    thumbnail
+    about
     location
+    thumbnail
   }
 }
 `
 export function SearchScreen() {
     const { isDark } = useTheme();
-    const userInput = useRef<string>('')
-    const { data, refetch } = useQuery(GET_EVENTS, {
-        variables: {
-            arg: {
-                "includes": "first"
-            }
-        }
+    const userInput = useRef<string>('');
+    const [open, setOpen] = useState(false);
+    const {
+        tomorrow,
+        today,
+        lastDayOfThisWeek,
+        lastDayOfThisMonth,
+    } = useDay();
+    const {category} = useSelectedCategory();
+    const [value, setValue] = useState("Өнөөдөр");
+    const [items, setItems] = useState([
+        { label: 'Өнөөдөр', value: getnextday(new Date(today)).toISOString().slice(0, 10) },
+        { label: 'Маргааш', value: getnextday(new Date(tomorrow)).toISOString().slice(0, 10) },
+        { label: 'Энэ долоо хоногт', value: getnextday(new Date(lastDayOfThisWeek)).toISOString().slice(0, 10) },
+        { label: 'Энэ сард', value: getnextday(new Date(lastDayOfThisMonth)).toISOString().slice(0, 10) },
+    ]);
+
+    const { data: userSelectedDayEvents, refetch } = useQuery(GET_EVENT, {
+        variables: { arg: { from: today, to: value, categoryid: category.id } },
+        fetchPolicy: 'network-only'
     });
-    console.log(data)
+    
     function onChangeText(text: string) {
         userInput.current = text
     }
     function onEndEditing() {
         refetch({
             arg: {
-                "includes": userInput?.current
+                //@ts-ignore
+                includes: userInput?.current
             }
         })
     }
@@ -78,9 +96,42 @@ export function SearchScreen() {
                 <HeaderWithBackArrow />
                 <Input
                     onChangeText={onChangeText}
-                    onEndEditing={onEndEditing} icon={Search} placeholder='Хайх' 
+                    onEndEditing={onEndEditing} icon={Search} placeholder='Хайх'
                 />
-                <EventList notFoundTitle={'Таны хайсан эвэнт олдсонгүй'} events={data?.events} cartDirection='column'/>
+                <View style={{flexDirection: 'row', gap: 12, position: 'relative'}}>
+                    <DropDownPicker
+                        showArrowIcon
+                        placeholder={value}
+                        style={{
+                            backgroundColor: colors.secondary,
+                            width: 150,
+                            borderColor: 'transparent',
+                        }}
+                        labelStyle={{
+                            color:'white',
+                            fontSize: 12,
+                        }}
+                        dropDownContainerStyle={{
+                            borderColor: 'transparent',
+                        }}
+                        containerStyle={{
+                            width: 150,
+                            height: open ? 200 : 'auto'
+                        }}
+                        open={open}
+                        value={value}
+                        items={items}
+                        setOpen={setOpen}
+                        setValue={setValue}
+                        setItems={setItems}
+                    />
+                    <Categories />
+                </View>
+                <EventList 
+                notFoundTitle={'Таны хайсан эвэнт олдсонгүй'}
+                 events={userSelectedDayEvents?.events} 
+                 cartDirection='column' 
+                 />
             </View>
         </SafeAreaView>
     )

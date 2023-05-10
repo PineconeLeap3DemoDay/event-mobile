@@ -13,10 +13,17 @@ import CompanyList from './CompanyList'
 interface EventListProps {
     events: EventType[],
     cartDirection: 'column' | 'row',
-    notFoundTitle: string
+    notFoundTitle: string,
+    showCompanyList?: boolean
 }
 
-export default function EventList({ events, cartDirection, notFoundTitle }: EventListProps) {
+export default function EventList(
+    { 
+        events, 
+        cartDirection, 
+        notFoundTitle, 
+        showCompanyList = false 
+    }: EventListProps) {
     const {isDark} = useTheme()
     function renderItem({ item }: {item:EventType}) {
         return (
@@ -44,7 +51,7 @@ export default function EventList({ events, cartDirection, notFoundTitle }: Even
             ListFooterComponent={() => {
                 return(
                     <View style={{height: 'auto', minHeight: responsiveHeight(100)}}>
-                        <CompanyList />
+                        {showCompanyList && <CompanyList />}
                     </View>
                 )
             }}

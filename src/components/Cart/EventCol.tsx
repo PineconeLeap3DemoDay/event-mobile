@@ -1,18 +1,15 @@
 import { View, Platform, Image } from 'react-native'
-import React, { useCallback } from 'react'
+import React from 'react'
 import { colors } from '../../../colors'
 import { responsiveHeight, responsiveWidth } from '../../utils/width'
-import { Event, Event as EventType } from '../../../typing'
+import { Event as EventType } from '../../../typing'
 import Button from '../Button'
 import Heading from '../Heading'
 import SmallFavorite from '../Icon/smallFavorite'
 import { useNavigation } from '@react-navigation/native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import useGraphql from '../../hooks/useGraphql'
-import { useQuery } from '@apollo/client'
-import { GET_FAVORITES } from '../../graphql'
-import { useAuth } from '../../context/AuthProvider'
 import Save from '../Icon/save'
+import useFavorite from '../../hooks/useFavorite'
 interface EventProps {
     event: EventType
 }
@@ -23,33 +20,10 @@ interface EventProps {
 //     EventDetail: { eventid: string };
 // };
  function EventCol({ event }: EventProps) {
-    const { token } = useAuth();
-    const { addFavorite, deleteFavorite } = useGraphql();
-    const { data: favorites } = useQuery(GET_FAVORITES, {
-        context: {
-            headers: { Authorization: token }
-        }
-    })
+    const {isThisUserFavoriteEvent, toggleFavorite} = useFavorite(event?.id)
     const navigation = useNavigation();
-    const isThisUserFavoriteEvent = favorites?.getUser?.favorites?.
-        findIndex((favorite: Event) => favorite?.id === event.id) !== -1;
-
-    const toggleSave = useCallback(() => {
-        if (isThisUserFavoriteEvent) {
-            deleteEventAsFavorite()
-        } else {
-            addEventAsFavorite();
-        }
-    }, [isThisUserFavoriteEvent,addEventAsFavorite,deleteEventAsFavorite])
-
     function onEventPress() {
         navigation.navigate("EventDetail" as never, { eventid: event.id } as never)
-    }
-    function addEventAsFavorite() {
-        addFavorite({ variables: { eventId: event.id } })
-    }
-    function deleteEventAsFavorite() {
-        deleteFavorite({ variables: { eventId: event.id } })
     }
     return (
         <View
@@ -74,7 +48,7 @@ interface EventProps {
                     <Button style={{ backgroundColor: 'transparent' }}>
                             <SmallFavorite fill={'silver'} fillRule="evenodd" />
                     </Button>
-                    <Button onPress={toggleSave} style={{ backgroundColor: 'transparent' }}>
+                    <Button onPress={toggleFavorite} style={{ backgroundColor: 'transparent' }}>
                         {!isThisUserFavoriteEvent ?
                             <Save fill={colors.primary} />
                             :

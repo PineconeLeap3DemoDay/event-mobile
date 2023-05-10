@@ -1,7 +1,7 @@
 import { View } from 'react-native'
-import React, { useCallback } from 'react'
-import { gql, useMutation, useQuery } from '@apollo/client'
-import { Company, User } from '../../typing';
+import React from 'react'
+import { gql, useQuery } from '@apollo/client'
+import { Company } from '../../typing';
 import { FlatList } from 'react-native';
 import { Avatar } from './Avatar';
 import { responsiveHeight, responsiveWidth } from '../utils';
@@ -9,13 +9,12 @@ import Heading from './Heading';
 import Button from './Button';
 import { useTheme } from '../hooks';
 import { colors } from '../../colors';
-import { useAuth } from '../context/AuthProvider';
-import { FOLLOW_COMPANY, UNFOLLOW_COMPANY } from '../graphql';
+import useFollow from '../hooks/useFollow';
 const GET_COMPANIES = gql`
     query Companies {
-  companies {
-    id
-  }
+        companies {
+            id
+    }
 }
 `
 const GET_COMPANY = gql`
@@ -57,36 +56,13 @@ export default function CompanyList() {
 }
 function CompanyBox({ companyId }: { companyId: string }) {
     const { isDark } = useTheme();
-    const { token, userid } = useAuth();
-    const { data, loading } = useQuery(GET_COMPANY, {
-        variables: { companyId: companyId }
-    })
-    const [followCompany] = useMutation(FOLLOW_COMPANY, {
-        refetchQueries: [GET_COMPANY],
-        context: {
-            headers: { Authorization: token }
-        },
-        variables: { companyid: companyId }
-    })
-    const [unfollowCompany] = useMutation(UNFOLLOW_COMPANY, {
-        refetchQueries: [GET_COMPANY],
-        context: {
-            headers: { Authorization: token }
-        },
-        variables: { companyid: companyId }
-    });
-    const company = data?.company;
-    const DoesUserFollowThisCompany = company?.followers.findIndex((follower: User) => follower._id === userid) !== -1;
-
-    
-    const onPress = useCallback(() => {
-        if (DoesUserFollowThisCompany) {
-            unfollowCompany();
-        } else {
-            followCompany();
-        }
-    }, [])
-    if(loading) return <View></View>
+    const { 
+        loading,
+        DoesUserFollowThisCompany,
+        company,
+        toggleFollow
+    } = useFollow(companyId);
+    if (loading) return <View></View>
     return (
         <View style={{
             width: responsiveWidth(126),
@@ -101,7 +77,7 @@ function CompanyBox({ companyId }: { companyId: string }) {
             <Heading color={isDark ? 'white' : 'black'} h2 fontFamily='Inter-SemiBold' title={company.name} />
             <Heading h5 color='silver' fontFamily='Inter-Regular'
                 title={`${company?.followers?.length} дагагчтай`} />
-            <Button onPress={() => onPress()} style={{ backgroundColor: DoesUserFollowThisCompany ? "#FCEFF8" : "#D22366" }}>
+            <Button onPress={toggleFollow} style={{ backgroundColor: DoesUserFollowThisCompany ? "#FCEFF8" : "#D22366" }}>
                 <Heading p color={
                     DoesUserFollowThisCompany ? "#D22366" : "white"
                 } title={DoesUserFollowThisCompany ? "Дагасан" : "Дагах"} />

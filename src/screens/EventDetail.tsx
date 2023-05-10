@@ -1,5 +1,5 @@
 import { ScrollView, View, ImageBackground, StyleSheet, Dimensions, FlatList, TouchableOpacity } from 'react-native'
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useQuery } from '@apollo/client';
 import { Event } from '../../typing';
 import { ArrowLeft } from '../components/Icon/arrowLeft';
@@ -12,15 +12,13 @@ import { CalendarSm, Clock, Favorite, Location, Ticket } from '../components/Ico
 import { useTheme } from '../hooks';
 import { Avatar } from '../components/Avatar';
 import { padding } from '../utils';
-import { GET_EVENT, GET_FAVORITES } from '../graphql';
-import { useAuth } from '../context/AuthProvider';
-import useGraphql from '../hooks/useGraphql';
+import { GET_EVENT } from '../graphql';
 import Save from '../components/Icon/save';
 import SuggestedEvent from '../components/Cart/SuggestedEvent';
+import useFavorite from '../hooks/useFavorite';
 
 export function EventDetail(prop: any) {
-  const { token } = useAuth();
-  const { eventid } = (prop.route.params);
+  const { eventid } = prop.route.params;
   const { data } = useQuery(GET_EVENT, {
     variables: { eventId: eventid }
   });
@@ -52,31 +50,10 @@ export function EventDetail(prop: any) {
       style: { flexDirection: 'row', gap: responsiveWidth(10), marginTop: responsiveHeight(12), justifyContent: 'space-between', alignItems: 'center', width: responsiveWidth(280) }
     }
   ];
-  const { data: favorites } = useQuery(GET_FAVORITES, {
-    context: {
-      headers: { Authorization: token }
-    }
-  })
-  const { addFavorite, deleteFavorite } = useGraphql();
+  const {isThisUserFavoriteEvent, toggleFavorite} = useFavorite(eventid);
 
   const navigation = useNavigation();
-  const isThisUserFavoriteEvent = favorites?.getUser?.favorites?.
-    findIndex((favorite: Event) => favorite?.id === eventid) !== -1;
-  const toggleSave = useCallback(() => {
-    if (isThisUserFavoriteEvent) {
-      deleteEventAsFavorite()
-    } else {
-      addEventAsFavorite();
-    }
-  }, [isThisUserFavoriteEvent, addEventAsFavorite, deleteEventAsFavorite])
-
-
-  function addEventAsFavorite() {
-    addFavorite({ variables: { eventId: eventid } })
-  }
-  function deleteEventAsFavorite() {
-    deleteFavorite({ variables: { eventId: eventid } })
-  }
+  
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -135,7 +112,7 @@ export function EventDetail(prop: any) {
         icon={ArrowLeft}
         style={styles.btnArrowleft} />
       <Button
-        onPress={toggleSave}
+        onPress={toggleFavorite}
         style={styles.btnSaveEvent} >
         <Save
           fill={
@@ -221,7 +198,6 @@ export function EventDetail(prop: any) {
       {/* Bottom */}
       <View style={styles.bottomSection}>
         <Button
-          onPress={toggleSave}
           style={{
             borderRadius: 50,
             width: responsiveWidth(60),

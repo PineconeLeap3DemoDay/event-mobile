@@ -1,33 +1,29 @@
 import { View } from "react-native";
 import { Category } from "../../typing";
 import useGraphql from "../hooks/useGraphql";
-import useRefetch from "../hooks/useRefetch";
 import { colors } from "../../colors";
 import { padding, responsiveHeight, responsiveWidth } from "../utils";
 import Heading from "./Heading";
 import Button from "./Button";
 import { useTheme } from "../hooks";
+import useHashTag from "../hooks/useHashTag";
 
 export default function HashTagBox({ category, type }: { category: Category, type: string }) {
-    const { setIsFetch, isFetch } = useRefetch();
-    const {isDark} = useTheme();
-    const { addHashtag, deleteHashtag } = useGraphql();
+    const { isDark } = useTheme();
+    const { addHashtag, deleteHashtag } = useHashTag();
     async function onPress() {
-        try {
-            if (type === 'myhashtag') {
-                await deleteHashtag({ variables: { categoryId: category?.id } });
-            } else {
-                await addHashtag({ variables: { categoryId: category?.id } });
-            }
-            setIsFetch(!isFetch);
-        } catch (error) {
+        if (type === 'myhashtag') {
+            await deleteHashtag({ variables: { categoryId: category?.id } });
+        } else {
+            await addHashtag({ variables: { categoryId: category?.id } });
         }
+
     }
     return (
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Heading 
-            color={isDark ? "white" : 'black'}
-            h4 title={category.name}/>
+            <Heading
+                color={isDark ? "white" : 'black'}
+                h4 title={category.name} />
             <Button
                 onPress={onPress}
                 labelColor={colors.secondary}
