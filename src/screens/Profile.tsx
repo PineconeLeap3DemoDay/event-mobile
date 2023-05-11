@@ -1,16 +1,17 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
-import Header from '../components/Header';
-import { Avatar } from '../components/Avatar';
-import { padding, responsiveHeight, responsiveWidth } from '../utils';
-import Heading from '../components/Heading';
-import Button from '../components/Button';
-import { Plus } from '../components/Icon/Plus';
+import React, { useState } from 'react';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../colors';
-import { useTheme } from '../hooks';
+import { Avatar } from '../components/Avatar';
+import Button from '../components/Button';
 import HashTagsBottomTab from '../components/HashTags';
+import Header from '../components/Header';
+import Heading from '../components/Heading';
+import { Plus } from '../components/Icon/Plus';
 import { Shadow } from '../components/Shadow';
-import useGraphql from '../hooks/useGraphql';
+import { useTheme } from '../hooks';
+import useCurrentUser from '../hooks/useCurrentUser';
+import { padding, responsiveHeight, responsiveWidth } from '../utils';
+import { useAuth } from '../context/AuthProvider';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -36,11 +37,11 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(27)
   }
 })
+
 export function Profile() {
   const { isDark } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
-  const { userData, loading } = useGraphql();
-
+  const { currentUser, loading } = useCurrentUser();
   function openHashTags() {
     setIsOpen(true)
   }
@@ -48,21 +49,21 @@ export function Profile() {
     setIsOpen(false)
   }
   if (loading) return <View></View>
-  const { firstName, lastName, email } = userData
+  const { firstName, lastName, email } = currentUser;
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header />
       <View>
-        {/* Avatar */}
         <View style={styles.avatar}>
           <Avatar />
         </View>
-        {/*  Heading1*/}
         <View style={styles.heading}>
-          <Heading h1 title={`${firstName} ${lastName}`} />
-          <Heading fontFamily='Inter-ExtraLight' h3 title={email} />
+          <Heading 
+            h1 
+            title={`${lastName} ${firstName}`}
+          />
+          <Heading fontFamily='Inter-ExtraLight' h3 title={email}  />
         </View>
-        {/* Heading2 */}
         <View style={styles.likes_and_tickets_container}>
           <View style={styles.like_and_ticket_container}>
             <Text style={{ color: isDark ? 'white' : 'black' }}>0</Text>
@@ -73,7 +74,6 @@ export function Profile() {
             <Heading color='#545353' h4 title='tickets' />
           </View>
         </View>
-        {/*Add hashtag  */}
         <Button onPress={openHashTags} style={styles.btn}>
           <Plus width={22}
             height={22}
@@ -82,8 +82,6 @@ export function Profile() {
             strokeWidth={0.01} />
           <Heading h4 color='#545353' title='Add HashTag' />
         </Button>
-        {/*  */}
-        {/* Hashtag */}
         {isOpen &&
           <Shadow>
             <HashTagsBottomTab setIsOpen={closeHashTags} />

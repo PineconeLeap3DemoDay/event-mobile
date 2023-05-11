@@ -15,7 +15,11 @@ import { CalendarSm,
     Clock,
     Ticket,
     Close,
-    Sun
+    Sun,
+    Settings,
+    UserRounded,
+    Message,
+    Key
 } from './index';
 type IconNames = {
     CalendarBg: any;
@@ -34,7 +38,11 @@ type IconNames = {
     Clock: any,
     Ticket: any,
     Close: any,
-    Sun: any
+    Sun: any,
+    Settings: any,
+    UserRounded: any,
+    Message: any,
+    Key: any
 }
 
 const Icons = {
@@ -54,7 +62,11 @@ const Icons = {
     Clock,
     Ticket,
     Close,
-    Sun
+    Sun,
+    Settings,
+    UserRounded,
+    Message,
+    Key
 }
 interface IconProps {
     name: keyof IconNames,

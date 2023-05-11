@@ -1,9 +1,9 @@
-import { View, TextInput, StyleSheet } from 'react-native'
-import React from 'react'
-import { colors } from '../../colors'
-import { responsiveHeight, responsiveWidth } from '../utils/width'
-import { useTheme } from '../hooks'
 import { useNavigation } from '@react-navigation/native'
+import React from 'react'
+import { StyleSheet, TextInput, View } from 'react-native'
+import { colors } from '../../colors'
+import { useTheme } from '../hooks'
+import { responsiveHeight, responsiveWidth } from '../utils/width'
 interface InputProps {
   icon?: any,
   placeholder: string,
@@ -11,7 +11,8 @@ interface InputProps {
   onEndEditing?: any,
   value?: string,
   onChangeText?: any;
-  style?:any
+  style?:any,
+  editable?: boolean
 }
 const styles = StyleSheet.create({
   container_in_light: {
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
     paddingLeft: responsiveWidth(10),
     paddingBottom: responsiveHeight(12),
     gap: responsiveWidth(10),
-    borderRadius: 50,
+    borderRadius: 8,
   },
   container_in_dark: {
     backgroundColor: colors.dark.secondary,
@@ -34,16 +35,27 @@ const styles = StyleSheet.create({
     paddingLeft: responsiveWidth(10),
     paddingBottom: responsiveHeight(12),
     gap: responsiveWidth(10),
-    borderRadius: 50,
+    borderRadius: 8,
   }
 });
-export default function Input({ icon: Icon, value, style,onChangeText, placeholder, onPressIn, onEndEditing }: InputProps) {
+export default function Input(
+  { icon: Icon, 
+    value, 
+    style,
+    onChangeText, 
+    placeholder, 
+    onPressIn, 
+    onEndEditing,
+    editable = true
+  }
+  : InputProps) {
   const { isDark } = useTheme();
   const navigation = useNavigation();
   return (
     <View style={[isDark ? styles.container_in_dark : styles.container_in_light,{...style}]}>
       {Icon && <Icon fill="silver" />}
       <TextInput
+        editable={editable}
         value={value}
         onChangeText={onChangeText}
         onEndEditing={onEndEditing}

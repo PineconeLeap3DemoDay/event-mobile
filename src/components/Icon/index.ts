@@ -18,4 +18,11 @@ export * from './myfeed'
 export * from './arrowLeft';
 export * from './ticket';
 export * from './close';
-export * from './Sun'
+export * from './Sun';
+export * from './Settings';
+export * from './ticket';
+export * from './UserRounded'
+export * from './Message'
+export * from './key'
+
+

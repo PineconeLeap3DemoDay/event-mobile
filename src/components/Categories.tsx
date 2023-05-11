@@ -34,7 +34,7 @@ export default function Categories({showMyFeed = false}: Props) {
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
-                gap: responsiveWidth(6),
+                gap: responsiveWidth(8),
                 paddingBottom: responsiveHeight(15),
             }}
             data={items}
