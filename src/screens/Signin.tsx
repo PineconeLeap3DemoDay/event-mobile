@@ -14,7 +14,8 @@ import HeaderWithBackArrow from '../components/Header/HeaderWithBackArrow';
 import { gql, useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native';
-import { useUser } from '../hooks/useUser';
+import { useAuth } from '../context/AuthProvider';
+import { GET_USER } from '../graphql';
 const SIGN_IN = gql`
 mutation Signin($email: String!, $password: String!) {
   signin(email: $email, password: $password) {
@@ -26,13 +27,15 @@ mutation Signin($email: String!, $password: String!) {
 }
 `
 export function Signin() {
-  const [login, { data, loading }] = useMutation(SIGN_IN);
+  const [login, { data, loading,}] = useMutation(SIGN_IN, {
+    refetchQueries: [GET_USER],
+  });
   const initialValues = {
     email: "",
     password: "",
   }
+  const {setToken, setUserid, setIsUser} = useAuth();
   const navigation = useNavigation();
-  const {setUser} = useUser();
   const validationSchema = Yup.object().shape({
     email: Yup
       .string()
@@ -45,18 +48,18 @@ export function Signin() {
   });
   async function onSubmit({email, password}: { email: string, password: string }) {
     try{
-      await login({variables: {email, password}});
+      await login({variables: {email, password}, });
       if(!loading) {
         const token = data?.signin.token;
         const userid = data?.signin.user?._id;
-        console.log(token);
-        
-        await AsyncStorage.multiSet([['usertoken',token],['userid',userid]]);
-        setUser(true);
+        await AsyncStorage.setItem('usertoken',token);
+        await AsyncStorage.setItem('userid',userid);
+        setToken(token);
+        setUserid(userid);
+        setIsUser(true);
         navigation.navigate('Profile' as never)
       }
     }catch(error: any){
-      console.log(error?.message)
     }
   }
   return (

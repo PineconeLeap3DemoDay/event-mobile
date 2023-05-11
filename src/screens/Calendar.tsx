@@ -1,13 +1,12 @@
-import { SafeAreaView, StyleSheet } from 'react-native';
-import React, { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
+import React, { useState } from 'react';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { colors } from '../../colors';
-import { CustomCalendar } from '../components'
-import { getDaysWithEvent, getFirstDayOfMonth, getLastDayOfMonth, getNextDayOfSelectedDay, responsiveHeight } from '../utils';
-import Heading from '../components/Heading';
+import { CustomCalendar } from '../components';
 import EventList from '../components/EventList';
-import { useTheme } from '../hooks';
 import HeaderWithBackArrow from '../components/Header/HeaderWithBackArrow';
+import { useTheme } from '../hooks';
+import { getDaysWithEvent, getFirstDayOfMonth, getLastDayOfMonth, getNextDayOfSelectedDay } from '../utils';
 
 const GET_EVENTS = gql`
   query Events($arg:eventsQueryInput) {
@@ -79,7 +78,6 @@ export function Calendar() {
   return (
     <SafeAreaView style={styles.container}>
       <HeaderWithBackArrow />
-        <Heading style={{marginTop: responsiveHeight(24)}} title='Календар' color='white'  h1/>
         <CustomCalendar
           markeddates={markedDates}
           onDayPress={onDayPress}

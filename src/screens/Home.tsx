@@ -66,7 +66,7 @@ export function Home() {
         {/* Header */}
         <Header />
         {/* Search */}
-        <Input onPressIn={() => {
+        <Input style={{borderRadius: 8}} onPressIn={() => {
           navigation.navigate('SearchScreen' as never)
         }} icon={Search} placeholder='Хайх' />
         {/* upcoming events */}

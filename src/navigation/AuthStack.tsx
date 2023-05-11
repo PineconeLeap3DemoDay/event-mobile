@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { BottomTab } from "./BottomNavigation";
 import { EventDetail, SearchScreen, Signin, Signup } from "../screens";
-import CustomDrawer from "../components/CustomDrawer";
+import CustomDrawer from "../components/Drawer/index";
 import { Dimensions } from "react-native";
 import { useTheme } from "../hooks";
 import { colors } from "../../colors";

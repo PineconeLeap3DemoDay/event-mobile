@@ -1,12 +1,11 @@
 import { View } from "react-native";
-import { Category } from "../../typing";
-import useGraphql from "../hooks/useGraphql";
 import { colors } from "../../colors";
-import { padding, responsiveHeight, responsiveWidth } from "../utils";
-import Heading from "./Heading";
-import Button from "./Button";
+import { Category } from "../../typing";
 import { useTheme } from "../hooks";
 import useHashTag from "../hooks/useHashTag";
+import { padding, responsiveHeight, responsiveWidth } from "../utils";
+import Button from "./Button";
+import Heading from "./Heading";
 
 export default function HashTagBox({ category, type }: { category: Category, type: string }) {
     const { isDark } = useTheme();

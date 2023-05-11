@@ -98,7 +98,7 @@ export function SearchScreen() {
                     onChangeText={onChangeText}
                     onEndEditing={onEndEditing} icon={Search} placeholder='Хайх'
                 />
-                <View style={{flexDirection: 'row', gap: 12, position: 'relative'}}>
+                <View style={{flexDirection: 'row', gap: 12, position: 'relative',paddingTop: 24}}>
                     <DropDownPicker
                         showArrowIcon
                         placeholder={value}
@@ -106,6 +106,7 @@ export function SearchScreen() {
                             backgroundColor: colors.secondary,
                             width: 150,
                             borderColor: 'transparent',
+                            height: 20
                         }}
                         labelStyle={{
                             color:'white',

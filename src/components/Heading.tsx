@@ -1,8 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-import { responsiveWidth } from '../utils/width'
 import { useTheme } from '../hooks'
-import { colors } from '../../colors'
+import { responsiveWidth } from '../utils/width'
 interface HeadingProps {
   h1?: any,
   h2?: any,

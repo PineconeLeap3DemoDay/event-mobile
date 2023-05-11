@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthStack } from './src/navigation/AuthStack';
-import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, createHttpLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import Splash from './src/screens/Splash';
-import { AuthContextProvider, useAuth } from './src/context/AuthProvider';
+import { AuthContextProvider } from './src/context/AuthProvider';
 
 export default function App() {
    
@@ -12,6 +12,9 @@ export default function App() {
     uri: 'http://localhost:4000',
     cache: new InMemoryCache()
   });
+  // client.refetchQueries({
+  //   include:'all'
+  // })
   const [loading, setLoading] = React.useState(true);
 
   return (

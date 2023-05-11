@@ -1,14 +1,14 @@
-import { View, StyleSheet, FlatList } from 'react-native'
-import React, { useCallback, useMemo, useRef } from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
-import { padding } from '../utils';
-import { Category } from '../../typing';
-import Heading from './Heading';
-import HashTagBox from './HashTagBox';
-import { useTheme } from '../hooks';
+import React, { useCallback, useMemo, useRef } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { colors } from '../../colors';
-import useHashTag from '../hooks/useHashTag';
+import { Category } from '../../typing';
+import { useTheme } from '../hooks';
 import useCategories from '../hooks/useCategories';
+import useHashTag from '../hooks/useHashTag';
+import { padding } from '../utils';
+import HashTagBox from './HashTagBox';
+import Heading from './Heading';
 
 export default function HashTags({ setIsOpen }: any) {
     const bottomSheetRef = useRef<BottomSheet>(null);

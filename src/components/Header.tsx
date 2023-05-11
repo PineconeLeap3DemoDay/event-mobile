@@ -1,10 +1,9 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
-import { Icon } from './Icon/Icon'
-import { Badge } from './Badge'
-import { responsiveHeight } from '../utils/width'
+import { StyleSheet, View } from 'react-native'
 import { useTheme } from '../hooks'
-import { colors } from '../../colors'
+import { responsiveHeight } from '../utils/width'
+import { Badge } from './Badge'
+import { Icon } from './Icon/Icon'
 const styles = StyleSheet.create({
     header: {
         display: 'flex',
