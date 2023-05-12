@@ -20,11 +20,14 @@ interface EventProps {
 //     EventDetail: { eventid: string };
 // };
  function EventCol({ event }: EventProps) {
-    const {isThisUserFavoriteEvent, toggleFavorite} = useFavorite(event?.id)
+    const {isThisUserFavoriteEvent, toggleFavorite} = useFavorite(event?.id);
+    
     const navigation = useNavigation();
     function onEventPress() {
-        navigation.navigate("EventDetail" as never, { eventid: event.id } as never)
+        console.log(isThisUserFavoriteEvent)
+        // navigation.navigate("EventDetail" as never, { eventid: event.id } as never)
     }
+    
     return (
         <View
             style={{

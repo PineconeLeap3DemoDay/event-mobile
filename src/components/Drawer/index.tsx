@@ -10,6 +10,7 @@ import ThirdDrawer from './ThirdDrawer';
 import { create } from 'zustand';
 import FirstDrawer from './FirstDrawerItem';
 import SecondDrawer from './SecondDrawer';
+import ChangePassword from './ChangePassword';
 type IUseStep = {
     step: number,
     setStep: (arg: number) => void
@@ -48,6 +49,7 @@ function CustomDrawer(props: any) {
                 {step === 1 && <FirstDrawer />}
                 {step === 2 && <SecondDrawer />}
                 {step === 3 && <ThirdDrawer />}
+                {step === 4 && <ChangePassword />}
             </DrawerContentScrollView>
         </SafeAreaView>
     )

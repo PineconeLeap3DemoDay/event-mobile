@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_FAVORITE, DELETE_FAVORITE, GET_FAVORITES } from "../graphql";
-import { useAuth } from "../context/AuthProvider";
 import { useCallback } from "react";
+import { useAuth } from "../context/AuthProvider";
+import { ADD_FAVORITE, DELETE_FAVORITE, GET_FAVORITES } from "../graphql";
 
 export default function useFavorite(eventid: string) {
     const { token } = useAuth();
@@ -10,7 +10,6 @@ export default function useFavorite(eventid: string) {
             headers: { Authorization: token }
         }
     })
-
     // add user favorite event
     const [addFavorite] = useMutation(ADD_FAVORITE, {
         refetchQueries: [GET_FAVORITES],
@@ -27,6 +26,7 @@ export default function useFavorite(eventid: string) {
     })
     const isThisUserFavoriteEvent = favorites?.getUser?.favorites?.
         findIndex((favorite: any) => favorite?.id === eventid) !== -1;
+
     const toggleFavorite = useCallback(() => {
         if (isThisUserFavoriteEvent) {
             deleteEventAsFavorite()

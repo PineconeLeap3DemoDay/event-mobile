@@ -4,7 +4,9 @@ import { AuthStack } from './src/navigation/AuthStack';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import Splash from './src/screens/Splash';
 import { AuthContextProvider } from './src/context/AuthProvider';
-
+import { GetFCMToken, NotificationListener, requestUserPermission } from './src/utils/pushnotification_helper';
+import notifee from '@notifee/react-native';
+import messaging from '@react-native-firebase/messaging'; 
 export default function App() {
    
   
@@ -16,7 +18,36 @@ export default function App() {
   //   include:'all'
   // })
   const [loading, setLoading] = React.useState(true);
+  // GetFCMToken();
+  React.useEffect(() => {
+    requestUserPermission();
+    GetFCMToken()
+    NotificationListener()
+  });
+  async function onDisplayNotification(message:any) {
+    console.log(message)
+    // Request permissions (required for iOS)
+    await notifee.requestPermission()
 
+    // Create a channel (required for Android)
+    const channelId = await notifee.createChannel({
+      id: 'default',
+      name: 'Default Channel',
+    });
+
+    // Display a notification
+    await notifee.displayNotification({
+      title: 'Notification Title',
+      body: 'Main body content of the notification',
+      android: {
+        channelId,
+      },
+    });
+  }
+  
+  
+  messaging().onMessage(onDisplayNotification);
+  messaging().setBackgroundMessageHandler(onDisplayNotification);
   return (
     <ApolloProvider client={client}>
       <AuthContextProvider>

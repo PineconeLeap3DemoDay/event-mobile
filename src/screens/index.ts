@@ -9,5 +9,5 @@ export * from './EventDetail';
 export * from './Signin';
 export * from './Signup';
 export * from './SearchScreen';
-
+export * from './Notification'
 

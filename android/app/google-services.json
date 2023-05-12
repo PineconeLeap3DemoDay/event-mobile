@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "597260972865",
+    "project_id": "eventmobile-fd2c1",
+    "storage_bucket": "eventmobile-fd2c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597260972865:android:b8d3a01328ba48ec3127c0",
+        "android_client_info": {
+          "package_name": "com.company.eventmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "597260972865-jvgbc1hks2svectd3q1r7nfnd0ssprvg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnqjQ1m-3DLkYvGqlxZ8yLls5SSKud0wc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "597260972865-jvgbc1hks2svectd3q1r7nfnd0ssprvg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "597260972865-ghdbrt9jpr9fk64a187e8uc3s1gpjd6h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.company.eventmobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

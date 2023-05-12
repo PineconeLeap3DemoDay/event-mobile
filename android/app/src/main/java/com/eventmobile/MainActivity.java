@@ -1,4 +1,4 @@
-package com.eventmobile;
+package com.company.eventmobile;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
