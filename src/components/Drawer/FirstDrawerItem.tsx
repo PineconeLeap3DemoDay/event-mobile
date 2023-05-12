@@ -1,16 +1,17 @@
 import { Switch } from "react-native";
+import { useStep } from ".";
+import { colors } from "../../../colors";
 import { useTheme } from "../../hooks";
+import Button from "../Button";
 import Heading from "../Heading";
+import { ArrowRight } from "../Icon/ArrowRight";
 import { Icon } from "../Icon/Icon";
 import DrawerItem from "./DrawerItem";
 import DrawerContainer from "./DrawerListContainer";
-import { colors } from "../../../colors";
-import Button from "../Button";
-import { ArrowRight } from "../Icon/ArrowRight";
-import { useStep } from ".";
 
 export default function FirstDrawer() {
     const {isDark, setTheme} = useTheme();
+    
     const {setStep, step} = useStep();
     function forwardStep() {
         if (step === 1) {
@@ -29,19 +30,19 @@ export default function FirstDrawer() {
                 <Heading color={isDark ? colors.silver : 'black'} title='DarkMode' />
                 <Switch
                     thumbColor={colors.silver}
-                    trackColor={{ false: 'red', true: colors.secondary }}
+                    // trackColor={{ false: 'red', true: colors.secondary }}
                     onChange={toggleTheme}
                     value={isDark} />
             </DrawerItem>
             <DrawerItem>
                 <Icon name='Ticket' fill='none' />
                 <Heading color={isDark ? colors.silver : 'black'} title='Миний тасалбар' />
-                <Button icon={ArrowRight} />
+                <Button style={{backgroundColor:'transparent'}} icon={ArrowRight} />
             </DrawerItem>
             <DrawerItem onPress={forwardStep}>
                 <Icon name='Settings' fill='none' />
                 <Heading color={isDark ? colors.silver : 'black'} title='Хувийн мэдээлэл' />
-                <Button icon={ArrowRight} />
+                <Button style={{backgroundColor:'transparent'}} icon={ArrowRight} />
             </DrawerItem>
         </DrawerContainer>
     )

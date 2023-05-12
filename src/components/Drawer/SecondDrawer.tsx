@@ -31,11 +31,11 @@ export default function SecondDrawer() {
     }
     return (
         <DrawerContainer>
-                <Button
+                {/* <Button
                     onPress={backwardStep}
                     style={{ width: 25, height: 25, backgroundColor: 'transparent' }}>
                     <Icon name='ArrowLeft' stroke="black" />
-                </Button>
+                </Button> */}
                 <DrawerItem>
                     <Icon name='Notification' fill='#686873' />
                     <Heading color={isDark ? colors.silver : 'black'} title='Мэдэгдэл' />
@@ -48,7 +48,12 @@ export default function SecondDrawer() {
                 <DrawerItem onPress={forwardStep}>
                     <Icon name='UserRounded' fill='none' />
                     <Heading color={isDark ? colors.silver : 'black'} title='Хувийн мэдээлэл' />
-                    <Button icon={ArrowRight} />
+                    <Button style={{backgroundColor:'transparent'}}  icon={ArrowRight} />
+                </DrawerItem>
+                <DrawerItem onPress={() => {setStep(4)}}>
+                    <Icon name='Key' stroke="#686873" fill='none' />
+                    <Heading color={isDark ? colors.silver : 'black'} title='Нууц үг солих' />
+                    <Button style={{backgroundColor:'transparent'}}  icon={ArrowRight} />
                 </DrawerItem>
             </DrawerContainer>
     )

@@ -1,4 +1,4 @@
-package com.eventmobile;
+package com.company.eventmobile;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
