@@ -7,7 +7,8 @@ export const colors = {
         primary: '#080618',
         secondary: '#12121F',
         "text-primary": "#686873",
-        "text-secondary": 'white'
+        "text-secondary": 'white',
+        'text-silver':'#686873'
     },
     light: {
         primary: '#0E1B21',

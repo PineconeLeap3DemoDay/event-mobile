@@ -6,26 +6,15 @@ import { FlatList } from 'react-native';
 import { Avatar } from './Avatar';
 import { responsiveHeight, responsiveWidth } from '../utils';
 import Heading from './Heading';
-import Button from './Button';
 import { useTheme } from '../hooks';
 import { colors } from '../../colors';
 import useFollow from '../hooks/useFollow';
+import FollowButton from './FollowButton';
 const GET_COMPANIES = gql`
     query Companies {
         companies {
             id
     }
-}
-`
-const GET_COMPANY = gql`
-query($companyId: ID!) {
-  company(id: $companyId) {
-    id
-    name
-    followers {
-      _id
-    }
-  }
 }
 `
 export default function CompanyList() {
@@ -77,11 +66,7 @@ function CompanyBox({ companyId }: { companyId: string }) {
             <Heading color={isDark ? 'white' : 'black'} h2 fontFamily='Inter-SemiBold' title={company.name} />
             <Heading h5 color='silver' fontFamily='Inter-Regular'
                 title={`${company?.followers?.length} дагагчтай`} />
-            <Button onPress={toggleFollow} style={{ backgroundColor: DoesUserFollowThisCompany ? "#FCEFF8" : "#D22366" }}>
-                <Heading p color={
-                    DoesUserFollowThisCompany ? "#D22366" : "white"
-                } title={DoesUserFollowThisCompany ? "Дагасан" : "Дагах"} />
-            </Button>
+                <FollowButton companyId={companyId}/>
         </View>
     )
 }

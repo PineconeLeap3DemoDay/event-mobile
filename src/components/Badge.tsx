@@ -24,9 +24,9 @@ export function Badge() {
       <View style={{marginLeft: 2,marginTop: 3}}>
         <Icon name='Notification' fill={isDark ? colors.dark['text-primary'] : 'black'}/>
       </View>
-      <View style={{position: 'absolute', top: -5, right: 0}}>
+      {/* <View style={{position: 'absolute', top: -5, right: 0}}>
         <Heading h4 fontFamily='Inter-SemiBold' title='0'/>
-      </View>
+      </View> */}
     </TouchableOpacity>
   )
 }

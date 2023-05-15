@@ -19,7 +19,7 @@ export default function CategoryBox({ style, label, selected, onPress }: Categor
             backgroundColor: selected ? colors.secondary : colors.silver,
             borderRadius: 8,
             flexDirection: 'row',
-            minWidth: responsiveWidth(60),
+            minWidth: responsiveWidth(86),
             paddingVertical: responsiveHeight(10),
             paddingHorizontal: responsiveHeight(10),
             height:responsiveHeight(32),
@@ -32,10 +32,10 @@ export default function CategoryBox({ style, label, selected, onPress }: Categor
             backgroundColor: selected ? colors.secondary : colors.dark.primary,
             borderRadius: 8,
             flexDirection: 'row',
-            minWidth: responsiveWidth(108),
+            minWidth: responsiveWidth(86),
             paddingVertical: responsiveHeight(10),
             paddingHorizontal: responsiveHeight(10),
-            minHeight:responsiveHeight(43),
+            height:responsiveHeight(36),
             gap: responsiveWidth(6),
             justifyContent: 'center',
             alignItems: 'center',
@@ -47,7 +47,7 @@ export default function CategoryBox({ style, label, selected, onPress }: Categor
             onPress={onPress}
             style={isDark ? styles.container_in_dark : styles.container_in_light}
             >
-            <Heading color={isDark ? (selected ? 'white' : '#686873') : (selected ? 'white' : '#C7C9CF')} p title={label}/>
+            <Heading color={isDark ? (selected ? 'white' : colors.dark['text-silver']) : (selected ? 'white' : '#C7C9CF')} p title={label}/>
         </TouchableOpacity>
     )
 }

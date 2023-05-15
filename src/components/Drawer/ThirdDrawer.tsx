@@ -13,6 +13,7 @@ import { Avatar } from "../Avatar";
 import Button from "../Button";
 import Heading from "../Heading";
 import { Message, User } from "../Icon";
+
 import { Icon } from "../Icon/Icon";
 import Input from "../Input";
 import DrawerContainer from "./DrawerListContainer";
@@ -30,7 +31,7 @@ mutation EditUser($user: editUserInput!) {
 export default function ThirdDrawer() {
     const [variant, setVariant] = useState<"Засах" | 'Батлах'>('Засах');
     const [editable, setEditable] = useState(true);
-    const {setStep, step} = useStep();
+    const { setStep, step } = useStep();
     const { token } = useAuth();
     const { currentUser, loading } = useCurrentUser();
     const [updateUser] = useMutation(UPDATE_USER_INFO, {
@@ -57,7 +58,8 @@ export default function ThirdDrawer() {
             updateUser({
                 variables: {
                     user: values
-                }
+                },
+                refetchQueries: [GET_USER]
             });
             setVariant('Засах');
         }
@@ -75,49 +77,52 @@ export default function ThirdDrawer() {
         email: Yup.string().email("Имайл буруу байна").required('Email Address is Required'),
     });
     return (
-        <DrawerContainer>
+        <View>
             <Button
                 onPress={backwardStep}
                 style={{ width: 25, height: 25, backgroundColor: 'transparent' }}>
                 <Icon name='ArrowLeft' stroke="black" />
             </Button>
-            <Avatar style={{ marginLeft: 'auto', marginRight: 'auto' }} />
-            <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={onSubmit}
-            >
-                {({ handleChange, handleSubmit, isValid }) => (
-                    <>
-                        <Input
-                            editable={editable}
-                            onChangeText={handleChange('firstName')}
-                            icon={User}
-                            placeholder={`${currentUser?.firstName}`}
-                        />
-                        <Input
-                            editable={editable}
-                            icon={User}
-                            onChangeText={handleChange('lastName')}
-                            placeholder={`${currentUser?.lastName}`}
-                        />
-                        <Input
-                            editable={editable}
-                            icon={Message}
-                            onChangeText={handleChange('email')}
-                            placeholder={`${currentUser.email}`}
-                        />
-                        <Button
-                            onPress={handleSubmit}
-                            style={{ ...padding(0, 15, 0, 15), marginTop: 15, backgroundColor: colors.primary }}
-                            disabled={!isValid}
-                        >
-                            <Heading h4 color='white' title={variant} />
-                        </Button>
-                    </>
-                )}
-            </Formik>
+            <DrawerContainer>
 
-        </DrawerContainer>
+                <Avatar style={{ marginLeft: 'auto', marginRight: 'auto' }} />
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={onSubmit}
+                >
+                    {({ handleChange, handleSubmit, isValid }) => (
+                        <>
+                            <Input
+                                editable={editable}
+                                onChangeText={handleChange('firstName')}
+                                icon={User}
+                                placeholder={`${currentUser?.firstName}`}
+                            />
+                            <Input
+                                editable={editable}
+                                icon={User}
+                                onChangeText={handleChange('lastName')}
+                                placeholder={`${currentUser?.lastName}`}
+                            />
+                            <Input
+                                editable={editable}
+                                icon={Message}
+                                onChangeText={handleChange('email')}
+                                placeholder={`${currentUser.email}`}
+                            />
+                            <Button
+                                onPress={handleSubmit}
+                                style={{ ...padding(0, 15, 0, 15), marginTop: 15, backgroundColor: colors.primary }}
+                                disabled={!isValid}
+                            >
+                                <Heading h4 color='white' title={variant} />
+                            </Button>
+                        </>
+                    )}
+                </Formik>
+
+            </DrawerContainer>
+        </View>
     )
 }

@@ -5,6 +5,6 @@ interface IUseTheme {
 }
 
 export const useTheme = create<IUseTheme>((set) => ({
-    isDark: false,
+    isDark: true,
     setTheme: (theme:boolean) => set({isDark: theme})
 }));

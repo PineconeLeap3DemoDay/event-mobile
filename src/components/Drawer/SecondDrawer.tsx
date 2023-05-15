@@ -1,4 +1,4 @@
-import { Switch } from "react-native";
+import { Switch, View } from "react-native";
 import { useTheme } from "../../hooks";
 import Heading from "../Heading";
 import { Icon } from "../Icon/Icon";
@@ -10,8 +10,8 @@ import { ArrowRight } from "../Icon/ArrowRight";
 import { useStep } from ".";
 
 export default function SecondDrawer() {
-    const {isDark, setTheme} = useTheme();
-    const {setStep,step} = useStep();
+    const { isDark, setTheme } = useTheme();
+    const { setStep, step } = useStep();
     function toggleTheme() {
         setTheme(!isDark)
     }
@@ -30,12 +30,13 @@ export default function SecondDrawer() {
         }
     }
     return (
-        <DrawerContainer>
-                {/* <Button
-                    onPress={backwardStep}
-                    style={{ width: 25, height: 25, backgroundColor: 'transparent' }}>
-                    <Icon name='ArrowLeft' stroke="black" />
-                </Button> */}
+        <View>
+            <Button
+                onPress={backwardStep}
+                style={{ width: 25, height: 25, backgroundColor: 'transparent' }}>
+                <Icon name='ArrowLeft' stroke="black" />
+            </Button>
+            <DrawerContainer>
                 <DrawerItem>
                     <Icon name='Notification' fill='#686873' />
                     <Heading color={isDark ? colors.silver : 'black'} title='Мэдэгдэл' />
@@ -48,13 +49,14 @@ export default function SecondDrawer() {
                 <DrawerItem onPress={forwardStep}>
                     <Icon name='UserRounded' fill='none' />
                     <Heading color={isDark ? colors.silver : 'black'} title='Хувийн мэдээлэл' />
-                    <Button style={{backgroundColor:'transparent'}}  icon={ArrowRight} />
+                    <Button style={{ backgroundColor: 'transparent' }} icon={ArrowRight} />
                 </DrawerItem>
-                <DrawerItem onPress={() => {setStep(4)}}>
+                <DrawerItem onPress={() => { setStep(4) }}>
                     <Icon name='Key' stroke="#686873" fill='none' />
                     <Heading color={isDark ? colors.silver : 'black'} title='Нууц үг солих' />
-                    <Button style={{backgroundColor:'transparent'}}  icon={ArrowRight} />
+                    <Button style={{ backgroundColor: 'transparent' }} icon={ArrowRight} />
                 </DrawerItem>
             </DrawerContainer>
+        </View>
     )
 }

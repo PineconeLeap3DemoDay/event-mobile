@@ -1,16 +1,14 @@
-import React, { useState } from 'react'
-import { View, Image, Platform, TouchableOpacity, StyleSheet } from 'react-native'
-import { colors } from '../../../colors';
-import { Favorite } from '../Icon';
-import { responsiveHeight, responsiveWidth } from '../../utils/width';
-import { formatEventDate } from '../../utils';
-import { Event as Eventype } from '../../../typing';
-import Heading from '../Heading';
-import { useTheme } from '../../hooks';
 import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { Image, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { colors } from '../../../colors';
+import { Event as Eventype } from '../../../typing';
+import { useTheme } from '../../hooks';
 import useFavorite from '../../hooks/useFavorite';
-import Button from '../Button';
-import Save from '../Icon/save';
+import { formatEventDate } from '../../utils';
+import { responsiveHeight, responsiveWidth } from '../../utils/width';
+import Heading from '../Heading';
+import SaveButton from '../SaveButton';
 
 interface IEventProps {
     event: Eventype
@@ -36,7 +34,7 @@ function EventRow({ event }: IEventProps) {
             position: 'relative'
         },
         thumbnail: {
-            height: Platform.OS === 'ios' ? responsiveHeight(100) : responsiveHeight(120),
+            height: Platform.OS === 'ios' ? responsiveHeight(100) : responsiveHeight(100),
             width: responsiveWidth(120),
             borderRadius: 8
         },
@@ -44,11 +42,6 @@ function EventRow({ event }: IEventProps) {
             width: responsiveWidth(180),
             gap: responsiveWidth(4)
         },
-        favBtn: {
-            position: 'absolute',
-            bottom: 20,
-            right: 20
-        }
     })
     function navigateToDetail() {
         navigation.navigate('EventDetail' as never, { eventid: event.id } as never)
@@ -63,20 +56,11 @@ function EventRow({ event }: IEventProps) {
             <View style={styles.descripContainer}>
                 <Heading color='#F54768' p title={startDate} />
                 <Heading color={isDark ? colors.dark['text-secondary'] : colors.light['text-primary']} numberOfLines={2} title='FoodieLand Night Market - San Mateo | May 26-28,2023' />
-                <Heading color={isDark ? colors.dark['text-primary'] : colors.light['text-secondary']} numberOfLines={2} h5 title="Ulaanbaatar, Mongolia Mongol shiltgeen" />
+                <Heading fontWeight='600' color={isDark ? colors.dark['text-primary'] : colors.light['text-secondary']} numberOfLines={2} p title="Ulaanbaatar, Mongolia Mongol shiltgeen" />
             </View>
             {/* love icon */}
-            <Button onPress={toggleFavorite} style={{ 
-                backgroundColor: 'transparent',
-                bottom: -60,
-                left: -20
-                }}>
-                {!isThisUserFavoriteEvent ?
-                    <Save fill={colors.primary} />
-                    :
-                    <Save fill={colors.secondary} />
-                }
-            </Button>
+           <SaveButton style={{position:'absolute', bottom: 20,
+            right: 20}} eventid={event?.id}/>
         </View>
     )
 }

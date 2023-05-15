@@ -24,5 +24,7 @@ export * from './ticket';
 export * from './UserRounded'
 export * from './Message'
 export * from './key'
+export * from './Exit'
+
 
 

@@ -42,6 +42,8 @@ export function Profile() {
   const { isDark } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const { currentUser, loading } = useCurrentUser();
+  const {setIsUser} = useAuth();
+  
   function openHashTags() {
     setIsOpen(true)
   }
