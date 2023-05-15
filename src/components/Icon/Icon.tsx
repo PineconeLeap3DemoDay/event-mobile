@@ -19,7 +19,8 @@ import { CalendarSm,
     Settings,
     UserRounded,
     Message,
-    Key
+    Key,
+    Exit
 } from './index';
 type IconNames = {
     CalendarBg: any;
@@ -42,7 +43,8 @@ type IconNames = {
     Settings: any,
     UserRounded: any,
     Message: any,
-    Key: any
+    Key: any,
+    Exit: any
 }
 
 const Icons = {
@@ -66,7 +68,8 @@ const Icons = {
     Settings,
     UserRounded,
     Message,
-    Key
+    Key,
+    Exit
 }
 interface IconProps {
     name: keyof IconNames,

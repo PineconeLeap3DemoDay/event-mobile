@@ -1,17 +1,17 @@
-import { View, StyleSheet, SafeAreaView, Dimensions } from 'react-native'
-import React, { useRef, useState } from 'react'
-import { useTheme } from '../hooks';
-import { colors } from '../../colors';
-import { padding, responsiveHeight, responsiveWidth } from '../utils';
-import HeaderWithBackArrow from '../components/Header/HeaderWithBackArrow';
-import Input from '../components/Input';
-import { Search } from '../components/Icon';
 import { gql, useQuery } from '@apollo/client';
-import EventList from '../components/EventList';
+import React, { useRef, useState } from 'react';
+import { Dimensions, SafeAreaView, StyleSheet, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import useDay, { getnextday } from '../hooks/useDay';
+import { colors } from '../../colors';
 import Categories from '../components/Categories';
+import EventList from '../components/EventList';
+import HeaderWithBackArrow from '../components/Header/HeaderWithBackArrow';
+import { Search } from '../components/Icon';
+import Input from '../components/Input';
+import { useTheme } from '../hooks';
 import useSelectedCategory from '../hooks/useCategory';
+import useDay, { getnextday } from '../hooks/useDay';
+import { padding, responsiveHeight, responsiveWidth } from '../utils';
 
 const GET_EVENT = gql`
 query Events($arg:eventsQueryInput) {
@@ -106,18 +106,23 @@ export function SearchScreen() {
                             backgroundColor: colors.secondary,
                             width: 150,
                             borderColor: 'transparent',
-                            height: 20
-                        }}
-                        labelStyle={{
-                            color:'white',
-                            fontSize: 12,
+                            height: 20,
                         }}
                         dropDownContainerStyle={{
                             borderColor: 'transparent',
                         }}
+                        textStyle={{
+                            color:'white',
+                            fontSize:12
+                        }}
+                        listItemLabelStyle={{
+                            color:'black'
+                        }}
+                        ArrowDownIconComponent={() => <View></View>}
+                        ArrowUpIconComponent={() => <View></View>}
                         containerStyle={{
                             width: 150,
-                            height: open ? 200 : 'auto'
+                            height: open ? 200 : 'auto',
                         }}
                         open={open}
                         value={value}

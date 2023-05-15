@@ -12,7 +12,8 @@ export default function DrawerContainer({ children, style }: { children: React.R
             borderRadius: 8,
             width: responsiveWidth(342),
             minHeight: 'auto',
-            gap: responsiveHeight(5)
+            gap: responsiveHeight(5),
+            marginTop: responsiveHeight(60)
         }
     });
     return (

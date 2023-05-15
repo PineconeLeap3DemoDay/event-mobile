@@ -1,7 +1,9 @@
 import * as React from "react"
 import Svg, { Path } from "react-native-svg"
 export const Exit = (props) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" fill="none" {...props}>
+  <Svg xmlns="http://www.w3.org/2000/svg"
+  width={40} height={30}
+  fill="none" {...props}>
     <Path
       stroke="#686873"
       strokeLinecap="round"

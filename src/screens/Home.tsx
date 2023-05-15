@@ -32,7 +32,8 @@ const GET_CATEGORY_EVENTS = gql`
 `
 const styles = StyleSheet.create({
   container: {
-    ...padding(0,27,0,0)
+    ...padding(0,27,0,0),
+    flex: 1,
   },
   upComingTitleContainer: {
     flexDirection: 'row', 

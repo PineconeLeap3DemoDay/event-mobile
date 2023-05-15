@@ -18,14 +18,14 @@ interface EventListProps {
 }
 
 export default function EventList(
-    { 
-        events, 
-        cartDirection, 
-        notFoundTitle, 
-        showCompanyList = false 
+    {
+        events,
+        cartDirection,
+        notFoundTitle,
+        showCompanyList = false
     }: EventListProps) {
-    const {isDark} = useTheme()
-    function renderItem({ item }: {item:EventType}) {
+    const { isDark } = useTheme()
+    function renderItem({ item }: { item: EventType }) {
         return (
             <>
                 {cartDirection === 'column' ? <EventCol event={item} /> : <EventRow event={item} />}
@@ -34,23 +34,29 @@ export default function EventList(
     }
     function ListEmptyComponent() {
         return (
-            <View style={{marginTop: responsiveHeight(40), flexDirection:'column', gap:2,justifyContent:'center',alignItems:'center'}}>
-                <Heading color={isDark ? colors.dark['text-primary'] : 'black'} numberOfLines={2} h4 title={notFoundTitle}/>
+            <View style={{
+                marginTop: responsiveHeight(40),
+                flexDirection: 'column',
+                gap: 2,
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+                <Heading color={isDark ? colors.dark['text-primary'] : 'black'} numberOfLines={2} h4 title={notFoundTitle} />
             </View>
         )
     }
-    
+
     return (
-            <FlatList
+        <FlatList
             contentContainerStyle={{
                 marginTop: responsiveHeight(24),
                 gap: responsiveHeight(24),
                 justifyContent: 'flex-start',
-                flexGrow: 1,
             }}
+            style={{ flexGrow: 0.8 }}
             ListFooterComponent={() => {
-                return(
-                    <View style={{height: 'auto', minHeight: responsiveHeight(100)}}>
+                return (
+                    <View style={{ height: responsiveHeight(250) }}>
                         {showCompanyList && <CompanyList />}
                     </View>
                 )
@@ -59,6 +65,6 @@ export default function EventList(
             data={events}
             renderItem={renderItem}
         />
-        
+
     )
 }

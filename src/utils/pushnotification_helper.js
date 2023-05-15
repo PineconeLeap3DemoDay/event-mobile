@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
-
+import notifee from '@notifee/react-native';
 export async function requestUserPermission() {
   const authStatus = await messaging().requestPermission();
   const enabled =
@@ -11,7 +11,26 @@ export async function requestUserPermission() {
     console.log('Authorization status:', authStatus);
   }
 }
+async function onDisplayNotification(message) {
+  console.log(message)
+  // Request permissions (required for iOS)
+  await notifee.requestPermission()
 
+  // Create a channel (required for Android)
+  const channelId = await notifee.createChannel({
+    id: 'default',
+    name: 'Default Channel',
+  });
+
+  // Display a notification
+  await notifee.displayNotification({
+    title: message.data.title,
+    body: message.data.title.body,
+    android: {
+      channelId,
+    },
+  });
+}
 export async function GetFCMToken() {
     let fcmtoken = await AsyncStorage.getItem('fcmtoken');
     if(!fcmtoken) {
@@ -34,11 +53,9 @@ export const NotificationListener = () => {
      .getInitialNotification()
      .then(message => {
         if(message) {
-            console.log(message,'message coming')
         }
      });
      messaging().onMessage(async message => {
-        console.log(message, 'shine message have come')
-     })
-    //  messaging().setBackgroundMessageHandler(onMessageReceived);
+     });
+     messaging().setBackgroundMessageHandler(onDisplayNotification);
 }

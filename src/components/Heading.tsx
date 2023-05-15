@@ -30,10 +30,10 @@ export default function Heading({
         style={[
           { color: color ? color : 'black' },
           h1 && { fontSize: 24, color: isDark ? 'white' : color ,fontFamily:'Poppins-SemiBold' },
-          h2 && { fontSize: 18,fontFamily: 'Inter-Regular'  },
-          h3 && { fontSize: 16 ,color: isDark ? 'white': 'black',fontFamily:'Poppins-SemiBold'},
+          h2 && { fontSize: 18,color: isDark ? 'white' : color ,fontFamily: 'Inter-Regular'  },
+          h3 && { fontSize: 16 ,fontWeight:600,color: isDark ? 'white': 'black',fontFamily:'Poppins-SemiBold'},
           h4 && { fontSize: 14 ,fontFamily:"Inter-Regular"},
-          h5 && { fontSize: 12 ,fontFamily:'Poppins-SemiBold'},
+          h5 && { fontSize: 12 ,fontWeight:400,fontFamily:'Poppins-SemiBold'},
           p && { fontSize: 10 ,fontFamily:"Inter-Regular"},
           fontFamily && { fontFamily: fontFamily },
           fontWeight && { fontWeight },
