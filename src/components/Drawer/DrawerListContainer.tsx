@@ -11,7 +11,6 @@ export default function DrawerContainer({ children, style }: { children: React.R
             backgroundColor: isDark ? colors.dark.secondary : 'white',
             borderRadius: 8,
             width: responsiveWidth(342),
-            minHeight: 'auto',
             gap: responsiveHeight(5),
             marginTop: responsiveHeight(60)
         }

@@ -8,7 +8,7 @@ import { colors } from "../../../colors";
 import { useAuth } from "../../context/AuthProvider";
 import { GET_USER } from "../../graphql";
 import useCurrentUser from "../../hooks/useCurrentUser";
-import { padding } from "../../utils";
+import { padding, responsiveWidth } from "../../utils";
 import { Avatar } from "../Avatar";
 import Button from "../Button";
 import Heading from "../Heading";
@@ -83,16 +83,16 @@ export default function ThirdDrawer() {
                 style={{ width: 25, height: 25, backgroundColor: 'transparent' }}>
                 <Icon name='ArrowLeft' stroke="black" />
             </Button>
-            <DrawerContainer>
 
-                <Avatar style={{ marginLeft: 'auto', marginRight: 'auto' }} />
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
-                    onSubmit={onSubmit}
-                >
-                    {({ handleChange, handleSubmit, isValid }) => (
-                        <>
+            <Avatar style={{ marginLeft: 'auto', marginRight: 'auto' }} />
+            <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={onSubmit}
+            >
+                {({ handleChange, handleSubmit, isValid }) => (
+                    <>
+                        <DrawerContainer>
                             <Input
                                 editable={editable}
                                 onChangeText={handleChange('firstName')}
@@ -111,18 +111,17 @@ export default function ThirdDrawer() {
                                 onChangeText={handleChange('email')}
                                 placeholder={`${currentUser.email}`}
                             />
-                            <Button
-                                onPress={handleSubmit}
-                                style={{ ...padding(0, 15, 0, 15), marginTop: 15, backgroundColor: colors.primary }}
-                                disabled={!isValid}
-                            >
-                                <Heading h4 color='white' title={variant} />
-                            </Button>
-                        </>
-                    )}
-                </Formik>
-
-            </DrawerContainer>
+                        </DrawerContainer>
+                        <Button
+                            onPress={handleSubmit}
+                            style={{ ...padding(0, 15, 0, 15),width:responsiveWidth(342), marginTop: 15, backgroundColor: colors.primary }}
+                            disabled={!isValid}
+                        >
+                            <Heading h4 color='white' title={variant} />
+                        </Button>
+                    </>
+                )}
+            </Formik>
         </View>
     )
 }

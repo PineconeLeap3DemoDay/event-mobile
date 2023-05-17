@@ -1,5 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Home, Calendar, Profile, Favorite, Auth } from "../screens";
+import { Home } from "../screens/Home";
+import { Favorite } from "../screens/Favorite";
+import {Auth} from '../screens/Auth';
+import { Calendar } from "../screens/Calendar";
+import { Profile } from "../screens/Profile";
 import { responsiveWidth } from "../utils/width";
 import { StyleSheet, useWindowDimensions } from "react-native";
 import { Home as SvgHome, Favorite as SvgFavorite, User as SvgUser, CalendarBg } from "../components/Icon";

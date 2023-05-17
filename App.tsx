@@ -47,6 +47,7 @@ export default function App() {
     <ApolloProvider client={client}>
       <AuthContextProvider>
         <NavigationContainer>
+        {/* <AuthStack /> */}
           {loading ? <Splash setLoading={setLoading} /> : <AuthStack />}
         </NavigationContainer>
       </AuthContextProvider>

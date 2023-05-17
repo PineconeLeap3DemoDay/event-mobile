@@ -24,7 +24,7 @@ export default function EventList(
         notFoundTitle,
         showCompanyList = false
     }: EventListProps) {
-    const { isDark } = useTheme()
+     const { isDark } = useTheme()
     function renderItem({ item }: { item: EventType }) {
         return (
             <>
