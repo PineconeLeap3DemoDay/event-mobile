@@ -34,9 +34,8 @@ export const AuthContextProvider = ({ children }: Props) => {
     async function checkAuth() {
         const token = await AsyncStorage.getItem('usertoken');
         const id = await AsyncStorage.getItem('userid');
-        setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2YXJpYW50IjoidXNlciIsImlkIjoiNjQ1MzVhMzNiNjYwMzAzZDE3NDc4YzhmIiwiaWF0IjoxNjg0MTE5MDgxLCJleHAiOjE2ODQyMDU0ODF9.P0JFtrYSAUcYr9aGDojuKtQaNSKgONoBx5OkIAsY2dU');
+        setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2YXJpYW50IjoidXNlciIsImlkIjoiNjQ1MzVhMzNiNjYwMzAzZDE3NDc4YzhmIiwiaWF0IjoxNjg0Mjk0NDM2LCJleHAiOjE2ODQzODA4MzZ9.O7d0t0oPxitecfJvprwK8Te0tMFByq1JJJbE-m6Ao7E');
         setUserid('64535a33b660303d17478c8f')
-        
         setIsUser(true)
     };
     useEffect(() => {

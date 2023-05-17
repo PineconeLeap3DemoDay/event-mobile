@@ -22,6 +22,9 @@ mutation Signin($email: String!, $password: String!) {
     token
     user {
       _id
+      firstName
+      lastName
+      email
     }
   }
 }
@@ -54,9 +57,11 @@ export function Signin() {
         const userid = data?.signin.user?._id;
         await AsyncStorage.setItem('usertoken',token);
         await AsyncStorage.setItem('userid',userid);
-        setToken(token);
-        setUserid(userid);
-        setIsUser(true);
+        const {firstName, lastName, email} = data?.signin?.user
+        
+        // setToken(token);
+        // setUserid(userid)
+        // setIsUser(true);
         navigation.navigate('Profile' as never)
       }
     }catch(error: any){

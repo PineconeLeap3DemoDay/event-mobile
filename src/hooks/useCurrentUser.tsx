@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/client";
 import { useAuth } from "../context/AuthProvider";
 import { GET_USER } from "../graphql";
+import { useRef } from "react";
 
 export default function useCurrentUser() {
   const { token } = useAuth();
-  console.log(token,'tojen')
   const {data, loading} = useQuery(GET_USER, {
     fetchPolicy: 'no-cache',
     context: {
@@ -13,7 +13,6 @@ export default function useCurrentUser() {
       }
     }
   })
-  console.log(data,'asgfhdfgb ')
 const res = data?.getUser;
 return {currentUser:res, loading}
 }

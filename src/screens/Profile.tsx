@@ -42,8 +42,7 @@ export function Profile() {
   const { isDark } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const { currentUser, loading } = useCurrentUser();
-  const {setIsUser} = useAuth();
-  
+  const {setIsUser, token} = useAuth();
   function openHashTags() {
     setIsOpen(true)
   }
@@ -54,41 +53,41 @@ export function Profile() {
   const { firstName, lastName, email } = currentUser;
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Header />
-      <View>
-        <View style={styles.avatar}>
-          <Avatar />
-        </View>
-        <View style={styles.heading}>
-          <Heading 
-            h1 
-            title={`${lastName} ${firstName}`}
-          />
-          <Heading fontFamily='Inter-ExtraLight' h3 title={email}  />
-        </View>
-        <View style={styles.likes_and_tickets_container}>
-          <View style={styles.like_and_ticket_container}>
-            <Text style={{ color: isDark ? 'white' : 'black' }}>0</Text>
-            <Heading color='#545353' h4 title='likes' />
-          </View>
-          <View style={styles.like_and_ticket_container}>
-            <Text style={{ color: isDark ? 'white' : 'black' }}>0</Text>
-            <Heading color='#545353' h4 title='tickets' />
-          </View>
-        </View>
-        <Button onPress={openHashTags} style={styles.btn}>
-          <Plus width={22}
-            height={22}
-            stroke={colors.silver}
-            fill={colors.silver}
-            strokeWidth={0.01} />
-          <Heading h4 color='#545353' title='Add HashTag' />
-        </Button>
-        {isOpen &&
-          <Shadow>
-            <HashTagsBottomTab setIsOpen={closeHashTags} />
-          </Shadow>}
-      </View>
+       <Header />
+       <View>
+         <View style={styles.avatar}>
+           <Avatar />
+         </View>
+         <View style={styles.heading}>
+           <Heading 
+             h1 
+             title={`${lastName} ${firstName}`}
+           />
+           <Heading fontFamily='Inter-ExtraLight' h3 title={email}  />
+         </View>
+         <View style={styles.likes_and_tickets_container}>
+           <View style={styles.like_and_ticket_container}>
+             <Text style={{ color: isDark ? 'white' : 'black' }}>0</Text>
+             <Heading color='#545353' h4 title='likes' />
+           </View>
+           <View style={styles.like_and_ticket_container}>
+             <Text style={{ color: isDark ? 'white' : 'black' }}>0</Text>
+             <Heading color='#545353' h4 title='tickets' />
+           </View>
+         </View>
+         <Button onPress={openHashTags} style={styles.btn}>
+           <Plus width={22}
+             height={22}
+             stroke={colors.silver}
+             fill={colors.silver}
+             strokeWidth={0.01} />
+           <Heading h4 color='#545353' title='Add HashTag' />
+         </Button>
+         {isOpen &&
+           <Shadow>
+             <HashTagsBottomTab setIsOpen={closeHashTags} />
+           </Shadow>}
+       </View>
     </SafeAreaView>
   )
 }

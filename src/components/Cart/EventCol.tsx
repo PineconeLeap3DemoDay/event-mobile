@@ -1,14 +1,13 @@
-import { View, Platform, Image } from 'react-native'
-import React from 'react'
-import { colors } from '../../../colors'
-import { responsiveHeight, responsiveWidth } from '../../utils/width'
-import { Event as EventType } from '../../../typing'
-import Heading from '../Heading'
 import { useNavigation } from '@react-navigation/native'
+import React from 'react'
+import { Image, Platform, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import useFavorite from '../../hooks/useFavorite'
-import FavoriteButton from '../FavoriteButton'
+import { colors } from '../../../colors'
+import { Event as EventType } from '../../../typing'
 import { padding } from '../../utils'
+import { responsiveHeight, responsiveWidth } from '../../utils/width'
+import FavoriteButton from '../FavoriteButton'
+import Heading from '../Heading'
 import SaveButton from '../SaveButton'
 interface EventProps {
     event: EventType
@@ -22,7 +21,8 @@ interface EventProps {
  function EventCol({ event }: EventProps) {
     const navigation = useNavigation();
     function onEventPress() {
-        navigation.navigate("EventDetail" as never, { eventid: event.id } as never)
+        //@ts-ignore
+        navigation.navigate("EventDetail" as never, { eventid: event._id } as never)
     }
     return (
         <View
@@ -45,7 +45,8 @@ interface EventProps {
                 <Heading h5 style={{...padding(0,6,0,0)}}  color={colors.secondary} fontFamily='Inter-Regular' title={'May 25, 2023 at 10:30PM'} />
                 <View style={{flexDirection:'row',gap: responsiveWidth(2),...padding(0,6,0,0)}}>
                     <SaveButton eventid={event.id}/>
-                    <FavoriteButton size='small' eventid={event.id}/>
+                    {/* @ts-ignore */}
+                    <FavoriteButton size='small' eventid={event._id}/>
                 </View>
             </View>
         </View>

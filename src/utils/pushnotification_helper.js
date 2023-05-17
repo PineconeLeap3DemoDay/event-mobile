@@ -12,7 +12,6 @@ export async function requestUserPermission() {
   }
 }
 async function onDisplayNotification(message) {
-  console.log(message)
   // Request permissions (required for iOS)
   await notifee.requestPermission()
 
@@ -36,7 +35,6 @@ export async function GetFCMToken() {
     if(!fcmtoken) {
         try {
             const fcmtoken = await messaging().getToken();
-            console.log(fcmtoken);
             await AsyncStorage.setItem('fcmtoken', fcmtoken)
         } catch (error) {
             
@@ -46,7 +44,6 @@ export async function GetFCMToken() {
 
 export const NotificationListener = () => {
     messaging().onNotificationOpenedApp(remoteMessage => {
-        console.log(remoteMessage.notification, 'something coming')
     });
 
     messaging()
