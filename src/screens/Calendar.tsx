@@ -12,8 +12,9 @@ const GET_EVENTS = gql`
   query Events($arg:eventsQueryInput) {
     events(arg: $arg) {
       title
-      id
-     startDate
+      _id
+      thumbnail
+      startDate
     }
  }
 `
@@ -21,7 +22,7 @@ const GET_EVENT = gql`
   query Events($arg:eventsQueryInput) {
     events(arg: $arg) {
       title
-      id
+      _id
       startDate
       about
       location
@@ -35,12 +36,10 @@ export function Calendar() {
   let thisYear = d.getFullYear();
   const [selectedMonth, setSelectedMonth] = useState(d.getMonth() + 1);
   const [selectedDay, setSelectedDay] = useState(d.getDate());
-  const [selectedDayDateString, setSelectedDayDateString] = useState(`2023-04-01`);
+  const [selectedDayDateString, setSelectedDayDateString] = useState(`2023-05-01`);
   const {isDark} = useTheme()
-
   let selectedMonthFirstDay = getFirstDayOfMonth(thisYear, selectedMonth);
   let selectedMonthLastDay = getLastDayOfMonth(thisYear, selectedMonth);
-
   //this will get this month all events
   const { data: allEvents } = useQuery(GET_EVENTS, {
     variables: { arg: { from: selectedMonthFirstDay, to: selectedMonthLastDay } },
@@ -52,7 +51,7 @@ export function Calendar() {
     variables: { arg: { from: selectedDayDateString, to: nextdayofselectedDay } },
     refetchWritePolicy: 'merge',
   });
-
+  console.log({ from: selectedDayDateString, to: nextdayofselectedDay })
   const markedDates = {
     ...daysWithEvents,
     [selectedDayDateString]:

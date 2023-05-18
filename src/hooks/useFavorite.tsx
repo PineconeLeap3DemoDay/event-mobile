@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthProvider";
 import { ADD_FAVORITE, DELETE_FAVORITE, GET_FAVORITES } from "../graphql";
 
 export default function useFavorite(eventid: string) {
-    const { token } = useAuth();
+    const { token, isUser } = useAuth();
     const { data: favorites } = useQuery(GET_FAVORITES, {
         context: {
             headers: { Authorization: token }
@@ -24,10 +24,13 @@ export default function useFavorite(eventid: string) {
             headers: { Authorization: token }
         }
     })
-    const isThisUserFavoriteEvent = favorites?.getUser?.favorites?.
-        findIndex((favorite: any) => favorite?.id === eventid) !== -1;
-
+    const isThisUserFavoriteEvent = isUser ? favorites?.getUser?.favorites?.
+        findIndex((favorite: any) => favorite?._id === eventid) !== -1
+    : false;
     const toggleFavorite = useCallback(() => {
+        if(!isUser) {
+            return;
+        }
         if (isThisUserFavoriteEvent) {
             deleteEventAsFavorite()
         } else {

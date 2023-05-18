@@ -8,10 +8,10 @@ import Header from '../components/Header';
 import Heading from '../components/Heading';
 import { Plus } from '../components/Icon/Plus';
 import { Shadow } from '../components/Shadow';
-import { useTheme } from '../hooks';
-import useCurrentUser from '../hooks/useCurrentUser';
-import { padding, responsiveHeight, responsiveWidth } from '../utils';
 import { useAuth } from '../context/AuthProvider';
+import { useTheme } from '../hooks';
+import { padding, responsiveHeight, responsiveWidth } from '../utils';
+import useCurrentUser from '../hooks/useCurrentUser';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -41,18 +41,21 @@ const styles = StyleSheet.create({
 export function Profile() {
   const { isDark } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
-  const { currentUser, loading } = useCurrentUser();
-  const {setIsUser, token} = useAuth();
+  const {logout} = useAuth();
+  const {currentUser, loading} = useCurrentUser();
   function openHashTags() {
     setIsOpen(true)
   }
   function closeHashTags() {
     setIsOpen(false)
   }
-  if (loading) return <View></View>
+  if(loading) {
+    return <View></View>
+  }
   const { firstName, lastName, email } = currentUser;
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      {/* <Button label='garah' onPress={logout}/> */}
        <Header />
        <View>
          <View style={styles.avatar}>

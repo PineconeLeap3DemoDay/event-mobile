@@ -44,7 +44,7 @@ interface EventProps {
                 <Heading h5 style={{...padding(0,4,0,0)}} color="#C7C9CF" fontFamily='Inter-Medium' title={'Ulaanbaatar, Mongolia'} />
                 <Heading h5 style={{...padding(0,6,0,0)}}  color={colors.secondary} fontFamily='Inter-Regular' title={'May 25, 2023 at 10:30PM'} />
                 <View style={{flexDirection:'row',gap: responsiveWidth(2),...padding(0,6,0,0)}}>
-                    <SaveButton eventid={event.id}/>
+                    <SaveButton eventid={event._id}/>
                     {/* @ts-ignore */}
                     <FavoriteButton size='small' eventid={event._id}/>
                 </View>

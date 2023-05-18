@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useAuth } from "../context/AuthProvider";
 import { GET_USER } from "../graphql";
-import { useRef } from "react";
 
 export default function useCurrentUser() {
   const { token } = useAuth();

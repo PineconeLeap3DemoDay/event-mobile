@@ -43,11 +43,13 @@ query GetUser {
 }
 `
 export const SIGN_IN = gql`
-mutation Signin($email: String!, $password: String!) {
+mutation Mutation($email: String!, $password: String!) {
   signin(email: $email, password: $password) {
     token
     user {
       _id
+      firstName
+      lastName
     }
   }
 }
@@ -57,7 +59,7 @@ query GetUser {
   getUser{
     _id
     favorites {
-      id
+      _id
       thumbnail
       title
       location
@@ -147,5 +149,10 @@ mutation FollowCompany($companyid: ID!) {
 export const UNFOLLOW_COMPANY = gql`
 mutation UnfollowCompany($companyid: ID!) {
   unfollowCompany(companyid: $companyid)
+}
+`
+export const BUY_TICKET = gql`
+mutation Mutation($eventid: String) {
+  buyTicket(eventid: $eventid)
 }
 `

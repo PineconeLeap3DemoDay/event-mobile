@@ -21,8 +21,8 @@ const GET_CATEGORY_EVENTS = gql`
   category(categoryid: $categoryid) {
     name
     events {
+      _id
       title
-      id
       startDate
       thumbnail
       location
@@ -50,7 +50,7 @@ export function Home() {
   const {data: categoryEvents} = useQuery(GET_CATEGORY_EVENTS,{
     skip: category.name === 'Миний дуртай',
     variables: {categoryid: category.id},
-    refetchWritePolicy: 'merge',
+    fetchPolicy: 'network-only'
   });
 
   const {data} = useQuery(GET_USER_HASHTAG_EVENTS, {
@@ -60,7 +60,6 @@ export function Home() {
   });
   const navigation = useNavigation();
   const isUserSelectedMyFeed = category.name === 'Миний дуртай';
-  
   return (
     <SafeAreaView style={{flex:1}}>
       <View style={styles.container}>

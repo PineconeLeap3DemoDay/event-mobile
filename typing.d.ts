@@ -7,7 +7,7 @@ export interface User {
 }
 export interface Event {
   title: string
-  id: string
+  _id: string
   about: string
   location: string
   thumbnail: string,

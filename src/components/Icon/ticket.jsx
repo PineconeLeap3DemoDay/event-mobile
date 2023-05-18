@@ -1,9 +1,7 @@
 import * as React from "react"
 import Svg, { Path } from "react-native-svg"
-import { colors } from "../../../colors"
 import { Platform } from "react-native"
 export const Ticket = (props) => {
-  console.log(props);
   return(
     <Svg 
     xmlns="http://www.w3.org/2000/svg" 

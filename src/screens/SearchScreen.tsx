@@ -3,9 +3,9 @@ import React, { createContext, useRef } from 'react';
 import { Dimensions, SafeAreaView, StyleSheet, View } from 'react-native';
 import { colors } from '../../colors';
 import Categories from '../components/Categories';
-import AnotherTestDropDown from '../components/Dropdown/AnotherTestDropDown';
-import Dropdown from '../components/Dropdown/Dropdown';
-import TestDropdown from '../components/Dropdown/TestDropdown';
+import CityDropDown from '../components/Dropdown/AnotherTestDropDown';
+import DateDropDown from '../components/Dropdown/Dropdown';
+import CountryDropDown from '../components/Dropdown/TestDropdown';
 import EventList from '../components/EventList';
 import HeaderWithBackArrow from '../components/Header/HeaderWithBackArrow';
 import { Search } from '../components/Icon';
@@ -42,9 +42,8 @@ export function SearchScreen() {
     (country.label && city.label) && (arg = Object.assign(arg, { countryid: country.id, cityid: city.id }));
     (country.label && city.label) && (arg = Object.assign(arg, { countryid: country.id, cityid: city.id }));
     (country.label && city.label && category.id) && (arg = Object.assign(arg, { countryid: country.id, cityid: city.id, categoryid: category.id }));
-    (userInput.current !== "") && (arg = Object.assign(arg, {includes: userInput.current}))
+    (userInput.current !== "") && (arg = Object.assign(arg, { includes: userInput.current }))
     const { data: userSelectedDayEvents, refetch } = useQuery(GET_EVENT, {
-        //@ts-ignore
         variables: { arg },
         fetchPolicy: 'no-cache'
     });
@@ -100,12 +99,12 @@ export function SearchScreen() {
                         onEndEditing={onEndEditing} icon={Search} placeholder='Хайх'
                     />
                     <View style={{ flexDirection: 'column', zIndex: 2, position: 'relative', gap: 12 }}>
-                        <View style={{ flexDirection: 'row', gap: 12, zIndex: 2, position: 'relative',paddingTop: 24 }}>
-                            <Dropdown />
-                            <TestDropdown label='Монгол' />
-                            {country && <AnotherTestDropDown label={country ? city.label : 'Улаанбаатар'} />}
+                        <View style={{ flexDirection: 'row', gap: 12, zIndex: 2, position: 'relative', paddingTop: 24 }}>
+                            <DateDropDown label='Өнөөдөр' />
+                            <CountryDropDown label='Монгол' />
+                            {country && <CityDropDown label={country ? city.label : 'Улаанбаатар'} />}
                         </View>
-                    <Categories />
+                        <Categories />
                     </View>
                     <EventList
                         notFoundTitle={'Таны хайсан эвэнт олдсонгүй'}
