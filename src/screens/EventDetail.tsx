@@ -32,7 +32,6 @@ export function EventDetail(prop: any) {
 
   // callbacks
   const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index);
   }, []);
   const EventDetails = [
     {

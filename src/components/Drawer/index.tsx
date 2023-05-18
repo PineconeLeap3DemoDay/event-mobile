@@ -9,6 +9,7 @@ import ChangePassword from './ChangePassword';
 import FirstDrawer from './FirstDrawerItem';
 import SecondDrawer from './SecondDrawer';
 import ThirdDrawer from './ThirdDrawer';
+import { useAuth } from '../../context/AuthProvider';
 type IUseStep = {
     step: number,
     setStep: (arg: number) => void
@@ -22,6 +23,7 @@ export const useStep = create<IUseStep>((set) => ({
 function CustomDrawer(props: any) {
     const { step } = useStep();
     const { isDark } = useTheme();
+    const {isUser} = useAuth();
     const styles = StyleSheet.create({
         container: {
             padding: responsiveWidth(24),

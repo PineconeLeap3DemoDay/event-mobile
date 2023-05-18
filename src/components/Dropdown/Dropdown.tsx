@@ -12,7 +12,7 @@ interface Date {
     label: string,
     value: string
 }
-const Dropdown: FC<Props> = () => {
+const Dropdown: FC<Props> = ({label}) => {
     const [visible, setVisible] = useState(false);
     const {
         tomorrow,
@@ -60,7 +60,7 @@ const Dropdown: FC<Props> = () => {
             onPress={toggleDropdown}
         >
             <Text style={styles.text}>
-                {selected ? selected.label : 'Та сонгоно уу'}
+                {selected ? selected.label : label}
             </Text>
             {renderDropdown()}
         </TouchableOpacity>

@@ -11,11 +11,9 @@ import Heading from '../components/Heading';
 import { View } from 'react-native';
 import { colors } from '../../colors';
 import HeaderWithBackArrow from '../components/Header/HeaderWithBackArrow';
-import { gql, useMutation } from '@apollo/client';
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { gql } from '@apollo/client';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../context/AuthProvider';
-import { GET_USER } from '../graphql';
 const SIGN_IN = gql`
 mutation Signin($email: String!, $password: String!) {
   signin(email: $email, password: $password) {
@@ -30,14 +28,11 @@ mutation Signin($email: String!, $password: String!) {
 }
 `
 export function Signin() {
-  const [login, { data, loading,}] = useMutation(SIGN_IN, {
-    refetchQueries: [GET_USER],
-  });
   const initialValues = {
     email: "",
     password: "",
   }
-  const {setToken, setUserid, setIsUser} = useAuth();
+  const { login } = useAuth();
   const navigation = useNavigation();
   const validationSchema = Yup.object().shape({
     email: Yup
@@ -49,22 +44,11 @@ export function Signin() {
       .min(8, ({ min }) => `Нууц үг хамгийн багадаа ${min} байх ёстой`)
       .required('Password is required'),
   });
-  async function onSubmit({email, password}: { email: string, password: string }) {
-    try{
-      await login({variables: {email, password}, });
-      if(!loading) {
-        const token = data?.signin.token;
-        const userid = data?.signin.user?._id;
-        await AsyncStorage.setItem('usertoken',token);
-        await AsyncStorage.setItem('userid',userid);
-        const {firstName, lastName, email} = data?.signin?.user
-        
-        // setToken(token);
-        // setUserid(userid)
-        // setIsUser(true);
-        navigation.navigate('Profile' as never)
-      }
-    }catch(error: any){
+  async function onSubmit({ email, password }: { email: string, password: string }) {
+    try {
+      await login(email, password);
+      navigation.navigate('Profile' as never)
+    } catch (error: any) {
     }
   }
   return (
@@ -83,7 +67,7 @@ export function Signin() {
           <>
             <Input placeholder='Email' icon={Phone}
               onChangeText={handleChange('email')}
-              style={{ borderRadius: 10, ...padding(15, 15, 15, 15) }} />
+              style={{ borderRadius: 10, }} />
             <Input placeholder='Password' icon={Key}
               onChangeText={handleChange('password')}
               style={{ borderRadius: 10 }} />

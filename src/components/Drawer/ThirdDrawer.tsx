@@ -32,7 +32,7 @@ export default function ThirdDrawer() {
     const [variant, setVariant] = useState<"Засах" | 'Батлах'>('Засах');
     const [editable, setEditable] = useState(true);
     const { setStep, step } = useStep();
-    const { token } = useAuth();
+    const { token, setUserInfo } = useAuth();
     const { currentUser, loading } = useCurrentUser();
     const [updateUser] = useMutation(UPDATE_USER_INFO, {
         refetchQueries: [GET_USER],
@@ -55,11 +55,13 @@ export default function ThirdDrawer() {
             setVariant('Батлах')
         } else {
             setEditable(false);
-            updateUser({
+            await updateUser({
                 variables: {
                     user: values
-                },
-                refetchQueries: [GET_USER]
+                },  
+                onCompleted:() => {
+
+                }
             });
             setVariant('Засах');
         }
@@ -94,6 +96,7 @@ export default function ThirdDrawer() {
                     <>
                         <DrawerContainer>
                             <Input
+                                style={{marginTop:0}}
                                 editable={editable}
                                 onChangeText={handleChange('firstName')}
                                 icon={User}

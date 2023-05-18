@@ -10,13 +10,11 @@ import { Home as SvgHome, Favorite as SvgFavorite, User as SvgUser, CalendarBg }
 import { colors } from "../../colors";
 import {useTheme} from "../hooks";
 import { useAuth } from "../context/AuthProvider";
-import useCurrentUser from "../hooks/useCurrentUser";
 const Tab = createBottomTabNavigator();
 
 
 export const BottomTab = () => {
   const {isUser} = useAuth();
-
     const tabs = [
         {
             name: 'Home',
@@ -35,7 +33,7 @@ export const BottomTab = () => {
         },
         {
             name: 'Profile',
-            component: isUser ? Profile : Auth,
+            component: isUser ? Profile: Auth,
             Icon: SvgUser
         },
     ];

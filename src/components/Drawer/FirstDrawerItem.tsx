@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Switch, View } from "react-native";
 import { useStep } from ".";
 import { colors } from "../../../colors";
+import { useAuth } from "../../context/AuthProvider";
 import { useTheme } from "../../hooks";
 import { responsiveHeight, responsiveWidth } from "../../utils";
 import Button from "../Button";
@@ -17,6 +18,7 @@ type Props = {
 export default function FirstDrawer({ goBack }: Props) {
     const { isDark, setTheme } = useTheme();
     const { setStep, step } = useStep();
+    const { isUser, logout } = useAuth();
     function forwardStep() {
         if (step === 1) {
             setStep(2)
@@ -44,30 +46,37 @@ export default function FirstDrawer({ goBack }: Props) {
                         onChange={toggleTheme}
                         value={isDark} />
                 </DrawerItem>
-                <DrawerItem onPress={pushTicketScreen}>
-                    <Icon name='Ticket' fill="#686873" />
-                    <Heading color={isDark ? colors.silver : 'black'} title='Миний тасалбар' />
-                    <Button style={{ backgroundColor: 'transparent' }} icon={ArrowRight} />
-                </DrawerItem>
-                <DrawerItem onPress={forwardStep}>
-                    <Icon name='Settings' fill='none' />
-                    <Heading color={isDark ? colors.silver : 'black'} title='Хувийн мэдээлэл' />
-                    <Button style={{ backgroundColor: 'transparent' }} icon={ArrowRight} />
-                </DrawerItem>
+                {isUser &&
+                    <>
+                        <DrawerItem onPress={pushTicketScreen}>
+                            <Icon name='Ticket' fill="#686873" />
+                            <Heading color={isDark ? colors.silver : 'black'} title='Миний тасалбар' />
+                            <Button style={{ backgroundColor: 'transparent' }} icon={ArrowRight} />
+                        </DrawerItem>
+                        <DrawerItem onPress={forwardStep}>
+                            <Icon name='Settings' fill='none' />
+                            <Heading color={isDark ? colors.silver : 'black'} title='Хувийн мэдээлэл' />
+                            <Button style={{ backgroundColor: 'transparent' }} icon={ArrowRight} />
+                        </DrawerItem>
+                    </>}
+
             </DrawerContainer>
-            <DrawerItem style={{
-                    backgroundColor: isDark ? colors.dark.secondary : 'white',
-                    paddingHorizontal: 20,
-                    width: responsiveWidth(340),
-                    marginTop: responsiveHeight(380),
-                    borderRadius: 8
-                }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Icon name='Exit' fill='none' />
-                        <Heading color={isDark ? colors.silver : 'black'} title='Гарах' />
-                    </View>
-                    <Button style={{ backgroundColor: 'transparent' }} icon={ArrowRight} />
-                </DrawerItem>
+            {isUser &&
+            <DrawerItem 
+            onPress={logout}
+            style={{
+                backgroundColor: isDark ? colors.dark.secondary : 'white',
+                paddingHorizontal: 20,
+                width: responsiveWidth(340),
+                marginTop: responsiveHeight(380),
+                borderRadius: 8
+            }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Icon name='Exit' fill='none' />
+                    <Heading color={isDark ? colors.silver : 'black'} title='Гарах' />
+                </View>
+                <Button style={{ backgroundColor: 'transparent' }} icon={ArrowRight} />
+            </DrawerItem>}
         </View>
     )
 }
