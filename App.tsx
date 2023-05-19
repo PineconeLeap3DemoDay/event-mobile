@@ -3,10 +3,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { AuthStack } from './src/navigation/AuthStack';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import Splash from './src/screens/Splash';
-import { AuthContextProvider } from './src/context/AuthProvider';
+import { AuthContextProvider, useAuth } from './src/context/AuthProvider';
 import { GetFCMToken, NotificationListener, requestUserPermission } from './src/utils/pushnotification_helper';
 import notifee, { AndroidStyle } from '@notifee/react-native';
 import messaging from '@react-native-firebase/messaging';
+import Modal from './src/components/Modal/Modal';
+import useModal from './src/hooks/useModal';
 export default function App() {
 
 
@@ -15,22 +17,19 @@ export default function App() {
     cache: new InMemoryCache()
   });
   const [loading, setLoading] = React.useState(true);
+  const {isUser} = useAuth();
+  const {open} = useModal();
   React.useEffect(() => {
-    requestUserPermission();
-    GetFCMToken()
-    NotificationListener()
+      GetFCMToken()
+      NotificationListener()
   });
   async function onDisplayNotification(message: any) {
-    // Request permissions (required for iOS)
     await notifee.requestPermission()
-
-    // Create a channel (required for Android)
     const channelId = await notifee.createChannel({
       id: 'default',
       name: 'Default Channel',
     });
 
-    // Display a notification
     await notifee.displayNotification({
       title: message.data.title,
       body: message.data.title.body,

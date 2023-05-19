@@ -28,7 +28,7 @@ export default function HashTags({ setIsOpen }: any) {
             return !userHashTags?.some((userhashtag: Category) => {
                 return category.id === (userhashtag).id;
             });
-        })
+        });
     return (
         <BottomSheet
             ref={bottomSheetRef}

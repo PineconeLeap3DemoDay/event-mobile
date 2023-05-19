@@ -2,14 +2,13 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { useCallback } from "react";
 import { useAuth } from "../context/AuthProvider";
 import { FOLLOW_COMPANY, UNFOLLOW_COMPANY } from "../graphql";
-import { useUser } from "./useUser";
 const GET_COMPANY = gql`
-query($companyId: ID!) {
+query Query($companyId: ID!) {
   company(id: $companyId) {
-    id
+    registrationnumber
     name
     followers {
-      _id
+        id
     }
   }
 }
@@ -35,11 +34,9 @@ function useFollow(companyId: string) {
         variables: { companyid: companyId }
     });
     const company = data?.company;
-    let DoesUserFollowThisCompany = isUser ?
-        company?.followers.
-            findIndex((follower: any) => follower._id === userid) !== -1
-        : false;
-
+    let DoesUserFollowThisCompany = isUser ? company?.followers?.
+    findIndex((favorite: any) => favorite?.id === userid) !== -1
+    : false;
     const toggleFollow = useCallback(() => {
         if(!isUser) {
             return;

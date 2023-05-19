@@ -52,12 +52,12 @@ export function Home() {
     variables: {categoryid: category.id},
     fetchPolicy: 'network-only'
   });
-
   const {data} = useQuery(GET_USER_HASHTAG_EVENTS, {
     context: {
       headers: { Authorization: token }
   }
   });
+  console.log(data)
   const navigation = useNavigation();
   const isUserSelectedMyFeed = category.name === 'Миний дуртай';
   return (

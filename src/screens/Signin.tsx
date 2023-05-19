@@ -14,6 +14,9 @@ import HeaderWithBackArrow from '../components/Header/HeaderWithBackArrow';
 import { gql } from '@apollo/client';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../context/AuthProvider';
+import ArrowCheckGreen from '../components/Icon/ArrowRightGreen';
+import ErrorRed from '../components/Icon/ErrorRed';
+import { useTheme } from '../hooks';
 const SIGN_IN = gql`
 mutation Signin($email: String!, $password: String!) {
   signin(email: $email, password: $password) {
@@ -34,6 +37,7 @@ export function Signin() {
   }
   const { login } = useAuth();
   const navigation = useNavigation();
+  const {isDark} = useTheme();
   const validationSchema = Yup.object().shape({
     email: Yup
       .string()
@@ -49,10 +53,11 @@ export function Signin() {
       await login(email, password);
       navigation.navigate('Profile' as never)
     } catch (error: any) {
+      console.log(error)
     }
   }
   return (
-    <Layout style={{ backgroundColor: 'white' }}>
+    <Layout>
       <HeaderWithBackArrow />
       <View style={{ justifyContent: 'center', alignItems: 'center', ...padding(0, 50, 0, 50) }}>
         <Heading fontSize={36} h1 title='Things we do' />
@@ -71,9 +76,24 @@ export function Signin() {
             <Input placeholder='Password' icon={Key}
               onChangeText={handleChange('password')}
               style={{ borderRadius: 10 }} />
-            <View>
-              {errors.email && <Heading title={errors?.email as string} />}
-              {errors && <Heading title={errors?.password as string} />}
+            <View style={{...padding(0, 10, 0, 0)}}>
+              {errors.email ?  (
+                <View style={{flexDirection:'row', alignItems:'center', justifyContent: 'flex-start', gap: 10}}>
+                  <ErrorRed />
+                  {errors.email && <Heading fontFamily='Roboto-SemiBold' p title={errors?.email as string} />}
+                </View>
+              ) : (
+                <View style={{flexDirection:'row', alignItems:'center', justifyContent: 'flex-start', gap: 10}}>
+                  <ArrowCheckGreen />
+                  {errors.email && <Heading fontFamily='Roboto-SemiBold' p title={errors?.email as string} />}
+                </View>
+              )}
+               {errors.password && (
+                <View style={{flexDirection:'row', alignItems:'center', justifyContent: 'flex-start', gap: 10}}>
+                  <ErrorRed />
+                  {errors.email && <Heading color={isDark ? 'white' : '#686873'} fontFamily='Roboto-SemiBold' p title={errors?.password as string} />}
+                </View>
+              )}
             </View>
             <Button
               disabled={!isValid}

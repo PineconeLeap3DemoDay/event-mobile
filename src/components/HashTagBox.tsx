@@ -10,6 +10,7 @@ import Heading from "./Heading";
 export default function HashTagBox({ category, type }: { category: Category, type: string }) {
     const { isDark } = useTheme();
     const { addHashtag, deleteHashtag } = useHashTag();
+    console.log(category.id)
     async function onPress() {
         if (type === 'myhashtag') {
             await deleteHashtag({ variables: { categoryId: category?.id } });

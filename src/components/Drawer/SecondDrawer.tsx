@@ -8,10 +8,14 @@ import { colors } from "../../../colors";
 import Button from "../Button";
 import { ArrowRight } from "../Icon/ArrowRight";
 import { useStep } from ".";
+import { useAuth } from "../../context/AuthProvider";
+import { useState } from "react";
 
 export default function SecondDrawer() {
     const { isDark, setTheme } = useTheme();
     const { setStep, step } = useStep();
+    const {setUserInfo, userInfo} = useAuth();
+    const [isNotificationEnabled, setIsNotificatonEnabled] = useState(() => userInfo?.isNotificationEnabled);
     function toggleTheme() {
         setTheme(!isDark)
     }
@@ -29,6 +33,12 @@ export default function SecondDrawer() {
             setStep(1)
         }
     }
+    function toggleNotification() {
+        requestUserPermission();
+        setIsNotificatonEnabled(!isNotificationEnabled)
+    }
+     async function requestUserPermission() {
+    }
     return (
         <View>
             <Button
@@ -37,14 +47,14 @@ export default function SecondDrawer() {
                 <Icon name='ArrowLeft' stroke="black" />
             </Button>
             <DrawerContainer>
-                <DrawerItem>
+                <DrawerItem onPress={() => {toggleNotification}}>
                     <Icon name='Notification' fill='#686873' />
                     <Heading color={isDark ? colors.silver : 'black'} title='Мэдэгдэл' />
                     <Switch
                         thumbColor={colors.silver}
                         trackColor={{ false: 'red', true: colors.secondary }}
-                        onChange={toggleTheme}
-                        value={isDark} />
+                        onChange={toggleNotification}
+                        value={isNotificationEnabled} />
                 </DrawerItem>
                 <DrawerItem onPress={forwardStep}>
                     <Icon name='UserRounded' fill='none' />

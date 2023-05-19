@@ -12,6 +12,7 @@ import { EventDetail } from "../screens/EventDetail";
 import { SearchScreen } from "../screens/SearchScreen";
 import { Notification } from "../screens/Notification";
 import { TicketScreen } from "../screens/TicketScreen";
+import Modal from "../components/Modal/Modal";
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 

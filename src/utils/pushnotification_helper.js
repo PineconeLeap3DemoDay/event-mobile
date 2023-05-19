@@ -31,28 +31,30 @@ async function onDisplayNotification(message) {
   });
 }
 export async function GetFCMToken() {
-    let fcmtoken = await AsyncStorage.getItem('fcmtoken');
-    if(!fcmtoken) {
-        try {
-            const fcmtoken = await messaging().getToken();
-            await AsyncStorage.setItem('fcmtoken', fcmtoken)
-        } catch (error) {
-            
-        }
-    }
+    let fcmtoken = await AsyncStorage.setItem('fcmtoken','fbVeTirITManSD_Ch45q1c:APA91bEVPxMmdssU9zlZA6VSKSCoPXEOZz5svGcZCOBmfGbE9feSreyuUyp4QkKmFWNfnuHf8nqMBVTLoFlfY-16VY5oJ9XpvtaTGFupRXjj_ODQoKJbF0GFhDda9rRbqFGY7TlAqpQ0');
+    // if(!fcmtoken) {
+    //     try {
+    //         const fcmtoken = await messaging().getToken();
+    //         await AsyncStorage.setItem('fcmtoken', fcmtoken)
+    //     } catch (error) {
+    //     }
+    // }
 }
 
 export const NotificationListener = () => {
     messaging().onNotificationOpenedApp(remoteMessage => {
+      console.log(remoteMessage)
     });
 
     messaging()
      .getInitialNotification()
      .then(message => {
         if(message) {
+          console.log(message)
         }
      });
      messaging().onMessage(async message => {
+      console.log(message)
      });
      messaging().setBackgroundMessageHandler(onDisplayNotification);
 }
