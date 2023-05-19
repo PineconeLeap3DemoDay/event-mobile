@@ -35,8 +35,8 @@ export default function CompanyList() {
                 data={companies}
                 renderItem={({ item: company }: { item: Company }) => (
                     <CompanyBox
-                        key={company.id}
-                        companyId={company.id}
+                        key={company?.id}
+                        companyId={company?.id}
                     />
                 )}
             />
@@ -63,7 +63,7 @@ function CompanyBox({ companyId }: { companyId: string }) {
             backgroundColor: isDark ? colors.dark.secondary : "#F7F7F7"
         }}>
             <Avatar style={{ width: responsiveWidth(50), height: responsiveHeight(50) }} />
-            <Heading color={isDark ? 'white' : 'black'} h2 fontFamily='Inter-SemiBold' title={company.name} />
+            <Heading color={isDark ? 'white' : 'black'} h2 fontFamily='Inter-SemiBold' title={company?.name} />
             <Heading h5 color='silver' fontFamily='Inter-Regular'
                 title={`${company?.followers?.length} дагагчтай`} />
                 <FollowButton companyId={companyId}/>

@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity, View, ViewStyle } from 'react-native'
 import React from 'react'
 import { colors } from '../../colors'
 import { responsiveHeight, responsiveWidth } from '../utils/width'
@@ -9,7 +9,7 @@ interface ButtonProps {
     children?: React.ReactNode,
     selected?: boolean,
     onPress?: () => void,
-    style?: any,
+    style?: ViewStyle,
     label?: string,
     labelColor?: string,
     disabled?: boolean

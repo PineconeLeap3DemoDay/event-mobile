@@ -34,7 +34,7 @@ export default function Heading({
           h3 && { fontSize: 16 ,fontWeight:600,color: isDark ? 'white': 'black',fontFamily:'Poppins-SemiBold'},
           h4 && { fontSize: 14 ,fontFamily:"Inter-Regular"},
           h5 && { fontSize: 12 ,fontWeight:400,fontFamily:'Poppins-SemiBold'},
-          p && { fontSize: 10 ,fontFamily:"Inter-Regular"},
+          p && { fontSize: 10 ,color: isDark ? (color ? color: 'white') : color ,fontFamily:"Inter-Regular"},
           fontFamily && { fontFamily: fontFamily },
           fontWeight && { fontWeight },
           fontSize && {fontSize},

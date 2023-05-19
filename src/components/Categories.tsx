@@ -20,7 +20,6 @@ export default function Categories({showMyFeed = false}: Props) {
             name: 'Миний дуртай'
         });
     }
-    
     useEffect(() => {
         if(!loading) {
             setCategory({
@@ -38,14 +37,16 @@ export default function Categories({showMyFeed = false}: Props) {
                 paddingBottom: responsiveHeight(15),
             }}
             data={items}
-            renderItem={({ item }) => (
-                <CategoryBox
-                    key={item.name}
-                    onPress={() => setCategory({ id: item.id, name: item.name })}
-                    selected={item.id === category.id}
-                    label={item.name}
-                />
-            )}
+            renderItem={({ item }) => {
+                return(
+                    <CategoryBox
+                        key={item.name}
+                        onPress={() => setCategory({ id: item.id, name: item.name })}
+                        selected={item.id === category.id}
+                        label={item.name}
+                    />
+                
+            )}}
         />
 
     )

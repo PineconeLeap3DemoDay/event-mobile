@@ -1,24 +1,11 @@
 import { useMutation } from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { GET_USER, SIGN_IN } from "../graphql";
-import { useNavigation } from "@react-navigation/native";
+import { SIGN_IN } from "../graphql";
 type Props = {
     children: React.ReactNode
 }
-// type AuthContextType = {
-//     isUser: boolean,
-//     setIsUser: React.Dispatch<React.SetStateAction<boolean>>,
-//     token: string,
-//     userid: string,
-//     setToken: React.Dispatch<React.SetStateAction<string>>,
-//     setUserid: React.Dispatch<React.SetStateAction<string>>,
-// }
-// type User = {
-//     firstName: string
-//     lastName: string,
-//     email: string
-// }
+
 const AuthContext = createContext<any>({
     isUser: false,
     setIsUser: () => { },
@@ -39,15 +26,15 @@ export const AuthContextProvider = ({ children }: Props) => {
         try {
             await loginGQL({variables: {email, password} ,onCompleted: async(data) =>{ 
                 const res = data?.signin;
-                console.log(res,'res')
                 await AsyncStorage.setItem('userToken', res.token);
-                await AsyncStorage.setItem('userId', res.user._id);
+                await AsyncStorage.setItem('userId', res.user.id);
                 setToken(res.token);
-                setUserid(res.user._id);
+                setUserid(res.user.id);
                 setUserInfo(res.user);
                 setIsUser(true);
             },});
         } catch (error) {
+            console.log(error)
         }
         
     }
@@ -62,9 +49,13 @@ export const AuthContextProvider = ({ children }: Props) => {
         try {
             const userToken = await AsyncStorage.getItem('userToken');
             const userid = await AsyncStorage.getItem('userId');
-            setToken(userToken);
-            setUserid(userid);
-            setIsUser(true)
+            if(!token || !userid) {
+                setIsUser(false)
+            } else {
+                setToken(userToken);
+                setUserid(userid);
+                setIsUser(true)
+            }
         } catch (error) {
             console.log(error)
         }

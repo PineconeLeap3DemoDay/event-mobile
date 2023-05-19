@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 export function Profile() {
   const { isDark } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
-  const {logout} = useAuth();
+  const {logout, token, userInfo} = useAuth();
   const {currentUser, loading} = useCurrentUser();
   function openHashTags() {
     setIsOpen(true)
@@ -52,10 +52,9 @@ export function Profile() {
   if(loading) {
     return <View></View>
   }
-  const { firstName, lastName, email } = currentUser;
+  const { firstName, lastName, email } = userInfo;
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      {/* <Button label='garah' onPress={logout}/> */}
        <Header />
        <View>
          <View style={styles.avatar}>
