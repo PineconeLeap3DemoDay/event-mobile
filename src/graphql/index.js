@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import {gql} from '@apollo/client';
 
 export const GET_CATEGORIES = gql`
   query Categories {
@@ -6,80 +6,78 @@ export const GET_CATEGORIES = gql`
       id
       name
     }
- }
-`
+  }
+`;
 export const GET_USER_HASHTAG = gql`
- query getUser {
-  getUser {
-    id
-    lastName
-    firstName
-    email
-    hashtags {
-      id
-      name
-    }
-  }
-}
-`
-export const ADD_HASH_TAG = gql`
-mutation Mutation($categoryId: ID!) {
-  addHashtag(categoryId: $categoryId)
-}
-`
-export const DELETE_HASH_TAG = gql`
-mutation Mutation($categoryId: ID!) {
-  deleteHashtag(categoryId: $categoryId)
-}
-`
-export const GET_USER = gql`
-query GetUser {
-  getUser {
-    _id
-    lastName
-    firstName
-    email
-  }
-}
-`
-export const SIGN_IN = gql`
-mutation Mutation($email: String!, $password: String!) {
-  signin(email: $email, password: $password) {
-    token
-    user {
-      id
-      firstName
-      lastName
-      fcmtoken
-      isNotificationEnabled
-    }
-  }
-}
-`
-export const GET_FAVORITES = gql`
-query GetUser {
-  getUser{
-    id
-    favorites {
+  query getUser {
+    getUser {
       _id
-      thumbnail
-      title
-      location
+      lastName
+      firstName
+      email
+      hashtags {
+        id
+        name
+      }
     }
   }
-}
-`
+`;
+export const ADD_HASH_TAG = gql`
+  mutation Mutation($categoryId: ID!) {
+    addHashtag(categoryId: $categoryId)
+  }
+`;
+export const DELETE_HASH_TAG = gql`
+  mutation Mutation($categoryId: ID!) {
+    deleteHashtag(categoryId: $categoryId)
+  }
+`;
+export const GET_USER = gql`
+  query GetUser {
+    getUser {
+      _id
+      lastName
+      firstName
+      email
+    }
+  }
+`;
+export const SIGN_IN = gql`
+  mutation Mutation($email: String!, $password: String!) {
+    signin(email: $email, password: $password) {
+      token
+      user {
+        _id
+        firstName
+        lastName
+      }
+    }
+  }
+`;
+export const GET_FAVORITES = gql`
+  query GetUser {
+    getUser {
+      _id
+      favorites {
+        _id
+        thumbnail
+        title
+        location
+      }
+    }
+  }
+`;
 export const GET_USER_HASHTAG_EVENTS = gql`
- query MyHashtagEvents {
-  myHashtagEvents {
-    title
+  query MyHashtagEvents {
+    myHashtagEvents {
+      title
       _id
       startDate
       thumbnail
       location
+    }
   }
-}
-`
+`;
 export const GET_EVENT = gql`
   query Event($eventId: ID!) {
     event(id: $eventId) {
@@ -96,71 +94,71 @@ export const GET_EVENT = gql`
         }
       }
     }
-}
-`
+  }
+`;
 
 export const GET_COMPANY = gql`
-query($companyId: ID!) {
-  company(id: $companyId) {
-    id
-    name
-    events {
-      title
+  query ($companyId: ID!) {
+    company(id: $companyId) {
       id
-      thumbnail
-      location
-      price
-    }
-    followers {
-      _id
+      name
+      events {
+        title
+        id
+        thumbnail
+        location
+        price
+      }
+      followers {
+        _id
+      }
     }
   }
-}
-`
+`;
 
 export const GET_COMPANIES = gql`
-query Companies {
-  companies {
-    name
-    id
-    followers {
-      _id
+  query Companies {
+    companies {
+      name
+      id
+      followers {
+        _id
+      }
     }
   }
-}
-`
+`;
 
 export const ADD_FAVORITE = gql`
-mutation AddFavorite($eventId: ID!) {
-  addFavorite(eventId: $eventId)
-}
-`
+  mutation AddFavorite($eventId: ID!) {
+    addFavorite(eventId: $eventId)
+  }
+`;
 export const DELETE_FAVORITE = gql`
-mutation DeleteFavorite($eventId: ID!) {
-  deleteFavorite(eventId: $eventId)
-}
-`
+  mutation DeleteFavorite($eventId: ID!) {
+    deleteFavorite(eventId: $eventId)
+  }
+`;
 
 // follow company
 export const FOLLOW_COMPANY = gql`
-mutation FollowCompany($companyid: ID!) {
-  followCompany(companyid: $companyid)
-}
-`
+  mutation FollowCompany($companyid: ID!) {
+    followCompany(companyid: $companyid)
+  }
+`;
 // unfollow company
 export const UNFOLLOW_COMPANY = gql`
-mutation UnfollowCompany($companyid: ID!) {
-  unfollowCompany(companyid: $companyid)
-}
-`
+  mutation UnfollowCompany($companyid: ID!) {
+    unfollowCompany(companyid: $companyid)
+  }
+`;
 export const BUY_TICKET = gql`
-mutation Mutation($eventid: String) {
-  buyTicket(eventid: $eventid)
-}
-`
+  mutation Mutation($eventid: String) {
+    buyTicket(eventid: $eventid)
+  }
+`;
 
 export const CHANGE_PASSWORD = gql`
-mutation Mutation($oldPassword: String!, $newPassword: String!) {
-  changePassword(oldPassword: $oldPassword, newPassword: $newPassword)
-}
-`
+  mutation Mutation($oldPassword: String!, $newPassword: String!) {
+    changePassword(oldPassword: $oldPassword, newPassword: $newPassword)
+  }
+`;
