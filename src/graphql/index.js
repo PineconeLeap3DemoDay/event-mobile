@@ -162,3 +162,17 @@ export const CHANGE_PASSWORD = gql`
     changePassword(oldPassword: $oldPassword, newPassword: $newPassword)
   }
 `;
+
+export const SIGN_UP = gql`
+  mutation Mutation($user: addUserInput!) {
+    signup(user: $user) {
+      token
+      user {
+        firstName
+        lastName
+        email
+        _id
+      }
+    }
+  }
+`;

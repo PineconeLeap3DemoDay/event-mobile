@@ -1,7 +1,7 @@
 import {useMutation} from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {createContext, useContext, useEffect, useState} from 'react';
-import {SIGN_IN} from '../graphql';
+import {SIGN_IN, SIGN_UP} from '../graphql';
 type Props = {
   children: React.ReactNode;
 };
@@ -21,12 +21,31 @@ export const AuthContextProvider = ({children}: Props) => {
   const [userid, setUserid] = useState<string | null>(null);
   const [userInfo, setUserInfo] = useState(null);
   const [loginGQL] = useMutation(SIGN_IN, {});
+  const [register] = useMutation(SIGN_UP);
   async function login(email: string, password: string) {
     try {
       await loginGQL({
         variables: {email, password},
         onCompleted: async data => {
           const res = data?.signin;
+          await AsyncStorage.setItem('userToken', res.token);
+          await AsyncStorage.setItem('userId', res.user._id);
+          setToken(res.token);
+          setUserid(res.user._id);
+          setUserInfo(res.user);
+          setIsUser(true);
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function signup(values: any) {
+    try {
+      await register({
+        variables: {user: values},
+        onCompleted: async data => {
+          const res = data?.signup;
           await AsyncStorage.setItem('userToken', res.token);
           await AsyncStorage.setItem('userId', res.user._id);
           setToken(res.token);
@@ -77,6 +96,7 @@ export const AuthContextProvider = ({children}: Props) => {
         setToken,
         setUserid,
         token,
+        signup,
         userid,
       }}>
       {children}

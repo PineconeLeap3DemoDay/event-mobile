@@ -34,7 +34,7 @@ export default function EventList({
       </>
     );
   }
-  function ListEmptyComponent() {
+  function listEmptyComponent() {
     return (
       <View
         style={{
@@ -69,7 +69,7 @@ export default function EventList({
           </View>
         );
       }}
-      ListEmptyComponent={ListEmptyComponent}
+      ListEmptyComponent={listEmptyComponent}
       data={events}
       renderItem={renderItem}
     />
