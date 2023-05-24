@@ -56,7 +56,12 @@ export function Signin() {
           alignItems: 'center',
           ...padding(0, 50, 0, 50),
         }}>
-        <Heading fontSize={36} h1 title="Things we do" />
+        <Heading
+          fontSize={36}
+          h1
+          color={isDark ? 'white' : 'black'}
+          title="Things we do"
+        />
         <Heading
           h2
           style={{marginTop: responsiveHeight(12)}}

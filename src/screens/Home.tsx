@@ -46,17 +46,20 @@ export function Home() {
   const {category} = useCategory();
   const {isDark} = useTheme();
   const {token} = useAuth();
-
   const {data: categoryEvents} = useQuery(GET_CATEGORY_EVENTS, {
     skip: category.name === 'Миний дуртай',
     variables: {categoryid: category.id},
     fetchPolicy: 'network-only',
   });
+  //@ts-ignore
   const {data} = useQuery(GET_USER_HASHTAG_EVENTS, {
+    fetchPolicy: 'network-only',
     context: {
       headers: {Authorization: token},
     },
   });
+  //@ts-ignore
+  console.log({data: data?.myHashtagEvents});
   const navigation = useNavigation();
   const isUserSelectedMyFeed = category.name === 'Миний дуртай';
   return (
@@ -68,7 +71,7 @@ export function Home() {
         <Input
           style={{borderRadius: 8}}
           onPressIn={() => {
-            navigation.navigate('SearchScreen' as never);;
+            navigation.navigate('SearchScreen' as never);
           }}
           icon={Search}
           placeholder="Хайх"

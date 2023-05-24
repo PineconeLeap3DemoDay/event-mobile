@@ -2,6 +2,8 @@ import {useMutation} from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import {SIGN_IN, SIGN_UP} from '../graphql';
+import jwtDecode from 'jwt-decode';
+
 type Props = {
   children: React.ReactNode;
 };
@@ -71,7 +73,10 @@ export const AuthContextProvider = ({children}: Props) => {
       try {
         const userToken = await AsyncStorage.getItem('userToken');
         const userid = await AsyncStorage.getItem('userId');
-        if (!token || !userid) {
+        const jwt = jwtDecode(userToken as string);
+        //@ts-ignore
+        const isTokenExpired = jwt && jwt?.exp * 1000 < Date.now();
+        if (!token || !userid || isTokenExpired) {
           setIsUser(false);
         } else {
           setToken(userToken);

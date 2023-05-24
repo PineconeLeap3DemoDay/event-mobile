@@ -1,53 +1,69 @@
-import { StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
-import { colors } from '../../colors'
-import { responsiveHeight, responsiveWidth } from '../utils/width'
-import Heading from './Heading'
-import { useTheme } from '../hooks'
+import {StyleSheet, TouchableOpacity} from 'react-native';
+import React from 'react';
+import {colors} from '../../colors';
+import {responsiveHeight, responsiveWidth} from '../utils/width';
+import Heading from './Heading';
+import {useTheme} from '../hooks';
 interface CategoryBoxProps {
-    iconname?: any,
-    label: string,
-    selected?: boolean,
-    onPress?: () => void,
-    style?: any
+  iconname?: any;
+  label: string;
+  selected?: boolean;
+  onPress?: () => void;
+  style?: any;
 }
-export default function CategoryBox({ style, label, selected, onPress }: CategoryBoxProps) {
-    const {isDark} = useTheme()
-    
-    const styles = StyleSheet.create({
-        container_in_light: {
-            backgroundColor: selected ? colors.secondary : colors.silver,
-            borderRadius: 8,
-            flexDirection: 'row',
-            minWidth: responsiveWidth(86),
-            paddingVertical: responsiveHeight(10),
-            paddingHorizontal: responsiveHeight(10),
-            height:responsiveHeight(32),
-            gap: responsiveWidth(6),
-            justifyContent: 'center',
-            alignItems: 'center',
-            ...style
-        },
-        container_in_dark: {
-            backgroundColor: selected ? colors.secondary : colors.dark.primary,
-            borderRadius: 8,
-            flexDirection: 'row',
-            minWidth: responsiveWidth(86),
-            paddingVertical: responsiveHeight(10),
-            paddingHorizontal: responsiveHeight(10),
-            height:responsiveHeight(36),
-            gap: responsiveWidth(6),
-            justifyContent: 'center',
-            alignItems: 'center',
-            ...style
-        },
-    })
-    return (
-        <TouchableOpacity
-            onPress={onPress}
-            style={isDark ? styles.container_in_dark : styles.container_in_light}
-            >
-            <Heading color={isDark ? (selected ? 'white' : colors.dark['text-silver']) : (selected ? 'white' : '#C7C9CF')} p title={label}/>
-        </TouchableOpacity>
-    )
+export default function CategoryBox({
+  style,
+  label,
+  selected,
+  onPress,
+}: CategoryBoxProps) {
+  const {isDark} = useTheme();
+
+  const styles = StyleSheet.create({
+    container_in_light: {
+      backgroundColor: selected ? colors.secondary : colors.silver,
+      borderRadius: 8,
+      flexDirection: 'row',
+      minWidth: responsiveWidth(86),
+      paddingVertical: responsiveHeight(10),
+      paddingHorizontal: responsiveHeight(10),
+      height: responsiveHeight(40),
+      gap: responsiveWidth(6),
+      justifyContent: 'center',
+      alignItems: 'center',
+      ...style,
+    },
+    container_in_dark: {
+      backgroundColor: selected ? colors.secondary : colors.dark.primary,
+      borderRadius: 8,
+      flexDirection: 'row',
+      minWidth: responsiveWidth(86),
+      paddingVertical: responsiveHeight(10),
+      paddingHorizontal: responsiveHeight(10),
+      height: responsiveHeight(40),
+      gap: responsiveWidth(6),
+      justifyContent: 'center',
+      alignItems: 'center',
+      ...style,
+    },
+  });
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={isDark ? styles.container_in_dark : styles.container_in_light}>
+      <Heading
+        color={
+          isDark
+            ? selected
+              ? 'white'
+              : colors.dark['text-silver']
+            : selected
+            ? 'white'
+            : '#C7C9CF'
+        }
+        p
+        title={label}
+      />
+    </TouchableOpacity>
+  );
 }

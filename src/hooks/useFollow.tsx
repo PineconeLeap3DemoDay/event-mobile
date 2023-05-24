@@ -14,6 +14,7 @@ const GET_COMPANY = gql`
   }
 `;
 function useFollow(companyId: string) {
+  console.log(companyId)
   const {isUser} = useAuth();
   const {data, loading} = useQuery(GET_COMPANY, {
     variables: {companyId: companyId},
@@ -36,7 +37,7 @@ function useFollow(companyId: string) {
   const company = data?.company;
   let DoesUserFollowThisCompany = isUser
     ? company?.followers?.findIndex(
-        (favorite: any) => favorite?.id === userid,
+        (follower: any) => follower?._id === userid,
       ) !== -1
     : false;
   const toggleFollow = useCallback(() => {

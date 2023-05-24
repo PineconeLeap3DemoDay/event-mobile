@@ -53,7 +53,6 @@ export default function EventList({
       </View>
     );
   }
-
   return (
     <FlatList
       contentContainerStyle={{

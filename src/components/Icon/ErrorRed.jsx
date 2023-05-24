@@ -6,6 +6,7 @@ const ErrorRed = (props) => (
     width={10}
     height={10}
     fill="none"
+    style={{marginLeft: 8}}
     {...props}
   >
     <Path

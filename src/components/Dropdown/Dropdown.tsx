@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {colors} from '../../../colors';
 import useDay, {getnextday} from '../../hooks/useDay';
 import {useSearch} from '../../hooks/useSearch';
-import {responsiveHeight, responsiveWidth} from '../../utils';
+import {padding, responsiveHeight, responsiveWidth} from '../../utils';
 interface Props {
   label?: string;
   data?: [];
@@ -45,13 +45,47 @@ const Dropdown: FC<Props> = ({label}) => {
     setTo(item.value);
     setVisible(!visible);
   }
+  const styles = StyleSheet.create({
+    button: {
+      borderRadius: 8,
+      backgroundColor: colors.secondary,
+      flexDirection: 'row',
+      minWidth: responsiveWidth(86),
+      paddingVertical: responsiveHeight(10),
+      paddingHorizontal: responsiveHeight(10),
+      height: responsiveHeight(38),
+      gap: responsiveWidth(6),
+      justifyContent: 'center',
+      alignItems: 'center',
+      position: 'relative',
+    },
+    dropdown: {
+      position: 'absolute',
+      backgroundColor: 'white',
+      top: 50,
+      left: 5,
+      width: 200,
+      height: 'auto',
+      borderRadius: 8,
+      zIndex: 15,
+    },
+    text: {
+      fontSize: 10,
+      color: 'white',
+    },
+  });
   const renderDropdown = () => {
     if (visible) {
       return (
         <View style={styles.dropdown}>
           {dates?.map(el => (
-            <TouchableOpacity key={el.value} onPress={() => onSelect(el)}>
-              <Text>{el?.label}</Text>
+            <TouchableOpacity
+              style={{
+                ...padding(20, 20, 20, 20),
+              }}
+              key={el.value}
+              onPress={() => onSelect(el)}>
+              <Text style={{color: 'black'}}>{el?.label}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -66,35 +100,5 @@ const Dropdown: FC<Props> = ({label}) => {
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    borderRadius: 8,
-    backgroundColor: colors.secondary,
-    flexDirection: 'row',
-    minWidth: responsiveWidth(86),
-    paddingVertical: responsiveHeight(10),
-    paddingHorizontal: responsiveHeight(10),
-    height: responsiveHeight(38),
-    gap: responsiveWidth(6),
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
-  },
-  dropdown: {
-    position: 'absolute',
-    backgroundColor: 'white',
-    top: 50,
-    left: 5,
-    width: 200,
-    height: 'auto',
-    borderRadius: 8,
-    zIndex: 15,
-  },
-  text: {
-    fontSize: 10,
-    color: 'white',
-  },
-});
 
 export default Dropdown;

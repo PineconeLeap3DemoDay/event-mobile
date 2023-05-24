@@ -8,6 +8,7 @@ export interface User {
 export interface Event {
   title: string
   _id: string
+  id: string
   about: string
   location: string
   thumbnail: string,
@@ -16,6 +17,12 @@ export interface Event {
     id: string
     name: string,
     followers: [User]
+  }
+  city: {
+    name
+  },
+  country: {
+    name
   }
 }
 export interface Category {

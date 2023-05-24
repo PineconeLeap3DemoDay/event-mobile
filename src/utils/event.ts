@@ -1,21 +1,30 @@
-import { colors } from "../../colors";
+import {colors} from '../../colors';
 
 export function getDaysWithEvent(events: [any]) {
-  const markedDates = events?.filter((event: any) => event.startDate = new Date(event.startDate).toISOString().slice(0, 10))
+  const markedDates = events
+    ?.filter(
+      (event: any) =>
+        (event.startDate = new Date(event.startDate)
+          .toISOString()
+          .slice(0, 10)),
+    )
     .reduce((a: any, b: any) => {
-      const { startDate } = b;
+      const {startDate} = b;
       a[startDate] = a[startDate] ?? {};
       a[startDate].marked = true;
-      a[startDate].selectedColor = 'yellow',
-        a[startDate].dotColor = colors['secondary']
+      (a[startDate].selectedColor = 'yellow'),
+        (a[startDate].dotColor = colors.secondary);
       return a;
     }, {});
-  return markedDates
+  return markedDates;
 }
 export function getNextDayOfSelectedDay(month: any, day: any) {
-  const date = (new Date(`2023-${month}-${day}`).toISOString().split('-').map((el) => parseInt(el)))
+  const date = new Date(`2023-${month}-${day}`)
+    .toISOString()
+    .split('-')
+    .map(el => parseInt(el));
   date[2]++;
-  return date.join('-')
+  return date.join('-');
 }
 export function getFirstDayOfMonth(year: any, month: any) {
   return new Date(year, month - 1, 2);
@@ -26,56 +35,56 @@ export function getLastDayOfMonth(year: any, month: any) {
 export function convertMonthAsString(month: number) {
   switch (month) {
     case 1:
-      return 'Нэгдүгээр'
+      return 'Нэгдүгээр';
     case 2:
-      return 'Хоёрдугаар'
+      return 'Хоёрдугаар';
     case 3:
-      return 'Гуравдугаар'
+      return 'Гуравдугаар';
     case 4:
-      return 'Дөрөвдүгээр'
+      return 'Дөрөвдүгээр';
     case 5:
-      return 'Тавдугаар'
+      return 'Тавдугаар';
     case 6:
-      return 'Зургаадугаар'
+      return 'Зургаадугаар';
     case 7:
-      return 'Долоодугаар'
+      return 'Долоодугаар';
     case 8:
-      return 'Наймдугаар'
+      return 'Наймдугаар';
     case 9:
-      return 'Ёс дүгээр'
+      return 'Ёс дүгээр';
     case 10:
-      return 'Арав дугаар'
+      return 'Арав дугаар';
     case 11:
-      return 'Арван нэгдүгээр'
+      return 'Арван нэгдүгээр';
     case 12:
-      return 'Арван хоёрдугаар'
+      return 'Арван хоёрдугаар';
   }
 }
 export function convertDayAsString(day: string) {
   switch (day) {
     case 'Mon':
-      return 'Да'
+      return 'Да';
     case 'Tue':
-      return 'Мя'
+      return 'Мя';
     case 'Web':
-      return 'Лха'
+      return 'Лха';
     case 'Thu':
-      return 'Пүр'
+      return 'Пүр';
     case 'Fri':
-      return 'Баасан'
+      return 'Баасан';
     case 'Sat':
-      return 'Ба'
+      return 'Ба';
     case 'Sun':
-      return 'Ня'
+      return 'Ня';
   }
 }
 export function formatEventDate(date: number) {
   const d = new Date(date);
   const hour = d.getHours();
   const minute = d.getMinutes();
-  const dayAsString = convertDayAsString((d.toDateString().slice(0, 3)))
-  const month = (d.getMonth());
-  const dayAsNumber = (d.getDate());
-  
-  return `${dayAsString}, ${month} сарын ${dayAsNumber} ны ${hour}:${minute} цагт`
+  const dayAsString = convertDayAsString(d.toDateString().slice(0, 3));
+  const month = d.getMonth();
+  const dayAsNumber = d.getDate();
+
+  return `${dayAsString}, ${month} сарын ${dayAsNumber} ны ${hour}:${minute} цагт`;
 }

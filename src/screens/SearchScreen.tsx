@@ -25,7 +25,6 @@ const GET_EVENT = gql`
     }
   }
 `;
-
 export function SearchScreen() {
   const {isDark} = useTheme();
   const userInput = useRef<string>('');

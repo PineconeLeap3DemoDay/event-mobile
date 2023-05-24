@@ -68,10 +68,10 @@ export const GET_FAVORITES = gql`
   }
 `;
 export const GET_USER_HASHTAG_EVENTS = gql`
-  query MyHashtagEvents {
+  query Query {
     myHashtagEvents {
-      title
       _id
+      title
       startDate
       thumbnail
       location
@@ -86,6 +86,12 @@ export const GET_EVENT = gql`
       thumbnail
       location
       price
+      city {
+        name
+      }
+      country {
+        name
+      }
       organizer {
         name
         id
